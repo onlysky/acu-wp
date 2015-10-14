@@ -1,0 +1,44 @@
+/*=================================
+=            Icon Font            =
+=================================*/
+
+@font-face {
+  font-family: "acu-wp-icons";
+  src: url('../fonts/acu-wp-icon-font/acu-wp-icons.eot');
+  src: url('../fonts/acu-wp-icon-font/acu-wp-icons.eot?#iefix') format('eot'),
+    url('../fonts/acu-wp-icon-font/acu-wp-icons.woff') format('woff'),
+    url('../fonts/acu-wp-icon-font/acu-wp-icons.ttf') format('truetype'),
+    url('../fonts/acu-wp-icon-font/acu-wp-icons.svg#acu-wp-icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.acu-wp-icon:before {
+  display: inline-block;
+  font-family: "acu-wp-icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.acu-wp-icon-lg {
+  font-size: 1.3333333333333333em;
+  line-height: 0.75em;
+  vertical-align: -15%;
+}
+.acu-wp-icon-2x { font-size: 2em; }
+.acu-wp-icon-3x { font-size: 3em; }
+.acu-wp-icon-4x { font-size: 4em; }
+.acu-wp-icon-5x { font-size: 5em; }
+.acu-wp-icon-fw {
+  width: 1.2857142857142858em;
+  text-align: center;
+}
+
+.acu-wp-icon-snowflake:before { content: "\EA01" }
+.acu-wp-icon-star:before { content: "\EA02" }
+
+
+/*=====  End of Icon Font  ======*/

@@ -1,0 +1,15 @@
+//Import Typography files
+@import "headings";
+@import "copy";
+@import "fonts/fonts";
+
+body,
+button,
+input,
+select,
+textarea {
+	color: $color__text-main;
+	font-family: $font__main;
+	@include font-size(1);
+	line-height: $font__line-height-body;
+}

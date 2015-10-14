@@ -1,0 +1,53 @@
+{
+  "moduleType": [
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "bourbon": "~4.2.2",
+    "neat": "~1.7.2",
+    "normalize.css": "~3.0.3",
+    "meyer-reset": "*",
+    "waypoints": "~3.1.1",
+    "velocity": "~1.2.2",
+    "modernizr": "~2.8.3"
+  },
+  "name": "onlysky-wp",
+  "title": "Only Sky WordPress Development Theme",
+  "description": "The Only Sky WordPress theme framework built using underscores, gulp, sass, bourbon neat, bower & browsersync.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Only Sky Team",
+    "email": "team@onlysky.com",
+    "url": "http://www.onlysky.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/turnclick/onlysky-wp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/turnclick/onlysky-wp/issues"
+  },
+  "keywords": [
+    "wordpress",
+    "gulp",
+    "bower",
+    "sass",
+    "underscores",
+    "bourbon"
+  ],
+  "license": "MIT",
+  "contributors": [
+    "Orestis Herodotou <orestis@onlysky.com> https://github.com/onlyskyguy"
+  ],
+  "dependencies": {
+    "normalize-strings": "normalize#~1.0.4"
+  }
+}
