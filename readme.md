@@ -1,9 +1,35 @@
 #Only Sky WordPress Theme Framework
 
-=== Only Sky WP ===
+  /$$$$$$  /$$   /$$ /$$   /$$     /$$        /$$$$$$  /$$   /$$ /$$     /$$ 
+ /$$__  $$| $$$ | $$| $$  |  $$   /$$/       /$$__  $$| $$  /$$/|  $$   /$$/ 
+| $$  \ $$| $$$$| $$| $$   \  $$ /$$/       | $$  \__/| $$ /$$/  \  $$ /$$/ 
+| $$  | $$| $$ $$ $$| $$    \  $$$$/        |  $$$$$$ | $$$$$/    \  $$$$/ 
+| $$  | $$| $$  $$$$| $$     \  $$/          \____  $$| $$  $$     \  $$/ 
+| $$  | $$| $$\  $$$| $$      | $$           /$$  \ $$| $$\  $$     | $$ 
+|  $$$$$$/| $$ \  $$| $$$$$$$$| $$          |  $$$$$$/| $$ \  $$    | $$ 
+ \______/ |__/  \__/|________/|__/           \______/ |__/  \__/    |__/
+                                                                                                                           
+                                                                                                                           
+                                                                                                                           
+ /$$      /$$ /$$$$$$$        /$$$$$$$$                                                                           /$$ 
+| $$  /$ | $$| $$__  $$      | $$_____/                                                                          | $$ 
+| $$ /$$$| $$| $$  \ $$      | $$     /$$$$$$  /$$$$$$  /$$$$$$/$$$$   /$$$$$$  /$$  /$$  /$$  /$$$$$$   /$$$$$$ | $$   /$$
+| $$/$$ $$ $$| $$$$$$$/      | $$$$$ /$$__  $$|____  $$| $$_  $$_  $$ /$$__  $$| $$ | $$ | $$ /$$__  $$ /$$__  $$| $$  /$$/
+| $$$$_  $$$$| $$____/       | $$__/| $$  \__/ /$$$$$$$| $$ \ $$ \ $$| $$$$$$$$| $$ | $$ | $$| $$  \ $$| $$  \__/| $$$$$$/ 
+| $$$/ \  $$$| $$            | $$   | $$      /$$__  $$| $$ | $$ | $$| $$_____/| $$ | $$ | $$| $$  | $$| $$      | $$_  $$ 
+| $$/   \  $$| $$            | $$   | $$     |  $$$$$$$| $$ | $$ | $$|  $$$$$$$|  $$$$$/$$$$/|  $$$$$$/| $$      | $$ \  $$
+|__/     \__/|__/            |__/   |__/      \_______/|__/ |__/ |__/ \_______/ \_____/\___/  \______/ |__/      |__/  \__/
+                                                                                                                           
+                                                                                                                           
 
-Contributors: automattic
-Tags: translation-ready, custom-background, theme-options, custom-menu, post-formats, threaded-comments
+
+*== Description ==*
+
+The Only Sky WordPress Theme Development Framework. Uses task runners and other magical helps to quickly help scaffold and develop WordPress themes.
+
+*Contributors:* Only Sky Team <team@onlysky.com>, http://www.onlysky.com
+
+*Tags:* translation-ready, custom-background, theme-options, custom-menu, post-formats, threaded-comments
 
 Requires at least: 4.0
 Tested up to: 4.2.2
@@ -11,30 +37,27 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A starter theme called Only Sky WP, or underscores.
+*== Installation ==*
 
-== Description ==
+1. Clone this repository: "git clone..."
+2. Customize the "src/theme.json" file for your project.
+2. Use "npm install" to install dependencies and setup the theme.
+3. Run the "gulp" command to start gulp!
 
-Hi. I'm a starter theme called Only Sky WP, or underscores, if you like. I'm a theme meant for hacking so don't use me as a Parent Theme. Instead try turning me into the next, most awesome, WordPress theme out there. That's what I'm here for.
+Link your theme to your installation:
 
-== Installation ==
-	
-1. In your admin panel, go to Appearance > Themes and click the Add New button.
-2. Click Upload and Choose File, then select the theme's .zip file. Click Install Now.
-3. Click Activate to use your new theme right away.
-
-== Frequently Asked Questions ==
-
-= Does this theme support any plugins? =
-
-Only Sky WP includes support for Infinite Scroll in Jetpack.
+1. Create a symlink to the "build" folder in the wp-content/themes directory of your WordPress installation.
+2. In your admin panel, go to Appearance > Themes and click the Add New button.
+3. Click Upload and Choose File, then select the theme's .zip file. Click Install Now.
+4. Click Activate to use your new theme right away.
 
 == Changelog ==
 
-= 1.0 - May 12 2015 =
+= 1.0 - Nov 20 2015 =
 * Initial release
 
 == Credits ==
 
 * Based on Underscores http://underscores.me/, (C) 2012-2015 Automattic, Inc., [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html)
 * normalize.css http://necolas.github.io/normalize.css/, (C) 2012-2015 Nicolas Gallagher and Jonathan Neal, [MIT](http://opensource.org/licenses/MIT)
+* Readme font: http://patorjk.com/software/taag/
