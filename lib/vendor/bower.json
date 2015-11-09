@@ -48,6 +48,8 @@
     "Orestis Herodotou <orestis@onlysky.com> https://github.com/onlyskyguy"
   ],
   "dependencies": {
-    "normalize-strings": "normalize#~1.0.4"
+    "normalize-strings": "normalize#~1.0.4",
+    "masonry": "~3.3.2",
+    "iframe-resizer": "~3.5.0"
   }
 }

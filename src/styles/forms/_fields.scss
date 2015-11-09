@@ -1,27 +1,44 @@
-input[type="text"],
-input[type="email"],
-input[type="url"],
-input[type="password"],
-input[type="search"],
-textarea {
-	color: $color__text-input;
-	border: 1px solid $color__border-input;
-	border-radius: 3px;
 
-	&:focus {
-		color: $color__text-input-focus;
-	}
-}
+/* 
+Forms & Inputs
+
+Styleguide 2.0
+*/
 
 input[type="text"],
 input[type="email"],
 input[type="url"],
 input[type="password"],
 input[type="search"] {
-	padding: 3px;
+	padding:10px 20px 5px 20px;
+	line-height: 1;
+	border:0px;
+	border-radius: $border-radius;
+	outline:none;
+
+	&:focus {
+	}
 }
 
 textarea {
 	padding-left: 3px;
 	width: 100%;
+}
+
+
+/* 
+Forms
+
+Markup:
+<label>Text Label</label>
+
+Styleguide 2.2
+*/
+
+/* Labels */
+label {
+	font-family: $font-bold, $font-fallback;
+	font-size:rem(16);
+	text-transform: uppercase;
+	color:$brown-light;
 }

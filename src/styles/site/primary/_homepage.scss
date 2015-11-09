@@ -1,0 +1,85 @@
+// Homepage Hero Modifications
+.home .page-hero {
+	h1.hero-headline {
+		text-transform: uppercase;
+		font-family: $font-bold;
+		font-size:rem(120);
+		letter-spacing: 15px;
+		
+		margin-bottom:0px;
+	}
+
+	h2.hero-subhead {
+		font-size:rem(90);
+		font-family: $font-book;
+		font-weight: normal;
+		font-style: italic;
+		margin-bottom:0px;
+		margin-top:0px;
+
+		color:white;
+
+		@include span-columns(2.65 of 4);
+		@include shift(.65);
+		overflow:hidden;
+
+		&:before,
+		&:after {
+		    content:"";
+		    vertical-align:top;
+		    display:inline-block;
+		    width:50%;
+		    height:.5em;
+		    border-bottom:5px solid $tan;
+		    margin:0 2% 0 -55%;
+		}
+		&:after{
+		    margin:0 -55% 0 4%;
+		}
+	}
+}//END .home .page-hero
+
+// Homepage Content
+.home-content {
+	margin-top: 100px;
+
+	h1 {
+		text-align: center;
+		margin-bottom:40px;
+	}
+} // END .home-content
+
+// Homepage Features
+.home-features {
+	margin-top:60px;
+	margin-bottom:60px;
+
+	// Desktop
+	@include span-columns (3 of 3);
+
+
+
+} // END .home-features
+
+// Homepage News Teasers
+.home-posts {
+
+	// Desktop
+	@include span-columns(2 of 3);
+
+	article {
+		// Desktop
+		@include span-columns(1 of 2);
+	}
+
+} // END .home-posts
+
+// Homepage Quick Navigation
+#home-quick-nav {
+	
+	// Desktop
+	height:490px;
+	@include span-columns(1 of 3);
+
+} //END .home-quick-nav
+

@@ -7,7 +7,7 @@
 *.komodoproject
 *.editorconfig
 
-*.nvmrc
+#.nvmrc
 
 # ignore node dependency directories 
 node_modules/

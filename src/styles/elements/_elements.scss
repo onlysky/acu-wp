@@ -9,7 +9,7 @@ html {
 }
 
 body {
-	background: $color__background-body; /* Fallback for when there is no custom background color defined. */
+		background: $color__background-body; /* Fallback for when there is no custom background color defined. */
 }
 
 blockquote, q {
@@ -28,11 +28,19 @@ hr {
 	margin-bottom: 1.5em;
 }
 
-@import "lists";
 
 img {
 	height: auto; /* Make sure images are scaled correctly. */
 	max-width: 100%; /* Adhere to container width. */
 }
 
+@import "lists";
 @import "tables";
+
+@import "header";
+@import "footer";
+
+@import "hero";
+@import "feature-box";
+@import "locations";
+@import "credit-cards";

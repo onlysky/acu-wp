@@ -1,5 +1,5 @@
 .widget {
-	margin: 0 0 1.5em;
+	//margin: 0 0 1.5em;
 
 	/* Make sure select elements fit in widgets. */
 	select {
@@ -11,3 +11,37 @@
 .widget_search .search-submit {
 	display: none;
 }
+
+
+
+/* Quick Navigation Menu */
+
+.quick-nav {
+	background-color:$blue-sky;
+	padding-bottom:28px;
+
+	h3 {
+		padding:$content-padding;
+		padding-bottom:10px;
+		margin:0px;
+		font-size:rem(24);
+	}
+
+	ul {
+		@include listreset;
+
+		li {
+
+			border-bottom:1px solid $blue-light;
+			padding:5px $content-padding 0px $content-padding;
+			font-size:rem(18);
+
+			a {
+				color:$brown;
+				&:hover {
+					color:$blue;
+				}
+			}
+		}
+	}
+}//END .quick-nav

@@ -17,6 +17,8 @@ get_header(); ?>
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 
+		INDEX.PHP
+
 		<?php if ( have_posts() ) : ?>
 
 			<?php if ( is_home() && ! is_front_page() ) : ?>
@@ -41,6 +43,9 @@ get_header(); ?>
 			<?php endwhile; ?>
 
 			<?php the_posts_navigation(); ?>
+			<?php the_posts_pagination(); ?> 
+
+
 
 		<?php else : ?>
 

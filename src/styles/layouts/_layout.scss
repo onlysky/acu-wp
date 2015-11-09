@@ -1,0 +1,25 @@
+.container {
+	@include outer-container;
+	padding:0px $content-padding;
+}
+
+.section-lg {
+	// Desktop
+	@include span-columns(3 of 3);
+}
+
+
+.section-med {
+
+}
+
+.section-sml {
+
+	// Desktop
+	@include span-columns(3 of 4);
+	@include shift(.5);
+}
+
+
+//@import "content-sidebar";
+//@import "sidebar-content";

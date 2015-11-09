@@ -1,3 +1,58 @@
+/* 
+Colors
+ 
+Color codes for theme colors
+ 
+$brown 			- Standard, unlinked text on light backgrouds. Image tinting.
+$burnt-orange 	- Page titles, section titles (breadcrumbs), image borders.
+$gold 			- Link color on dark backgrounds.
+$brown-light	- Subheads and label text on light backgrounds.
+$tan 			- Horizontal rules, table borders. Subheads on dark backgrounds. Menu button (header).
+$blue 			- Standard linked text on light backghrounds. Image tinting.
+$blue-light		- Image borders and testimonial blocks.
+$blue-sky 		- Alternate background color (left nav, tables)
+$green 			- Online banking login button
+$olive			- Image tinting.
+$dark-puce		- Link and button hover color. Image tinting.
+$rose 			- Button backgrounds.
+ 
+markup: 
+<div style="background: {$modifiers};" class="styleguide-color">{$modifiers}</div>
+ 
+Styleguide 1.1 
+*/
+
+/* Color Definitions */
+
+$brown: #54301a;
+$burnt-orange: #d06f1a;
+$gold: #fbb040;
+$gold-half: rgba(251, 176, 64, .5);
+$brown-light: #a68462;
+$tan: #e8d3a2;
+
+$blue: #005984;
+$blue-light: #b5e1e1;
+$blue-sky: #daf0f0;
+
+$green: #6d8d24;
+$olive: #5f5a1f;
+
+$dark-puce: #842b37;
+$rose: #b50938;
+
+
+/* Global Element Colors */
+
+$color-text-main: $brown;
+
+$color-link: $blue;
+$color-link-visited: $color-link;
+$color-link-hover: $dark-puce;
+$color-link-hover-dark: $gold;
+
+/*  */
+
 $color__background-body: #fff;
 $color__background-screen: #f1f1f1;
 $color__background-hr: #ccc;
@@ -8,10 +63,8 @@ $color__background-ins: #fff9c0;
 $color__text-screen: #21759b;
 $color__text-input: #666;
 $color__text-input-focus: #111;
-$color__link: royalblue;
-$color__link-visited: purple;
-$color__link-hover: midnightblue;
-$color__text-main: #404040;
+
+
 
 $color__border-button: #ccc #ccc #bbb;
 $color__border-button-hover: #ccc #bbb #aaa;

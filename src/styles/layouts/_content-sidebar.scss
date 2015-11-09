@@ -1,20 +1,22 @@
-.content-area {
-	float: left;
-	margin: 0 (-$size__site-sidebar) 0 0;
-	width: $size__site-main;
+/* #primary {
+	@include span-columns (2 of 3);
+	@include shift(1);
+
+	border:1px solid red;
 }
 
-.site-main {
-	margin: 0 $size__site-sidebar 0 0;
-}
+.site-main {}//END .site-main
+
+#secondary {
+	@include span-columns (1 of 3);
+	@include shift(-3);
+
+	border:1px solid blue;
+} 
 
 .site-content .widget-area {
 	float: right;
 	overflow: hidden;
 	width: $size__site-sidebar;
 }
-
-.site-footer {
-	clear: both;
-	width: $size__site-main;
-}
+*/

@@ -9,50 +9,52 @@
 
 get_header(); ?>
 
+	<?php get_template_part( 'page-templates/partials/hero'); ?>
+	
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 
+			<?php
+				// If custom 404 page content exists, get the content
+				$the_page    = null;
+				$errorpageid = get_option( '404pageid', 0 ); 
+				if ($errorpageid !== 0) {
+				    // Typecast to an integer
+				    $errorpageid = (int) $errorpageid;
+				    // Get our page
+				    $the_page = get_page($errorpageid);
+				}
+			?>
+
 			<section class="error-404 not-found">
-				<header class="page-header">
-					<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'onlysky_wp_framework' ); ?></h1>
-				</header><!-- .page-header -->
+				
+				<?php if ($the_page == NULL || isset($the_page->post_content) && trim($the_page->post_content == '')): ?>
+					<header class="page-header">
+						<h1 class="post-title"><?php esc_html_e( 'Let&rsquo;s try that again.', 'onlysky_wp_framework' ); ?></h1>
+					</header><!-- .page-header -->
 
-				<div class="page-content">
-					<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'onlysky_wp_framework' ); ?></p>
+				
+					<div class="page-content">
+						
+					        <p>The page you're looking for is not here.</p>
+					        <p>
+					        	<a href="<?php echo site_url(); ?>" title="Home" class="read-more">Go to our home page</a> <br />
+								<a href="/search" title="Search our website" class="read-more">Search for content</a>
+					        </p>
+					   
+						<!-- <?php get_search_form(); ?> -->
 
-					<?php get_search_form(); ?>
-
-					<?php the_widget( 'WP_Widget_Recent_Posts' ); ?>
-
-					<?php if ( onlysky_wp_framework_categorized_blog() ) : // Only show the widget if site has multiple categories. ?>
-					<div class="widget widget_categories">
-						<h2 class="widget-title"><?php esc_html_e( 'Most Used Categories', 'onlysky_wp_framework' ); ?></h2>
-						<ul>
-						<?php
-							wp_list_categories( array(
-								'orderby'    => 'count',
-								'order'      => 'DESC',
-								'show_count' => 1,
-								'title_li'   => '',
-								'number'     => 10,
-							) );
-						?>
-						</ul>
-					</div><!-- .widget -->
-					<?php endif; ?>
-
-					<?php
-						/* translators: %1$s: smiley */
-						$archive_content = '<p>' . sprintf( esc_html__( 'Try looking in the monthly archives. %1$s', 'onlysky_wp_framework' ), convert_smilies( ':)' ) ) . '</p>';
-						the_widget( 'WP_Widget_Archives', 'dropdown=1', "after_title=</h2>$archive_content" );
-					?>
-
-					<?php the_widget( 'WP_Widget_Tag_Cloud' ); ?>
-
-				</div><!-- .page-content -->
+					</div><!-- .page-content -->
+				<?php else: ?>
+					<div class="page-content">
+						<?php echo apply_filters( 'the_content', $the_page->post_content ); ?>
+					</div><!-- .page-content -->
+				<?php endif; ?>
 			</section><!-- .error-404 -->
 
 		</main><!-- #main -->
 	</div><!-- #primary -->
 
 <?php get_footer(); ?>
+
+

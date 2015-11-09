@@ -1,0 +1,92 @@
+// Footer
+.site-footer {
+
+	margin-top:50px;
+
+	// Main Footer Setction
+	.footer-inner {
+
+		// Mobile
+		margin-bottom:50px;
+
+		// Desktop
+		margin-bottom:100px;
+
+		// Site Information
+		.site-info {
+
+			//padding:0px $content-padding-mobile $content-padding-mobile $content-padding-mobile;
+			//text-align: center;
+
+			.site-copyright, 
+			.site-address,
+			.site-telephone {
+				display:block;
+
+				//Desktop
+				display:inline-block;
+				font-size:rem(16);
+			}
+
+			.site-title,
+			.site-telephone {
+				a {
+					color:$brown;
+
+					&:hover {
+						color:$blue;
+					}
+				}
+				
+			}
+		}// END. site-info
+
+		// Footer Sidebar Widget Area
+		#footer-sidebar {			
+			.widget {
+				
+				//Desktop
+				@include span-columns (1 of 4);
+				@include omega(4);
+
+				// Footer Menus
+				ul.menu {
+					
+					@include listreset;
+
+					a {
+						color:$brown;
+						&:hover {
+							color:$blue;
+						}
+					}
+				}
+			}
+		}//END #footer-sidebar
+
+	}//END .footer-inner
+	// Footer Telephone (Mobile Only)
+	.footer-tel {
+
+		background-color:$brown;
+		text-align: center;
+		padding:$content-padding-mobile;
+	
+		// Desktop
+		display:none;
+
+		span {
+			color:$tan;
+			font-size:rem(20);
+			display:block;
+		}
+
+		a {
+
+			color:$gold;
+			font-size:rem(30);
+			line-height: 30px;
+		}
+	}//END .footer-tel
+
+}//END .site-footer

@@ -1,0 +1,81 @@
+
+/*----------  Post Article Teaser  ----------*/
+// Post Teaser 
+// Displayed on Blog (News) section index, front page
+// Also used for index page items
+
+article.post,
+.index-item article {
+
+	//@include span-columns (1 of 1);
+	
+	// Post Title
+	.entry-header {
+		h1 {
+			
+			//!TODO DESKTOP ONLY
+			//@include ellipses;
+			
+			margin:0px 0px 20px 0px;
+			line-height: 1;
+			text-align: left;
+
+			a {
+			
+			color:$brown;
+			font-size:rem(22);
+
+				&:hover {
+					color:$blue;
+				}
+			}
+		}
+	}
+
+	// Post Thumbnail
+	.entry-thumbnail {
+		height:260px;
+		overflow: hidden;
+		margin-bottom:20px;
+
+
+		background-color:$brown;
+		border-left:8px solid $blue-light;
+		
+		a {
+			display:block;
+			width:100%;
+			height:260px;
+
+			background-size: cover;
+			background-position: center center;
+			opacity:.6;
+
+			&:hover {
+				opacity:1;
+				transform:scale(1.1);
+
+			}
+		}
+	}
+
+	// Post Excerpt
+	.entry-excerpt {
+		font-size:rem(18);
+	}
+
+}//END .article.post
+
+/*----------  END Article Teaser  ----------*/
+
+// Posts / Blog Index  
+// Being used for "News" section
+.posts-index {
+
+}// END .posts-index
+
+
+// Category Sticky Plugin
+.category-sticky {
+	border:none;
+}
