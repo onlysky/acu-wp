@@ -47,6 +47,7 @@ if ( ! function_exists( 'onlysky_wp_framework_setup' ) ) :
 		register_nav_menus(
 			array(
 			'primary' => esc_html__( 'Primary Menu', 'onlysky_wp_framework' ),
+			'home_quick_nav' => esc_html__( 'Homepage Quick Navigation Menu', 'onlysky_wp_framework' )
 			)
 		);
 
@@ -91,6 +92,115 @@ if ( ! function_exists( 'onlysky_wp_framework_setup' ) ) :
 endif; // onlysky_wp_framework_setup
 add_action( 'after_setup_theme', 'onlysky_wp_framework_setup' );
 
+
+/**
+ * 
+ * Editable 404 Page
+ * 
+ */
+// Insert a privately published page we can query for our 404 page
+function create_404_page() {
+
+  // Check if the 404 page exists
+	$page_exists = get_page_by_title( '404' );
+
+	if (!isset($page_exists->ID)) {
+
+		// Page array
+		$page = array(
+			'post_author' => 1,
+			'post_content' => '',
+			'post_name' =>  '404',
+			'post_status' => 'private',
+			'post_title' => '404',
+			'post_type' => 'page',
+			'post_parent' => 0,
+			'menu_order' => 0,
+			'to_ping' =>  '',
+			'pinged' => '',
+		);
+
+		$insert = wp_insert_post($page);
+
+		// The insert was successful
+		if ($insert) {
+			// Store the value of our 404 page
+			update_option( '404pageid', (int) $insert );
+		}
+	}
+
+}
+add_action('after_setup_theme', 'create_404_page');
+
+/**
+ * 
+ * Adjusts Advanced Custom Fields edit page ordering
+ * 
+ */
+
+function prefix_reset_metabox_positions(){
+  delete_user_meta( wp_get_current_user()->ID, 'meta-box-order_post' );
+  delete_user_meta( wp_get_current_user()->ID, 'meta-box-order_page' );
+  delete_user_meta( wp_get_current_user()->ID, 'meta-box-order_custom_post_type' );
+}
+add_action( 'admin_init', 'prefix_reset_metabox_positions' );
+
+/**
+ * 
+ * Adjust Rewrite Rules for post categories
+ *
+ * Usage: 
+ * Set Permalink settings to Custom Structure: "/%category%/%postname%/"
+ * Set Category Base to "."
+ * 
+ */
+function onlysky_wp_framework_filter_category_rewrite_rules( $rules ) {
+    $categories = get_categories( array( 'hide_empty' => false ) );
+
+    if ( is_array( $categories ) && ! empty( $categories ) ) {
+        $slugs = array();
+        foreach ( $categories as $category ) {
+            if ( is_object( $category ) && ! is_wp_error( $category ) ) {
+                if ( 0 == $category->category_parent ) {
+                    $slugs[] = $category->slug;
+                } else {
+                    $slugs[] = trim( get_category_parents( $category->term_id, false, '/', true ), '/' );
+                }
+            }
+        }
+
+        if ( ! empty( $slugs ) ) {
+            $rules = array();
+
+            foreach ( $slugs as $slug ) {
+                $rules[ '(' . $slug . ')/feed/(feed|rdf|rss|rss2|atom)?/?$' ] = 'index.php?category_name=$matches[1]&feed=$matches[2]';
+                $rules[ '(' . $slug . ')/(feed|rdf|rss|rss2|atom)/?$' ] = 'index.php?category_name=$matches[1]&feed=$matches[2]';
+                $rules[ '(' . $slug . ')(/page/(\d)+/?)?$' ] = 'index.php?category_name=$matches[1]&paged=$matches[3]';
+            }
+        }
+    }
+    return $rules;
+}
+add_filter( 'category_rewrite_rules', 'onlysky_wp_framework_filter_category_rewrite_rules' );
+
+/**
+ * 
+ * Remove <p> tags from around category descriptions
+ *
+ * Usage: <?php echo category_description(); ?> in template
+ * 
+ */
+function onlysky_wp_framework_custom_archive_description($description) {
+
+	$remove = array( '<p>', '</p>' );
+
+	$description = str_replace( $remove, "", $description );
+
+	return $description;
+}
+add_filter( 'category_description', 'onlysky_wp_framework_custom_archive_description' );
+
+
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
  *
@@ -109,12 +219,26 @@ add_action( 'after_setup_theme', 'onlysky_wp_framework_content_width', 0 );
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
 function onlysky_wp_framework_widgets_init() {
+	// Sidebar 1
 	register_sidebar(
 		array(
 		'name'          => esc_html__( 'Sidebar', 'onlysky_wp_framework' ),
 		'id'            => 'sidebar-1',
 		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+		)
+	);
+
+	// Footer Sidebar
+	register_sidebar(
+		array(
+		'name'          => esc_html__( 'Footer', 'onlysky_wp_framework' ),
+		'id'            => 'footer-sidebar',
+		'description'   => '',
+		'before_widget' => '<aside id="%1$s" class="widget widget-footer %2$s">',
 		'after_widget'  => '</aside>',
 		'before_title'  => '<h2 class="widget-title">',
 		'after_title'   => '</h2>',
@@ -154,12 +278,53 @@ function onlysky_wp_framework_enqueue_login_style() {
 add_action( 'login_enqueue_scripts', 'onlysky_wp_framework_enqueue_login_style' );
 
 /**
+ * Remove Page Attributes & Hero Show for Homepage
+ */
+function onlysky_wp_framework_remove_homepage_attribute_meta_box(){
+    
+    global $post_ID, $post_type;
+
+    if ( empty ( $post_ID ) or 'page' !== $post_type ) {
+    	return;
+    }
+  
+    if ( $post_ID === (int) get_option( 'page_on_front' ) ){
+    	//remove_meta_box('pageparentdiv', 'page', 'normal');
+    	echo "<style>#pageparentdiv, .acf-field-563a80a1cceb3 {display:none !important;}</style>";
+    }
+}
+add_action( 'edit_form_after_title', 'onlysky_wp_framework_remove_homepage_attribute_meta_box' );
+
+/**
+ * Custom, Sortable Admin Columns for pages
+ */
+
+
+
+
+
+/**
  * Enqueue scripts
  */
 function onlysky_wp_framework_scripts() {
-	wp_enqueue_script( 'onlysky_wp_framework-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
+	
+	//!TODO - Move this over to concated scripts and vendor scripts that come from bower
 
-	wp_enqueue_script( 'onlysky_wp_framework-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
+	// Locations Page
+	//wp_enqueue_script( 'onlysky_wp_framework-locations', get_template_directory_uri() . '/js/jquery.responsiveiframe.js', array('jquery'), '1.1', true );
+	//wp_enqueue_script( 'onlysky_wp_framework-locations', '/wp-content/plugins/advanced-iframe/js/ai_external.js', array('jquery'), '1.1', true );
+
+	wp_enqueue_script( 'onlysky_wp_framework-iframeresizer', get_template_directory_uri() . '/js/iframeResizer.min.js', array('jquery'), '1.1', true );
+	wp_enqueue_script( 'onlysky_wp_framework-locations', get_template_directory_uri() . '/js/locations.js', array('jquery'), '1.1', true );
+
+
+	
+	// Menu Navigation
+	wp_enqueue_script( 'onlysky_wp_framework-navigation', get_template_directory_uri() . '/js/navigation.js', array('jquery'), '1.1', true );
+
+	wp_enqueue_script( 'onlysky_wp_framework-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array('jquery'), '1.1', true );
+
+	wp_enqueue_script( 'masonry', get_template_directory_uri() . '/js/masonry.min.js', array('jquery'), '1.1', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );

@@ -1,6 +1,7 @@
 /*!TODO! - Todo List:
 ------------------------------------------------------------------------
 
++ Add Twig Support
 
 + READ THIS: 
 	- http://stefanimhoff.de/2014/gulp-tutorial-1-intro-setup/
@@ -257,12 +258,13 @@ var package		= require('./package.json'),		// Get details from package.json
 
     	/* Styles Paths */
 		styles 	: {
-
 			src 	 : 	paths.source + 'styles/',
-			build 	 : 	paths.build + 'assets/css/',
-			dist 	 : 	paths.dist + 'assets/css/',
-			stylesrc :  [																		// SCSS Source Files Only (Minus Fonts)
-							paths.source + 'styles/' +'**/*.scss', 
+			build 	 : 	paths.build + 'css/',
+			dist 	 : 	paths.dist + 'css/',
+			
+			fonts 	 :  paths.source + 'styles/typography/fonts/theme-fonts/',
+			stylesrc :  [										// SCSS Source Files Only (Minus Fonts & Styleguide Edits)
+								  paths.source + 'styles/' +'**/*.scss', 
 							'!' + paths.source + 'styles/typography/fonts/icon-font/template/**/*.*',
 							'!' + paths.source + 'styles/styleguide/**/*.*'
 						]								
@@ -416,6 +418,7 @@ module.exports 	= gulp;													// Gulp Chrome extension - https://github.co
 =            Functions & Templates            =
 =============================================*/
 var reload      = plugins.browserSync.reload,                           // Reload Call for BrowserSync
+	stream 		= plugins.browserSync.stream,							// Stream Call for BrowserSync
 	timeStamp   = Math.round(Date.now()/1000);                          // Create a timestamp
 
 /* Get gulp task name for current task */
@@ -507,16 +510,10 @@ var banner = {
 
 /* Browser Sync */
 gulp.task('browser-sync', function() {									// BrowserSync Task - http://www.browsersync.io/docs/options
-	var files = [															// Files to watch for page reloads
-		paths.build + '**/*.php',
-		paths.build + '**/*.html',
-		assets.scripts.build + '**/*.js',
-		assets.images.build + '**/*.{png,jpg,gif,svg}'
-	];
-	plugins.browserSync.init(files,{
+	plugins.browserSync.init({
 		proxy: url,															// Proxy to use
 		browser: 'chromium-browser',										// Open website in Chromium Browser (Change to whatever browser you use: ['google chrome', firefox'])
-		reloadOnRestart: true,
+		reloadOnRestart: true
 	});
 });
 
@@ -527,7 +524,7 @@ gulp.task('config-sync', function() {									// Sync package.json and bower.jso
     	src: 'package.json',
     	fields: [ 'name', 'title', 'description', 'version', 'author', 'repository', 'bugs','keywords', 'license', {from: 'contributors', to: 'contributors'} ]
     }))	
-    .pipe(gulp.dest('.'));
+    .pipe(gulp.dest(lib+'vendor'));
 });
 
 /* Create License */
@@ -564,11 +561,37 @@ gulp.task('theme-info', function () {														// Setup style.css theme info
 	}));
 })
 
+
+
+
+
+/* Process Scripts */
+gulp.task('scripts', function (){
+	return gulp.src([																		// Select all JS source files
+		assets.scripts.src + '**/*.js'
+	])
+	.pipe(plugins.debug({title: 'JS files processed:'}))
+	.pipe(plugins.plumber({errorHandler: onError}))
+	.pipe(plugins.plumber.stop())
+	.pipe(gulp.dest(build + 'js'))
+	.pipe(plugins.notify({ 																	// Notify that task has completed
+			title: 'Gulp JS Task',
+			icon:  path.join(__dirname, lib + "icons/flat/js.png"),
+			message: 'Scripts processing complete', 
+			onLast: true 
+		}));
+});
+
+
+
+
+
 /* Compile SASS */
 gulp.task('sass', function (){
 	return gulp.src([																		// Select all SASS source files, excluding icon fonts folder
 			source + 'styles/**/*.scss', 
-			'!' + source + 'styles/typography/fonts/icon-font/**/*.*'
+			'!' + source + 'styles/typography/fonts/icon-font/**/*.*',
+			'!' + source + 'styles/styleguide/**/*.*'
 			//'!' + source + 'styles/typography/fonts/icon-font/*.*'
 		])
 		//.pipe(plugins.debug({title: 'SCSS files processed:'}))
@@ -584,15 +607,16 @@ gulp.task('sass', function (){
 		.pipe(plugins.sourcemaps.init({loadMaps: true}))		
 		.pipe(plugins.autoprefixer('last 2 version'))											// Autoprefix CSS with vendor prefixes
 		.pipe(plugins.sourcemaps.write('.'))
-		.pipe(plugins.plumber.stop())
-		.pipe(gulp.dest(build + 'css'))															// Output resulting CSS files and source maps to build directory
-		.pipe(reload({stream:true})) 															// Inject Styles when style file is created	
 		.pipe(plugins.gulpif(theme.options.linting.sassLinting, 								// If SASS/SCSS linting enabled in theme options
-			plugins.scssLint({ 																// Lint SASS/SCSS
+			plugins.scssLint({ 																			// Lint SASS/SCSS
 				//config: './lib/custom-linters/scss-lint.yml', 										// Enable custom linter in "lib/custom-linters" directory
 				customReport: plugins.scssLintStylish 
 			})
 		))
+		.pipe(plugins.plumber.stop())
+		.pipe(gulp.dest(build + 'css'))															// Output resulting CSS files and source maps to build directory
+		.pipe(plugins.filter('**/*.css')) 														// Filtering stream to only css files
+		.pipe(reload({stream:true})) 															// Inject Styles when style file is created
 		.pipe(plugins.notify({ 																	// Notify that task has completed
 			title: 'Gulp SASS Task',
 			icon:  path.join(__dirname, lib + "icons/flat/sass.png"),
@@ -600,38 +624,6 @@ gulp.task('sass', function (){
 			onLast: true 
 		}));
 });
-
-
-/* Style Guide */
-gulp.task('styleguide:generate', function() {
-  return gulp.src(assets.styles.stylesrc)
-    .pipe(plugins.styleguide.generate({
-        title: theme.title + ' Style Guide',
-        server: true,
-        disableHtml5Mode: false,
-        port: 3001,
-        customColors: './src/styles/styleguide/styleguide.scss',
-        //appRoot: '../styleguide',
-        rootPath: 'styleguide',
-        overviewPath: assets.styles.src + 'styleguide/overview.md'
-      }))
-    .pipe(gulp.dest('./styleguide'));
-});
-
-gulp.task('styleguide:applystyles', function() {
-  return gulp.src(assets.styles.src + 'styles.scss')
-	.pipe(plugins.sass({																// Compile SASS	
-		errLogToConsole: true,
-		outputStyle: 'expanded',
-		includePaths: plugins.neat.includePaths,										// Include Neat & Bourbon
-		precision: 10
-	}))
-    .pipe(plugins.styleguide.applyStyles())
-    .pipe(gulp.dest('./styleguide'));
-});
-
-gulp.task('styleguide', ['styleguide:generate', 'styleguide:applystyles']);
-
 
 /* Minify and Optimize CSS Only*/
 gulp.task('css', function (){
@@ -655,9 +647,23 @@ gulp.task('css', function (){
 		.pipe(plugins.size());
 });
 
-/* Styles - Compile SASS & minify CSS */
-gulp.task('styles', function (callback){
-	runSequence('sass','css', callback);
+/* Fonts */ 
+gulp.task('fonts', function (){
+	return gulp.src([																		// Select all font source files
+			assets.styles.fonts + '**/*.*',
+			'!' + assets.styles.fonts + '**/*.scss',
+		])
+		.pipe(plugins.plumber({errorHandler: onError}))
+		.pipe(plugins.changed(assets.styles.build + 'fonts'))									// Use only changed files
+		.pipe(plugins.debug({title: 'Font files processed:'}))
+		.pipe(plugins.plumber.stop())
+		.pipe(gulp.dest(assets.styles.build + 'fonts'))											// Output fonts to build directory														// Inject Styles when style file is created
+		.pipe(plugins.notify({ 																	// Notify that task has completed
+			title: 'Gulp SASS Task',
+			icon:  path.join(__dirname, lib + "icons/flat/sass.png"),
+			message: 'Theme fonts processed.', 
+			onLast: true 
+		}));
 });
 
 /* Icons */
@@ -691,6 +697,55 @@ gulp.task('icons', function (){
 			title: 'Gulp Icons Task',
 			message: 'Icon font creation complete', onLast: true 
 		}));
+});
+
+
+/* Style Guide - Generate*/
+gulp.task('styleguide:generate', function() {
+  return gulp.src(assets.styles.stylesrc)
+  	.pipe(plugins.plumber({errorHandler: onError}))
+    .pipe(plugins.styleguide.generate({
+        title: theme.title + ' Style Guide',
+        server: true,
+        disableHtml5Mode: false,
+        port: 3008,
+        customColors: './src/styles/styleguide/styleguide.scss',
+        //appRoot: '../styleguide',
+        rootPath: 'styleguide',
+        overviewPath: assets.styles.src + 'styleguide/overview.md'
+      }))
+    .pipe(plugins.plumber.stop())
+    .pipe(gulp.dest('./styleguide'));
+});
+
+/* Style Guide - Apply Styles*/
+gulp.task('styleguide:applystyles', function() {
+  return gulp.src(assets.styles.src + 'styles.scss')
+	.pipe(plugins.plumber({errorHandler: onError}))
+	.pipe(plugins.sass({																// Compile SASS	
+		errLogToConsole: true,
+		outputStyle: 'expanded',
+		includePaths: plugins.neat.includePaths,										// Include Neat & Bourbon
+		precision: 10
+	}))
+    .pipe(plugins.styleguide.applyStyles())
+    .pipe(plugins.plumber.stop())
+    .pipe(gulp.dest('./styleguide'))
+    .pipe(plugins.notify({ 																	// Notify that task has completed
+		title: 'Gulp SASS Task',
+		icon:  path.join(__dirname, lib + "icons/flat/sass.png"),
+		message: 'Styleguide Applied', 
+		onLast: true 
+	}));
+});
+
+/* Style Guide Task*/
+gulp.task('styleguide', ['styleguide:generate', 'styleguide:applystyles']);
+
+
+/* Styles - Compile SASS, Minify CSS, Process Fonts */
+gulp.task('styles', function (callback){
+	runSequence('fonts', 'sass', 'icons', 'css', callback);
 });
 
 /* Images */
@@ -844,11 +899,10 @@ gulp.task('watch', ['browser-sync'], function() {											// Watch Files Task
 		'!'+assets.images.src+'icons' 
 	], ['images']);				
 	gulp.watch(assets.images.src + 'icons/**/*.svg', ['icons']);									// Watch icon image files: create icon font on change												
-	gulp.watch(assets.styles.src + '**/*.scss', ['sass']);											// Watch SASS/SCSS files: compile to css on change
+	gulp.watch(assets.styles.src + '**/*.scss', ['sass'/*,'styleguide'*/]);							// Watch SASS/SCSS files: compile to css on change
 	gulp.watch([assets.templates.src + '**/*.php'], ['templates']);									// Watch PHP files & Templates: move templates and php to build
-	gulp.watch([paths.source + '*.php', assets.includes.src + '**/*.php'], ['includes']);		// Watch includes PHP files: move includes to build
-
-  //gulp.watch([source+'js/**/*.js', bower+'**/*.js'], ['scripts']);
+	gulp.watch([paths.source + '*.php', assets.includes.src + '**/*.php'], ['includes']);			// Watch includes PHP files: move includes to build
+  	gulp.watch([assets.scripts.src +'**/*.js'], ['scripts']);										// Watch Scripts files
   //gulp.watch(source+'**/*.php', ['php']);
   //gulp.watch([build + '**/*', dist + '**/*'], reload);
 });
@@ -856,7 +910,7 @@ gulp.task('watch', ['browser-sync'], function() {											// Watch Files Task
 
 /* Startup Task */
 gulp.task('startup', function (callback){
-	plugins.runSequence('config-sync', 'theme-info', 'includes', 'templates', /*'built-php-name-references',*/ 'sass', callback);
+	plugins.runSequence('config-sync', 'theme-info', 'includes', 'templates', /*'built-php-name-references',*/'fonts', 'sass', callback);
 });
 
 

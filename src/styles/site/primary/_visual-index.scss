@@ -1,0 +1,24 @@
+
+// Visual Index List
+ul.index-list {
+	@include listreset;
+ 	li.index-item {
+		margin-bottom:60px;
+
+		// Mobile
+
+ 		// Desktop
+		@include span-columns(1 of 3);
+		@include omega(3n);
+		
+		// Index Item Articles
+		// Visual Index items (article) base styles defined in _blog.scss
+ 		article {
+
+ 			.entry-thumbnail {
+ 				border-color:$burnt-orange;
+ 			}
+ 		}
+ 	
+ 	}// END li.index-item
+}//END ul.index-list

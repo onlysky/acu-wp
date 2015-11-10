@@ -4,6 +4,35 @@
  * Handles toggling the navigation menu for small screens and enables tab
  * support for dropdown menus.
  */
+
+/*jQuery Wrapper*/
+(function ($) {
+
+/*Functions*/
+function toggleNavigation(){
+	$('body').toggleClass('nav-menu-open');
+}
+
+
+/* Document Ready */
+$(document).ready(function () {
+	
+	/*Click on Main Navigation Button and Toggle Nav Menu*/
+	$('.nav-menu-button').on( "click", function() {
+	  toggleNavigation();
+	});
+
+	/* Click on Main Navigation Cover to close nav */
+	$('.menu-cover').on( "click", function() {
+	  $('body').removeClass('nav-menu-open');
+	});
+
+});// END doc.ready
+
+}(jQuery));
+
+
+/*
 ( function() {
 	var container, button, menu, links, subMenus;
 
@@ -56,10 +85,11 @@
 		links[i].addEventListener( 'focus', toggleFocus, true );
 		links[i].addEventListener( 'blur', toggleFocus, true );
 	}
-
+*/
 	/**
 	 * Sets or removes .focus class on an element.
 	 */
+/*
 	function toggleFocus() {
 		var self = this;
 
@@ -78,4 +108,6 @@
 			self = self.parentElement;
 		}
 	}
+
 } )();
+*/

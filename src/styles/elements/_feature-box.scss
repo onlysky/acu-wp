@@ -1,0 +1,80 @@
+.feature-box {
+	
+	position:relative;
+	@include span-columns(1.5);
+	height:435px;
+
+	color:white;
+	
+	border-left:8px solid $burnt-orange;
+	
+	&:hover {
+		.feature-box-image-container {
+			opacity:.5;
+			.feature-box-image {
+				transform:scale(1.1);
+			}
+			
+		}
+	}
+	
+	// Color Schemes
+	&.feature-brown {
+		background-color:$brown;
+	}
+
+	&.feature-blue {
+		background-color:$blue;
+	}
+
+	&.feature-red {
+		background-color:$rose;
+	}
+
+	&.feature-green {
+		background-color:$olive;
+	}
+
+	h2 {
+		margin-top:20px;
+		font-size:rem(40);
+		color:white;
+		text-align: left;
+		text-transform: inherit;
+	}
+
+	.feature-box-image-container {
+		overflow:hidden;
+		@include transition;
+		opacity:.2;
+		height:435px;
+
+		.feature-box-image {
+			@include transition;
+			height:435px;
+			background-size:cover;
+			background-position: center center;
+		}
+	}
+	
+	.feature-box-inner {
+		position:absolute;
+		top:0;
+		left:0;
+		padding:40px;
+		height:435px;
+
+		.feature-box-content {
+			position:absolute;
+			bottom:100px;
+		}
+
+		.feature-box-button {
+			position:absolute;
+			bottom:48px;
+
+		}
+	}
+
+
+}

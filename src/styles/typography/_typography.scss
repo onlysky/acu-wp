@@ -1,15 +1,65 @@
+/* !TODO - https://github.com/SC5/sc5-styleguide#images-fonts-and-other-static-assets */
+
+//Import Fonts
+@import "fonts/fonts";
+
+/* 
+Colors & Typography
+
+Color,Typography variables and styles used for the theme.
+
+Styleguide 1.0
+*/
+
+
+/* 
+Fonts
+
+$font-book			- Book / Primary Font
+$font-medium		- Primary Font
+$font-fallback		- Fallback Font
+$font-code			- Code Font
+$font-pre 			- Pre Font
+
+markup:
+<p style="font-family:{$modifiers}" class="styleguide-font">{$modifiers}</p>
+
+Styleguide 1.2
+*/
+
+/* Fonts */
+$font-fallback: sans-serif;
+$font-book: "CharlotteSansCom-Book", $font-fallback;
+$font-medium: "CharlotteSansCom-Medium", $font-fallback;
+$font-bold: "CharlotteSansCom-Bold", $font-fallback;
+$font-code: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+$font-pre: "Courier 10 Pitch", Courier, monospace;
+
+// styleguide:ignore:start
+
+/* Text Settings */
+$line-height-body: 1.3;
+$line-height-pre: 1.6;
+
 //Import Typography files
 @import "headings";
 @import "copy";
-@import "fonts/fonts";
 
+/* General Text Settings */
 body,
 button,
 input,
 select,
 textarea {
-	color: $color__text-main;
-	font-family: $font__main;
-	@include font-size(1);
-	line-height: $font__line-height-body;
+
+	//@include font-size(1);
+	font-size:em(22);
+	font-family: $font-book;
+	line-height: $line-height-body;
+	color: $color-text-main;
+	
+	
 }
+
+// styleguide:ignore:end
+

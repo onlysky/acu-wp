@@ -1,0 +1,344 @@
+/* NOTE: Header Variables are located in _structure.scss */
+
+// Site Header
+header.site-header {	
+	padding-top:14px;
+	padding-bottom:14px;
+	position:relative;
+
+	background-color:$brown;
+	box-shadow: inset 0 -20px 20px -10px rgba(0,0,0,0.2);
+
+	// Mobile
+	height: $header-height-mobile;
+
+	// Desktop
+	height: $header-height;
+	box-shadow:none;
+	background-image:url(../img/header-gradient.png);
+	background-repeat: repeat-x;
+	background-position: bottom right;
+	@include transition(background .2s ease-in-out);
+
+	// Header Curve
+	&:after {
+		content:'';
+		position:absolute;
+		z-index:1;
+		bottom:-34px;
+		left:0;
+		height:65px;
+		width:690px;
+
+		background-image:url(../img/header-curve.png);
+		background-position: left top;
+		background-repeat: no-repeat;
+	}
+}
+
+// Menu Open Site Header
+body.nav-menu-open {
+
+	.site-header {
+		box-shadow: none;
+		//background-image:none;
+
+		&:after{
+			//opacity:0;
+		}
+	}
+}
+
+// Site Branding
+.site-branding {
+	
+	// Mobile
+	text-align: center;
+	
+	// Desktop 
+	text-align: left;
+
+
+
+	h1.site-title {
+
+		// Desktop
+		text-align: left;
+		float:left;
+
+		margin-top:0px;
+		margin-bottom:0px;
+
+		img.site-logo {
+			// Mobile
+			width:100px;
+
+			// Desktop
+			width: 224px;
+			margin-left:40px;
+			z-index:2;
+			position:relative;
+		}
+	}
+
+}
+
+/* Navigation Button */
+
+// Button Hover Animation
+@keyframes nav-button-hover {
+    0% {
+		background-color:$tan;
+    }
+
+    33% {
+		background-color:$rose;
+    }
+
+    66% {
+		background-color: $burnt-orange;
+    }
+
+    100% {
+    	background-color: $gold;
+    }
+}
+
+// Button
+.nav-menu-button {
+	position: absolute;
+	height:36px;
+	display:block;
+	@include clearfix;
+
+	// Mobile
+	left:$content-padding-mobile;
+	top:22px;
+
+	// Desktop
+	left:inherit;
+	right:40px;
+	top:45px;
+
+	&:hover {
+		.nav-menu-text {
+			color:$gold;
+		}
+		
+		// Hover animation for bars
+		.nav-menu-button-bars {
+			span {
+				
+				@include transition(transform .2s .0s, opacity .3s, background-color .1s .3s);				
+				background-color:$gold;
+				animation-name: nav-button-hover;
+				animation-direction: normal;
+
+				&#bar-1 { 
+	    			animation-delay: 0s; 
+	    		}
+	    		&#bar-2 { 
+	    			animation-delay: .1s; 
+	    		}
+	    		&#bar-3 { 
+	    			animation-delay: .2s; 
+	    		}
+	    		&#bar-4 { 
+	    			animation-delay: .3s; 
+	    		}
+			}
+		}
+	}	
+
+	// Button's "Menu" Text (hidden on mobile)
+	.nav-menu-text {
+		display:inline-block;
+		font-family: $font-book;
+		color:$tan;
+		font-size:rem(24);
+		margin-top:8px;
+		margin-left:20px;
+
+		@include transition;
+
+		// Mobile
+		display:none;
+
+		// Desktop
+		display: inline-block;
+		margin-top:2px;
+
+	}
+
+	// Button's Bar container
+	.nav-menu-button-bars {
+		display:block;
+		float:left;
+		width:34px;
+		height:36px;
+
+		// Bars
+		span {
+			position:absolute;
+			display:block;
+			width:34px;
+			height:3px;
+			background-color:$tan;
+	
+			@include transition(transform .2s 0s, opacity .3s, background-color .5s 0s);
+    		animation-duration: .4s;
+
+    		&#bar-1 { 
+    			top:0;
+    		}
+    		&#bar-2 { 
+    			top:8px;
+    		}
+    		&#bar-3 { 
+    			top:16px;
+    		}
+    		&#bar-4 { 
+    			top:24px;
+    		}
+		}
+	}
+}// END .nav-menu-button
+
+// Menu Open Button
+body.nav-menu-open {
+
+	.nav-menu-text {
+		color:white;
+	}
+
+	.nav-menu-button {
+		&:hover {
+			.nav-menu-button-bars {
+				span {
+					background-color:$gold !important;
+					animation:none;
+				}
+			}
+		}
+	}
+
+	// Button bars transitions
+	.nav-menu-button-bars {
+		span {
+			background-color:white;
+
+			&#bar-1 { 
+    			top:0;
+    			opacity:0;
+    			transform:translateY(10px);
+    		}
+    		&#bar-2 { 
+    			top:8px;
+    			transform:rotate(45deg) translateY(6px);
+    			@include transition(transform .2s .2s, opacity .3s, background-color .5s 0s);
+    		}
+    		&#bar-3 { 
+    			top:16px;
+    			transform:rotate(-45deg) translateY(-6px);
+    			@include transition(transform .2s .2s, opacity .3s, background-color .5s 0s);
+    		}
+    		&#bar-4 { 
+    			top:24px;
+    			opacity:0;
+    			transform:translateY(-10px);
+    		}
+		}
+	}
+}
+
+// Login Button
+a.login-button {
+	display:block;
+	position:absolute;
+	top:26px;
+	right:$content-padding-mobile;
+	color:white;
+	text-transform: uppercase;
+	font-size:rem(16);
+	font-family: $font-bold;
+	font-weight: 300;
+
+	// Desktop
+	display:none;
+
+	&:hover {
+		color:$color-link-hover-dark;
+	}
+}
+
+// Desktop Header Elements Container
+.header-desktop {
+	margin-top:26px;
+	margin-right:230px;
+	float:right;
+}
+
+
+// Desktop Login
+.header-login {
+	input {
+		font-size:rem(18);
+		color:$tan;
+		background-color:$gold-half;
+	}
+
+	::-webkit-input-placeholder {
+	   color:$tan;
+	}
+
+	:-moz-placeholder { /* Firefox 18- */
+	   color:$tan;
+	}
+
+	::-moz-placeholder {  /* Firefox 19+ */
+	   color:$tan;
+	}
+
+	:-ms-input-placeholder {  
+	   color:$tan; 
+	}
+
+	#login-submit {
+		font-family: $font-bold;
+		margin-left:5px;
+		color:white;
+		text-transform: uppercase;
+		background-color:$green;
+		border-radius: $border-radius;
+		border:2px solid $green;
+
+		&:hover {
+			border-color:$rose;
+			background-color:$rose;
+		}
+	}
+}//END .header-login
+
+
+// Join Us
+.header-join {
+	margin-left:20px;
+	margin-right:20px;
+}
+
+// Header Search
+.header-search {
+	color:$gold;
+	text-transform: uppercase;
+	font-size:rem(18);
+	font-family: $font-bold;
+
+	&:hover {
+		color:white;
+	}
+}
+
+// WordPress Admin Bar
+#wpadminbar {
+	position:fixed;
+}

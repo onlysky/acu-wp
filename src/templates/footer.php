@@ -13,13 +13,45 @@
 
 	</div><!-- #content -->
 
+	<!-- Website Footer -->
 	<footer id="colophon" class="site-footer" role="contentinfo">
-		<div class="site-info">
-			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'onlysky_wp_framework' ) ); ?>"><?php printf( esc_html__( 'Proudly powered by %s', 'onlysky_wp_framework' ), 'WordPress' ); ?></a>
-			<span class="sep"> | </span>
-			<?php printf( esc_html__( 'Theme: %1$s by %2$s.', 'onlysky_wp_framework' ), 'onlysky_wp_framework', '<a href="http://onlysky.com" rel="designer">Only Sky Team</a>' ); ?>
-		</div><!-- .site-info -->
+		
+		<section class="footer-inner container">
+			
+			<!-- Footer Webite Information -->
+			<div class="site-info section-sml">
+				
+				<span class="site-copyright">
+					Copyright &#169; <?php echo date("Y"); ?> <span class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" title="<?php bloginfo('name'); ?>"><?php bloginfo('name'); ?></a></span>
+				</span>
+
+				<span class="site-address">
+					<?php echo get_theme_mod("address");?>
+				</span>
+
+				<span class="site-telephone">
+					<a class="site-tel-alt" href="tel:+<?php echo str_replace('-','',get_theme_mod("telephone_alt"));?>"><?php echo str_replace('-','.',get_theme_mod("telephone_alt"));?></a> or <a class="site-tel" href="tel:+<?php echo str_replace('-','',get_theme_mod("telephone"));?>" class="site-tel"><?php echo str_replace('-','.',get_theme_mod("telephone"));?></a> 
+				</span>
+
+			</div><!-- .site-info -->
+			
+			<!-- Footer Menus -->
+			<?php if ( is_active_sidebar( 'footer-sidebar' ) ) : ?>
+			    <section id="footer-sidebar" class="widget-area section-sml" role="complementary">
+			    	<?php dynamic_sidebar( 'footer-sidebar' ); ?>
+			    </section>
+			<?php endif; ?>
+			
+		</section> <!-- END.footer-inner -->
+
+		<!-- Footer Telephone Number (Mobile Only) -->
+		<div class="footer-tel">
+			<span>Call Us</span>
+			<a class="site-tel" href="tel:+<?php echo str_replace('-','',get_theme_mod("telephone"));?>"><?php echo str_replace('-','.',get_theme_mod("telephone"));?></a>
+		</div><!-- END.footer-tel -->
+
 	</footer><!-- #colophon -->
+
 </div><!-- #page -->
 
 <?php wp_footer(); ?>

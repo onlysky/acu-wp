@@ -1,84 +1,169 @@
+/* Main Navigation */
+
+//Main Navigation Menu
 .main-navigation {
-	clear: both;
+
 	display: block;
-	float: left;
-	width: 100%;
+	z-index: 99999;
+	position:absolute;
 	
-	ul {
-		display: none;
-		list-style: none;
-		margin: 0;
-		padding-left: 0;
+	
+	
+	left:0;
+	right:0;
+	width: 100%;
+	padding:20px $content-padding-mobile 40px $content-padding-mobile;
 
-		ul {
-			box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
-			float: left;
-			position: absolute;
-			top: 1.5em;
-			left: -999em;
-			z-index: 99999;
+	color:white;
+	background-color:$brown;
 
-			ul {
-				left: -999em;
-				top: 0;
-			}
+	overflow-y:auto;
+	
+	@include transition(opacity .3s, visibility 0s .3s);
+
+	//Hide Menu
+	opacity:0;
+	visibility: hidden;
+
+	// Mobile
+	top:$header-height-mobile;
+	bottom:0;
+
+	// Desktop
+	z-index:1;
+	top:$header-height - 30px;
+	padding-top:60px;
+	overflow-y:hidden;
+	bottom:inherit;
+	height:60%;
+	box-shadow: 0px 20px 20px rgba(0,0,0, 0.3);
+	background-color:rgba(84, 48, 26, 0.9);
+	
+	// Top Fade
+	&:before {
+		z-index:9;
+		content:'';
+		position:fixed;
+		
+		left:0;
+		height:20px;
+		width:100%;
+
+		@include background-image(linear-gradient(to top, transparent, $brown));
+
+		// Mobile
+		top:$header-height-mobile;
+
+		// Desktop
+		top:$header-height;
+		display:none;
+	}
+	
+	.site-nav-inner {
+		opacity:0;
+		transform:translateY(-100%);
+
+		@include transition(transform .5s, opacity .5s);
+	}
+
+	.site-nav-primary-menu {
+		//column-count: 2;
+    	//column-gap: 20px;
+
+    	ul {
+			list-style: none;
+			margin-left: 0px;
+			padding-left: 0;
+
+			background-color:$brown;
+
+			// Desktop
+			background-color:transparent;
 
 			li {
-				&:hover > ul,
-				&.focus > ul {
-					left: 100%;
+				font-size:rem(28);
+
+				a {
+					color:white;
+
+					&:hover {
+						color:$color-link-hover-dark;
+					}
 				}
 			}
-
-			a {
-				width: 200px;
-			}
-
-			:hover > a,
-			.focus > a {
-			}
-
-			a:hover,
-			a.focus {
-			}
-		}
-
-		li:hover > ul,
-		li.focus > ul {
-			left: auto;
-		}
-	}
-	li {
-		float: left;
-		position: relative;
-
-		&:hover > a,
-		&.focus > a {
-		}
-	}
-	a {
-		display: block;
-		text-decoration: none;
+		}// END ul
 	}
 
 	.current_page_item > a,
 	.current-menu-item > a,
 	.current_page_ancestor > a {
 	}
-}
+	
+	/* Main Navigation Telephone */
+	.site-nav-tel {
+		span {
+			color:$tan;
+			font-size:rem(24);
+			display:block;
+		}
 
-/* Small menu. */
-.menu-toggle,
-.main-navigation.toggled ul {
-	display: block;
-}
-
-@media screen and (min-width: 37.5em) {
-	.menu-toggle {
-		display: none;
+		a {
+			color:$gold;
+			font-size:rem(40);
+		}
 	}
-	.main-navigation ul {
-		display: block;
+}//END .main-navigation
+
+// Content Cover under menu
+.menu-cover {
+	position:fixed;
+	z-index:0;
+	top:$header-height;
+	bottom:100%;
+	left:0px;
+	right:0px;
+	
+	background-color:transparent;
+
+	@include transition(background .3s ease-in-out);
+}
+
+//Main Navigation Menu Toggle
+body.nav-menu-open {
+	overflow:hidden;
+	
+	.menu-cover {
+		bottom:0px;
+		background-color:rgba(0,0,0,0.8);
+	}
+
+	//Nav Menu
+	.main-navigation {
+
+		//Show the Main Navigation
+		opacity:1;
+		visibility:visible;
+		
+		@include transition(opacity .3s, visibility 0s 0s);
+
+		.site-nav-inner {
+			@include transition(transform .2s, opacity .2s);
+			transform:translateY(0%);
+			opacity:1;
+		}
+		
+	}
+
+}//END Main Navigation Menu Toggle
+
+// WP Admin Bar adjustments
+body.admin-bar {
+	.main-navigation {
+		top:$header-height-mobile + 46px;
+
+		&:before {
+			top:$header-height-mobile + 46px;
+		}
 	}
 }
 

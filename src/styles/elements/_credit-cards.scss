@@ -1,0 +1,124 @@
+// Credit Cards Page
+
+.credit-card-list-header {
+	padding-right:30px;
+
+	@include clearfix;
+
+	.credit-card-rate {
+		float:right;
+		font-size: rem(16);
+		font-family: $font-bold;
+		margin-left:10px;
+		color:$burnt-orange;
+	}
+}
+
+ul.credit-cards-list {
+	@include listreset;
+
+	li.credit-card {
+		position:relative;
+		
+		@include span-columns(1 of 1);
+		padding:30px;
+		border-bottom:1px solid $tan;
+		
+		// Accordion Open
+		&.open {
+			background-color:$blue-sky;
+		}
+		
+		.credit-card-image {
+			
+			// Desktop
+			position: absolute;
+			left:30px;
+			top:30px;
+			width:150px;
+			height:100px;
+		}
+		
+		h2.credit-card-name {
+			font-size:rem(30);
+			color:$brown;
+			text-transform: none;
+			font-family: $font-book;
+
+			// Desktop
+			float:left;
+			padding-left:180px;
+			width:100%;
+			margin-right:-280px;
+			padding-right:280px;
+			text-align: left;
+			@include ellipses;
+		}
+
+		.credit-card-info {
+			position:absolute;
+			top:80px;
+			left:210px;
+			
+			.credit-card-apply {
+				text-transform: uppercase;
+				font-size:rem(18);
+				font-family: $font-bold;
+				color:white;
+				background-color:$rose;
+			}
+
+			.credit-card-details-link {
+				color:$blue;
+				margin-left:20px;
+				position:relative;
+
+				// Mobile
+				display:none;
+
+				// Desktop
+				display: inline;
+
+				&:hover {
+					cursor: pointer;
+					color:$rose;
+
+					&:after {
+						@include triangle(10px 5px, $rose, down);
+					}
+				}
+
+				&:after {
+					content:'';
+					position:absolute;
+					display:block;
+					right:-15px;
+					top: 8px;
+					
+					@include triangle(10px 5px, $blue, down);
+					@include transition;
+
+					// For open state:
+					//transform:rotate(180deg);
+
+				}
+			}
+		}// END .credit-card-info
+
+		.credit-card-rates {
+			float:right;
+
+			.credit-card-rate {
+				float:left;
+			}
+		}
+
+		.credit-card-details {
+			margin-top:140px;
+
+			font-size:rem(20);
+			font-family: $font-book;
+		}
+
+	}// END li.credit-card
+}//END ul.credit-cards-list
