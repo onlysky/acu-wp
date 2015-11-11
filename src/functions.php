@@ -219,11 +219,11 @@ add_action( 'after_setup_theme', 'onlysky_wp_framework_content_width', 0 );
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
 function onlysky_wp_framework_widgets_init() {
-	// Sidebar 1
+	// Page Sidebar
 	register_sidebar(
 		array(
-		'name'          => esc_html__( 'Sidebar', 'onlysky_wp_framework' ),
-		'id'            => 'sidebar-1',
+		'name'          => esc_html__( 'Page Sidebar', 'onlysky_wp_framework' ),
+		'id'            => 'page-sidebar',
 		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
@@ -232,11 +232,50 @@ function onlysky_wp_framework_widgets_init() {
 		)
 	);
 
-	// Footer Sidebar
+	// Post Sidebar
 	register_sidebar(
 		array(
-		'name'          => esc_html__( 'Footer', 'onlysky_wp_framework' ),
-		'id'            => 'footer-sidebar',
+		'name'          => esc_html__( 'Posts Sidebar', 'onlysky_wp_framework' ),
+		'id'            => 'post-sidebar',
+		'description'   => '',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+		)
+	);
+
+	// News/Blog Sidebar
+	register_sidebar(
+		array(
+		'name'          => esc_html__( 'News Index Sidebar', 'onlysky_wp_framework' ),
+		'id'            => 'index-sidebar',
+		'description'   => '',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+		)
+	);
+
+	// Footer Top Sidebar
+	register_sidebar(
+		array(
+		'name'          => esc_html__( 'Footer Top', 'onlysky_wp_framework' ),
+		'id'            => 'footer-top-sidebar',
+		'description'   => '',
+		'before_widget' => '<aside id="%1$s" class="widget widget-footer %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+		)
+	);
+
+	// Footer Bottom Sidebar
+	register_sidebar(
+		array(
+		'name'          => esc_html__( 'Footer Bottom', 'onlysky_wp_framework' ),
+		'id'            => 'footer-bottom-sidebar',
 		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="widget widget-footer %2$s">',
 		'after_widget'  => '</aside>',
@@ -295,13 +334,24 @@ function onlysky_wp_framework_remove_homepage_attribute_meta_box(){
 }
 add_action( 'edit_form_after_title', 'onlysky_wp_framework_remove_homepage_attribute_meta_box' );
 
+
 /**
- * Custom, Sortable Admin Columns for pages
+ *  Remove WP Page Widgets section from page templates with no sidebars, and some specific pages
  */
+/*
+function onlysky_wp_framework_remove_page_widget_box()
+{
+	$post_id = ( isset($_GET['post']) ) ? intval($_GET['post']) : intval($_POST['post_ID']);
+	$template_file = get_post_meta( $post_id, '_wp_page_template', TRUE );
+	echo $template_file;
 
-
-
-
+    if ($template_file == 'template-full-width.php') {
+    	remove_meta_box( 'pw-widgets',  'page', 'advanced');
+    }
+// $post_id in_array('149, 21, 70')
+}
+add_action( 'admin_init' , 'onlysky_wp_framework_remove_page_widget_box');
+*/
 
 /**
  * Enqueue scripts

@@ -18,6 +18,13 @@
 		
 		<section class="footer-inner container">
 			
+			<!-- Footer Social Links -->
+			<?php if ( is_active_sidebar( 'footer-top-sidebar' ) ) : ?>
+			    <section id="footer-top-sidebar" class="widget-area section-sml" role="complementary">
+			    	<?php dynamic_sidebar( 'footer-top-sidebar' ); ?>
+			    </section>
+			<?php endif; ?>
+
 			<!-- Footer Webite Information -->
 			<div class="site-info section-sml">
 				
@@ -26,30 +33,38 @@
 				</span>
 
 				<span class="site-address">
-					<?php echo get_theme_mod("address");?>
+					<?php if(get_theme_mod("address")) : ?>
+						<?php echo get_theme_mod("address");?>
+					<?php endif;?>
 				</span>
 
 				<span class="site-telephone">
-					<a class="site-tel-alt" href="tel:+<?php echo str_replace('-','',get_theme_mod("telephone_alt"));?>"><?php echo str_replace('-','.',get_theme_mod("telephone_alt"));?></a> or <a class="site-tel" href="tel:+<?php echo str_replace('-','',get_theme_mod("telephone"));?>" class="site-tel"><?php echo str_replace('-','.',get_theme_mod("telephone"));?></a> 
+					<?php if(get_theme_mod("telephone_alt")) : ?>
+						<a class="site-tel-alt" href="tel:+<?php echo str_replace('-','',get_theme_mod("telephone_alt"));?>"><?php echo str_replace('-','.',get_theme_mod("telephone_alt"));?></a> or 
+					<?php endif;?>
+					<?php if(get_theme_mod("telephone")) : ?>
+						<a class="site-tel" href="tel:+<?php echo str_replace('-','',get_theme_mod("telephone"));?>" class="site-tel"><?php echo str_replace('-','.',get_theme_mod("telephone"));?></a>
+					<?php endif;?>
 				</span>
 
 			</div><!-- .site-info -->
 			
 			<!-- Footer Menus -->
-			<?php if ( is_active_sidebar( 'footer-sidebar' ) ) : ?>
-			    <section id="footer-sidebar" class="widget-area section-sml" role="complementary">
-			    	<?php dynamic_sidebar( 'footer-sidebar' ); ?>
+			<?php if ( is_active_sidebar( 'footer-bottom-sidebar' ) ) : ?>
+			    <section id="footer-bottom-sidebar" class="widget-area section-sml" role="complementary">
+			    	<?php dynamic_sidebar( 'footer-bottom-sidebar' ); ?>
 			    </section>
 			<?php endif; ?>
 			
 		</section> <!-- END.footer-inner -->
 
 		<!-- Footer Telephone Number (Mobile Only) -->
-		<div class="footer-tel">
-			<span>Call Us</span>
-			<a class="site-tel" href="tel:+<?php echo str_replace('-','',get_theme_mod("telephone"));?>"><?php echo str_replace('-','.',get_theme_mod("telephone"));?></a>
-		</div><!-- END.footer-tel -->
-
+		<?php if(get_theme_mod("telephone")) : ?>
+			<div class="footer-tel">
+				<span>Call Us</span>
+				<a class="site-tel" href="tel:+<?php echo str_replace('-','',get_theme_mod("telephone"));?>"><?php echo str_replace('-','.',get_theme_mod("telephone"));?></a>
+			</div><!-- END.footer-tel -->
+		<?php endif;?>
 	</footer><!-- #colophon -->
 
 </div><!-- #page -->

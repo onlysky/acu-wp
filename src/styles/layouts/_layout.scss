@@ -3,6 +3,8 @@
 	padding:0px $content-padding;
 }
 
+
+// Inner Sections
 .section-lg {
 	// Desktop
 	@include span-columns(3 of 3);
@@ -21,5 +23,18 @@
 }
 
 
-//@import "content-sidebar";
-//@import "sidebar-content";
+// Main Content Area
+#primary {
+
+	margin-top:100px;
+
+}//END #primary
+
+// Content Area Container with sidebar
+.content-sidebar #primary {
+		
+	// Desktop
+	@include span-columns(2 of 3);
+	@include shift(1);
+
+}//END .content-sidebar #primary

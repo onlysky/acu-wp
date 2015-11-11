@@ -9,6 +9,7 @@
 
 get_header(); ?>
 
+<div class="container content-sidebar">
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 
@@ -16,19 +17,14 @@ get_header(); ?>
 
 			<?php get_template_part( 'page-templates/partials/content', 'single' ); ?>
 
-			<?php the_post_navigation(); ?>
-
-			<?php
-				// If comments are open or we have at least one comment, load up the comment template.
-			if ( comments_open() || get_comments_number() ) :
-				comments_template();
-				endif;
-			?>
+			<?php // the_post_navigation(); ?>
 
 		<?php endwhile; // End of the loop. ?>
 
 		</main><!-- #main -->
 	</div><!-- #primary -->
 
-<?php get_sidebar(); ?>
+	<?php get_sidebar(); ?>
+	
+</div><!-- END.container -->
 <?php get_footer(); ?>

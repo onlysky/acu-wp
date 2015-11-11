@@ -19,7 +19,7 @@
 	</div><!-- END.feature-box-image-container -->
 	
 	<div class="feature-box-inner">
-		<h2><a href="<?php the_sub_field('button_link'); ?>" title="<?php the_sub_field('button_text'); ?>"><?php the_sub_field('feature_title'); ?></a></h2>
+		<h2><?php the_sub_field('feature_title'); ?></h2>
 
 		<div class="feature-box-content">
 			<?php the_sub_field('feature_content'); ?>

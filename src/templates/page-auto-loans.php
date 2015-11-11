@@ -10,70 +10,74 @@
 get_header(); ?>
 
  	<?php get_template_part( 'page-templates/partials/hero'); ?>
-	
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
-			AUTO LOANS
-				<?php while ( have_posts() ) : the_post(); ?>
+	<div class="container content-sidebar">
+		<div id="primary" class="content-area">
+			<main id="main" class="site-main" role="main">
+				
+					<?php while ( have_posts() ) : the_post(); ?>
 
-					<?php get_template_part( 'page-templates/partials/content', 'page' ); ?>
+						<?php get_template_part( 'page-templates/partials/content', 'page' ); ?>
+							
+					<?php endwhile; // End of the loop. ?>
+
+					<div class="container">
 						
-					<!-- Credit Cards -->
-					<?php if( have_rows('credit_card') ): ?>
-						<div class="container">
-								<div class="credit-card-list-header">
-									<span class="credit-card-rate">APR</span>
-									<span class="credit-card-rate">Annual Fee</span>
-									<span class="credit-card-rate">Cash Back</span>
-								</div><!-- END.credit-card-list-header -->
-							    <ul class="credit-cards-list">
-								    <?php while( have_rows('credit_card') ): the_row(); ?>
-								        
-										<!-- Credit Card -->
-								        <li class="credit-card">
-											
-											
-												<h2 class="credit-card-name"><?php the_sub_field('credit_card_name');?></h2>
+						<!-- Auto Loans Box -->
+						<?php if( have_rows('auto_loans_box') ): ?>
+							<section class="auto-loans-boxes">
+								<?php while( have_rows('auto_loans_box') ): the_row(); ?>
 
-											<img class="credit-card-image" src="<?php the_sub_field('credit_card_image');?>" alt="<?php the_sub_field('credit_card_name');?> Image" /> 
+									<!-- Auto Loans Box -->
+									<article class="feature-box auto-loans-box <?php the_sub_field('auto_loans_box_color'); ?>">
+										
+										<div class="feature-box-image-container">
+											<div class="feature-box-image" style="background-image:url(<?php if(get_sub_field('auto_loans_box_image')){echo the_sub_field('auto_loans_box_image');} else {echo (get_template_directory_uri() . '/img/acu-placeholder.jpg');} ?>);"></div><!-- END.feature-box-image -->
+										</div><!-- END.feature-box-image-container -->
+										
+										<div class="feature-box-inner">
+											<h2><a href="<?php the_sub_field('auto_loans_box_button_link'); ?>" title="<?php the_sub_field('auto_loans_box_button_text'); ?>"><?php the_sub_field('auto_loans_box_title'); ?></a></h2>
 											
-											<div class="credit-card-rates">
-												<div class="credit-card-apr credit-card-rate">
-													<?php the_sub_field('credit_card_apr');?>
-												</div><!-- END.credit-card-apr -->
-												
-												<div class="credit-card-fee credit-card-rate">
-													<?php the_sub_field('credit_card_fee');?>
-												</div><!-- END.credit-card-fee -->
-												
-												<div class="credit-card-cash-back credit-card-rate">
-													<?php the_sub_field('credit_card_cash_back');?>
-												</div><!-- END.credit-card-cash-back -->
-											</div><!-- END.credit-card-rates -->
+											<?php if(get_sub_field('auto_loans_box_content_type') == 'paragraph'): ?>
+												<div class="feature-box-content">
+													<?php the_sub_field('auto_loans_box_content'); ?>
+												</div><!-- END.feature-box-content -->
+											<?php elseif(get_sub_field('auto_loans_box_content_type') == 'rate'): ?>
+												<div class="auto-loan-box-rate-container">
+													
+													<span class="auto-loan-box-rate-header">
+														 <?php the_sub_field('auto_loans_box_rate_header'); ?>
+													</span>
+
+													<div class="auto-loan-box-rate">
+														<?php the_sub_field('auto_loans_box_rate'); ?>
+
+														<span class="auto-loan-box-rate-type">
+															<?php the_sub_field('auto_loans_box_rate_type'); ?>
+														</span>
+
+														<span class="auto-loan_box-rate-extra">
+															<?php the_sub_field('auto_loans_box_rate_extra'); ?>
+														</span>
+													</div><!-- END.auto-loan-box-rate -->
+
+												</div><!-- END.auto-loan-box-rate -->
+											<?php endif;?>
 											
-											<div class="credit-card-details">
-												<?php the_sub_field('credit_card_details');?>
-
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam cum nam velit expedita assumenda voluptas numquam veniam ut, magnam officia praesentium. Suscipit, dolorum. Porro dolores aspernatur, voluptatum laborum ut sapiente.
-											</div><!-- END.credit-card-details -->
-
-											<div class="credit-card-info">
-												<a href="<?php the_sub_field('credit_card_link_url');?>" title="Apply Now" class="credit-card-apply button">Apply Now</a>
-												<span class="credit-card-details-link">Details</span>
-											</div><!-- END.credit-card-info -->
+											<a href="<?php the_sub_field('auto_loans_box_button_link'); ?>" title="<?php the_sub_field('auto_loans_box_button_text'); ?>" class="feature-box-button button button-gold"><?php the_sub_field('auto_loans_box_button_text'); ?></a>
 											
+										</div><!-- END.feature-box-inner -->
+									</article><!-- END.feature-box -->
 
-											
-
-								        </li>
-								    <?php endwhile; ?>
-							    </ul>
-							</div><!-- END.container -->	
+								<?php endwhile; ?>
+							</section>
 						<?php endif; ?>
 
-				<?php endwhile; // End of the loop. ?>
+					</div><!-- END.container -->
+				
+			</main><!-- #main -->
+		</div><!-- #primary -->
 
-		</main><!-- #main -->
-	</div><!-- #primary -->
-
+		<?php get_sidebar(); ?>
+		
+	</div><!-- END.container content-sidebar -->
 <?php get_footer(); ?>

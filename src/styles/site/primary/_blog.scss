@@ -8,7 +8,7 @@ article.post,
 .index-item article {
 
 	//@include span-columns (1 of 1);
-	
+		
 	// Post Title
 	.entry-header {
 		h1 {
@@ -70,8 +70,17 @@ article.post,
 
 // Posts / Blog Index  
 // Being used for "News" section
-.posts-index {
+.posts-index,
+.category,
+.archive {
+	article.post {
 
+		margin-bottom:60px;
+
+		// Desktop
+		@include span-columns(1 of 2);
+		@include omega(2n);
+	}
 }// END .posts-index
 
 
@@ -79,3 +88,17 @@ article.post,
 .category-sticky {
 	border:none;
 }
+
+/*===================================
+=            Single Post            =
+===================================*/
+
+.entry-featured-image {
+	img {
+		width:100%;
+		height:auto;
+
+		margin-bottom:60px;
+	}
+	
+}//END .entry-featured-image

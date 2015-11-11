@@ -159,11 +159,31 @@ body.nav-menu-open {
 // WP Admin Bar adjustments
 body.admin-bar {
 	.main-navigation {
+		// Mobile
 		top:$header-height-mobile + 46px;
 
 		&:before {
+			// Mobile
 			top:$header-height-mobile + 46px;
 		}
+	}
+}
+
+// Bug Me Bar Notifications Bar adjustments
+body.bugmebar {
+	.main-navigation {
+
+		// Desktop
+		top:$header-height + 40px;
+		
+		// DesktopMobile
+		&:before {
+			top:$header-height + 40px;
+		}
+	}
+
+	.menu-cover {
+		top:$header-height + 40px;
 	}
 }
 

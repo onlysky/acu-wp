@@ -14,24 +14,21 @@
 
 get_header(); ?>
 	<?php get_template_part( 'page-templates/partials/hero'); ?>
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
 
-			<?php while ( have_posts() ) : the_post(); ?>
+	<div class="container content-sidebar">
+		<div id="primary" class="content-area">
+			<main id="main" class="site-main" role="main">
 
-				<?php get_template_part( 'page-templates/partials/content', 'page' ); ?>
+				<?php while ( have_posts() ) : the_post(); ?>
 
-				<?php
-					// If comments are open or we have at least one comment, load up the comment template.
-				if ( comments_open() || get_comments_number() ) :
-					comments_template();
-					endif;
-				?>
+					<?php get_template_part( 'page-templates/partials/content', 'page' ); ?>
 
-			<?php endwhile; // End of the loop. ?>
+				<?php endwhile; // End of the loop. ?>
 
-		</main><!-- #main -->
-	</div><!-- #primary -->
+			</main><!-- #main -->
+		</div><!-- #primary -->
 
-<?php get_sidebar(); ?>
+		<?php get_sidebar(); ?>
+		
+	</div><!-- END.container content-sidebar -->
 <?php get_footer(); ?>

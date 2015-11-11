@@ -23,7 +23,7 @@
 <body <?php body_class(); ?>>
 <div id="page" class="hfeed site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'onlysky_wp_framework' ); ?></a>
-
+	
 	<header id="masthead" class="site-header" role="banner">
 
 		<!-- Nav Button -->
@@ -73,26 +73,6 @@
 			<!-- Primary Menu -->
 			<div class="site-nav-primary-menu">
 				<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
-
-				<ul>
-					<li>Blah</li>
-					<li>Blah</li>
-					<li>Blah</li>
-					<li>Blah</li>
-					<li>Blah</li>
-					<li>Blah</li>
-					<li>Blah</li>
-					<li>Blah</li>
-					<li>Blah</li>
-					<li>Blah</li>
-					<li>Blah</li>
-					<li>Blah</li>
-					<li>Blah</li>
-					<li>Blah</li>
-					<li>Blah</li>
-					<li>Blah</li>
-				</ul>
-
 			</div><!-- END.site-nav-primary-menu -->
 			
 			<!-- Social Icon Links -->
@@ -101,10 +81,12 @@
 			</div><!-- END.site-nav-social -->
 			
 			<!-- Call Us Telephone -->
-			<div class="site-nav-tel">
-				<span>Call Us</span>
-				<a class="site-tel" href="tel:+<?php echo str_replace('-','',get_theme_mod("telephone"));?>"><?php echo str_replace('-','.',get_theme_mod("telephone"));?></a>
-			</div><!-- END.site-nav-tel -->
+			<?php if(get_theme_mod("telephone")) : ?>
+				<div class="site-nav-tel">
+					<span>Call Us</span>
+					<a class="site-tel" href="tel:+<?php echo str_replace('-','',get_theme_mod("telephone"));?>"><?php echo str_replace('-','.',get_theme_mod("telephone"));?></a>
+				</div><!-- END.site-nav-tel -->
+			<?php endif;?>
 
 		</div><!-- END.site-nav-inner -->
 	</nav><!-- #site-navigation -->

@@ -1,0 +1,14 @@
+section.auto-loans-boxes {
+
+}// END section.auto-loans-boxes
+
+
+// Auto Loans Boxes
+// Inherit styles from .feature box in elements/_feature-box.scss
+
+.auto-loans-box {
+	@include span-columns(1 of 2);
+	@include omega(2n);
+
+	
+}//END .auto-loans-box

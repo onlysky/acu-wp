@@ -12,11 +12,11 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
 		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-
-		<div class="entry-meta">
-			<?php onlysky_wp_framework_posted_on(); ?>
-		</div><!-- .entry-meta -->
 	</header><!-- .entry-header -->
+	
+	<div class="entry-featured-image">
+		<?php if ( has_post_thumbnail() ) {the_post_thumbnail();}?>
+	</div><!-- END.entry-featured-image -->
 
 	<div class="entry-content">
 		<?php the_content(); ?>
@@ -29,7 +29,12 @@
 	</div><!-- .entry-content -->
 
 	<footer class="entry-footer">
-		<?php onlysky_wp_framework_entry_footer(); ?>
+
+		<div class="entry-meta">
+			<?php onlysky_wp_framework_posted_on(); ?>
+		</div><!-- .entry-meta -->
+
+		<?php // onlysky_wp_framework_entry_footer(); ?>
 	</footer><!-- .entry-footer -->
 </article><!-- #post-## -->
 

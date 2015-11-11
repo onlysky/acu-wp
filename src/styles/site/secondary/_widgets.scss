@@ -45,3 +45,53 @@
 		}
 	}
 }//END .quick-nav
+
+
+
+/*===========================================
+=            Sidebar Menu Widget            =
+===========================================*/
+
+#secondary .widget_nav_menu {
+	
+	padding-top:100px;
+	padding-bottom:30px;
+	background-color: $blue-sky;
+
+	h2 {
+		text-align: left;
+		padding-left:$content-padding;
+		margin-bottom:60px;
+		color:$brown;
+		font-size:rem(30);
+		text-transform: none;
+	}
+
+	ul {
+		
+		@include listreset;
+
+		li {
+
+			border-bottom:1px solid $blue-light;
+			padding:10px $content-padding 3px $content-padding;
+			font-size:rem(20);
+
+			&.current-menu-item {
+				background-color:white;
+			}
+
+			a {
+				color:$blue;
+				&:hover {
+					color:$gold;
+				}
+			}
+		}
+
+	}//END ul
+
+}//END .widget_nav_menu
+
+
+/*=====  End of Sidebar Menu Widget  ======*/

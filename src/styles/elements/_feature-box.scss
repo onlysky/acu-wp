@@ -4,14 +4,19 @@
 	@include span-columns(1.5);
 	height:435px;
 
+	margin-top:60px;
+	margin-bottom:60px;
+
 	color:white;
 	
 	border-left:8px solid $burnt-orange;
 	
 	&:hover {
 		.feature-box-image-container {
+			@include transition(.5s);
 			opacity:.5;
 			.feature-box-image {
+				@include transition(.5s);
 				transform:scale(1.1);
 			}
 			
@@ -41,16 +46,23 @@
 		color:white;
 		text-align: left;
 		text-transform: inherit;
+
+		a {
+			color:white;
+			&:hover {
+				color:$gold;
+			}
+		}
 	}
 
 	.feature-box-image-container {
 		overflow:hidden;
-		@include transition;
+		@include transition(.5s);
 		opacity:.2;
 		height:435px;
 
 		.feature-box-image {
-			@include transition;
+			@include transition(.5s .2s linear);
 			height:435px;
 			background-size:cover;
 			background-position: center center;
@@ -75,6 +87,4 @@
 
 		}
 	}
-
-
-}
+}// END .feature-box

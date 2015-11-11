@@ -10,29 +10,32 @@
 
 get_header(); ?>
 
+	<?php get_template_part( 'page-templates/partials/hero'); ?>
+
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 			
-				<?php while ( have_posts() ) : the_post(); ?>
-
-					<?php get_template_part( 'page-templates/partials/hero'); ?>
-			
 			<div class="container">
+				
+				<!-- Homepage Content --> 
+				<?php while ( have_posts() ) : the_post(); ?>
+				
 					<section class="home-content section-sml">
 						<?php the_content(); ?>
 					</section>
-				
+					
 				<?php endwhile; // End of the loop. ?>
-			
-				<!-- Homepage Feature -->
-				<section class="home-features">
-					<?php if( have_rows('homepage_feature') ): ?>
-						    <?php while( have_rows('homepage_feature') ): the_row(); ?>
-						    	<?php get_template_part( 'page-templates/partials/feature-box'); ?>
-						    <?php endwhile; ?>
-					<?php endif; ?>
-				</section>
 
+				<!-- Homepage Feature -->
+				<?php if( have_rows('homepage_feature') ): ?>
+					<section class="home-features">
+						
+					    <?php while( have_rows('homepage_feature') ): the_row(); ?>
+					    	<?php get_template_part( 'page-templates/partials/feature-box'); ?>
+					    <?php endwhile; ?>
+						
+					</section>
+				<?php endif; ?>
 
 				<!-- Homepage Latests News Posts -->
 				<section class="home-posts">
@@ -60,4 +63,5 @@ get_header(); ?>
 				
 		</main><!-- #main -->
 	</div><!-- #primary -->
+
 <?php get_footer(); ?>

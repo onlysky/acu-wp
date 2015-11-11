@@ -41,8 +41,6 @@
 
 // Homepage Content
 .home-content {
-	margin-top: 100px;
-
 	h1 {
 		text-align: center;
 		margin-bottom:40px;
@@ -51,13 +49,9 @@
 
 // Homepage Features
 .home-features {
-	margin-top:60px;
-	margin-bottom:60px;
 
 	// Desktop
 	@include span-columns (3 of 3);
-
-
 
 } // END .home-features
 
@@ -78,7 +72,7 @@
 #home-quick-nav {
 	
 	// Desktop
-	height:490px;
+	min-height:490px;
 	@include span-columns(1 of 3);
 
 } //END .home-quick-nav
