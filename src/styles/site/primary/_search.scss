@@ -1,0 +1,72 @@
+/*===================================
+=            Search Form            =
+===================================*/
+.search-form {
+
+	margin-bottom:60px; 
+	@include clearfix;
+
+	label {
+		width:100%;
+		padding-right:200px;
+		margin-right:-120px;
+		display:block;
+		float:left;
+	}
+
+	input.search-field {
+		width:100%;
+		border-bottom:1px solid $tan;
+		border-radius: 0px;
+	}
+
+	input.search-submit {
+		float:right;
+		font-size:rem(20);
+
+		color:white;
+		text-transform: uppercase;
+		font-family: $font-bold;
+
+		background-color:$blue;
+		border-color:$blue;
+
+		&:hover {
+			background-color:$rose;
+			border-color:$rose;
+		}
+	}
+}//END .search-form
+/*=====  End of Search Form  ======*/
+
+/*======================================
+=            Search Results            =
+======================================*/
+.search-results {
+
+	article {
+		margin-bottom:40px;
+	}
+	
+	h2.entry-title {
+		text-align: left;
+		margin-bottom:5px;
+		text-transform: none;
+	}
+
+	a.search-results-link {
+		color:$brown-light;
+		font-style: italic;
+		font-size:rem(18);
+
+		&:hover {
+			color:$rose;
+		}
+	}
+
+}//END .search-results
+
+
+
+
+/*=====  End of Search Results  ======*/

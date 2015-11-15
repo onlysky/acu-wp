@@ -1,10 +1,18 @@
 
 // Sidebar Container
 
-#secondary {
-	
+#secondary {	
+	// Mobile
+	@include media($mobile) {
+		@include span-columns(1 of 1);
+		@include shift(0);
+		@include omega();
+		margin-top:50px;
+	}
+
 	// Desktop
 	@include span-columns(1 of 3);
 	@include shift(-3);
 	@include omega();
+
 }//END #secondary

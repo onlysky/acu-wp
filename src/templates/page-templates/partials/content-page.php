@@ -9,8 +9,6 @@
 
 ?>
 
-<div class="container">
-
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		
 		<?php 
@@ -47,4 +45,3 @@
 			?>
 		</footer><!-- .entry-footer -->
 	</article><!-- #post-## -->
-</div><!-- END.container -->

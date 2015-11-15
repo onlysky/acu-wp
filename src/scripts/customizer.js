@@ -24,7 +24,7 @@
 	} );
 
 	/*Custom Customizer Fields*/
-	
+/*	
 	// Site Address
 	wp.customize( 'address', function( value ) {
 		value.bind( function( to ) {
@@ -53,7 +53,7 @@
 			$( '.site-tel-alt' ).text( tel ).attr('href', telhref);
 		} );
 	} );
-	
+*/
 	// Header text color.
 	/*
 	wp.customize( 'header_textcolor', function( value ) {

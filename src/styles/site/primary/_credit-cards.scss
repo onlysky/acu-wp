@@ -1,16 +1,38 @@
 // Credit Cards Page
 
-.credit-card-list-header {
-	padding-right:30px;
+// The content area is shifted over to look like a sidebar on mobile
+.credit-cards-content {
 
-	@include clearfix;
+	margin-top:100px;
+	
+	// Mobile
+	@include media($mobile) {
+		@include span-columns(1 of 1);
+		@include omega;
+	}
 
-	.credit-card-rate {
-		float:right;
-		font-size: rem(16);
-		font-family: $font-bold;
-		margin-left:10px;
-		color:$burnt-orange;
+	//DESKTOP
+	@include span-columns(1 of 3);
+}
+
+// Credit cards page main area
+.page-credit-cards {
+	
+	#primary {
+		@include shift(0);
+		@include omega;
+		margin-top:30px;
+		
+		// DESKTOP
+		@include media($desktop) {
+			// Shifts Primary to right to look like regular
+			float:right;
+			margin-top:70px;
+		}
+	}	
+
+	#secondary {
+		@include shift(0);
 	}
 }
 
@@ -20,45 +42,176 @@ ul.credit-cards-list {
 	li.credit-card {
 		position:relative;
 		
-		@include span-columns(1 of 1);
+		@include span-columns(3 of 3);
+		@include omega;
 		padding:30px;
 		border-bottom:1px solid $tan;
+
+		transition:all .5s ease-in-out;
+
+		max-height:200px;
+		overflow:hidden;
+
+		// Mobile
+		@include media($mobile) {
+			text-align: center;
+			max-height: 40px;
+			border-bottom:none;
+			border-top:none;
+			padding:0px 0px 10px 0px;
+		}
 		
 		// Accordion Open
 		&.open {
 			background-color:$blue-sky;
+			max-height:1000px;
+
+			// Mobile 
+			@include media ($mobile) {
+				background-color:transparent;
+			}
+
+			h2.credit-card-name {
+
+				@include media ($mobile) {
+					&:after {
+						content:'\2013';
+					}
+				}
+			}
+
+			.credit-card-details {
+				opacity:1;
+				transform:translate3d(0,0,0);
+				transition:all .3s .1s ease-in-out;
+			}
+
+			.credit-card-rates {
+				opacity:1;
+			}
+
+			.credit-card-info {
+				opacity:1;
+			}
+
+			.credit-card-image {
+				opacity:1;
+			}
+
+			.credit-card-details-link {
+				&:after {
+					transform:rotate(-180deg);
+				}
+			}
+		}
+
+		&:first-child {
+			border-top:1px solid transparent;
+			
+			// Mobile
+			@include media($mobile) {
+				border-top:none;
+			}
+
+			&.open {
+				border-top:1px solid $tan;
+
+				// Mobile
+				@include media($mobile) {
+					border-top:none;
+				}
+			}
 		}
 		
+		// Credit Card Image
 		.credit-card-image {
 			
+			// Mobile
+			@include media($mobile) {
+				position: inherit;
+				left:inherit;
+				top:inherit;
+				margin:0 auto;
+				opacity:0;
+			}
+
 			// Desktop
 			position: absolute;
 			left:30px;
-			top:30px;
+			top:64px;
 			width:150px;
 			height:100px;
+
+			opacity:.7;
+			transition:all .5s ease-in-out;
+
+			&:hover {
+				cursor:pointer;
+				opacity:.8;
+			}
 		}
 		
+		// Credit Card Name
 		h2.credit-card-name {
 			font-size:rem(30);
 			color:$brown;
 			text-transform: none;
 			font-family: $font-book;
+			
+			// Media
+			@include media($mobile) {
+				float:none;
+				padding-left:0px;
+				padding-right:0px;
+				margin-top:0px;
+				margin-right:0px;
+				margin-left:0px;
+				color:$blue;
+				font-size: rem(22);
+				text-align:left;
+
+				&:after {
+					content:'+';
+					float:right;
+					font-size:rem(40);
+					line-height: 18px;
+				}
+			}
 
 			// Desktop
 			float:left;
 			padding-left:180px;
 			width:100%;
+			margin-top:34px;
 			margin-right:-280px;
-			padding-right:280px;
+			padding-right:290px;
 			text-align: left;
-			@include ellipses;
+			
+			@include media($desktop) {
+				@include ellipses;
+			}
+			
 		}
 
 		.credit-card-info {
+			transition:all .5s ease-in-out;
+			
 			position:absolute;
-			top:80px;
+			top:124px;
 			left:210px;
+			
+			// Mobile
+			@include media($mobile) {
+				opacity:0;
+
+				position: inherit;
+				top:inherit;
+				left:inherit;
+				margin-top:30px;
+				padding-bottom:50px;
+				margin-bottom:50px;
+				border-bottom:1px solid $tan;
+			}
 			
 			.credit-card-apply {
 				text-transform: uppercase;
@@ -74,7 +227,10 @@ ul.credit-cards-list {
 				position:relative;
 
 				// Mobile
-				display:none;
+				@include media($mobile) {
+					display:none;
+				}
+				
 
 				// Desktop
 				display: inline;
@@ -98,27 +254,138 @@ ul.credit-cards-list {
 					@include triangle(10px 5px, $blue, down);
 					@include transition;
 
-					// For open state:
-					//transform:rotate(180deg);
-
 				}
 			}
 		}// END .credit-card-info
-
+	
+		// Credit Card Rates
 		.credit-card-rates {
-			float:right;
+			transition:all .5s ease-in-out;
 
+			// Desktop
+			float:right;
+			width:280px;
+
+			// Mobile
+			@include media($mobile) {
+				opacity:0;
+
+				width:100%;
+				float:none;
+				margin-top:20px;
+				margin-bottom:20px;
+				@include clearfix;
+			}
+		}//END .credit-card-rates
+			
 			.credit-card-rate {
 				float:left;
+				@include omega;
+
+				&.credit-card-apr {
+					@include span-columns(1.1 of 3);
+
+					.credit-card-rate-number {
+						&:after {
+							content:'%';
+						}
+					}
+				}
+
+				&.credit-card-fee {
+					@include span-columns(1 of 3);
+
+					.credit-card-rate-number {
+						&:before {
+							content:'$';
+						}
+					}
+				}
+
+				&.credit-card-cash-back {
+					@include span-columns(.9 of 3);
+
+					.credit-card-rate-number {
+						&:after {
+							content:'%';
+						}
+					}
+				}
+
+				// Mobile
+				@include media($mobile) {
+					float:none;
+					@include omega;
+					@include clearfix;
+
+					border-bottom:1px solid $tan;
+					padding-top:10px;
+
+					&.credit-card-apr,
+					&.credit-card-fee,
+					&.credit-card-cash-back  {
+						@include span-columns(3 of 3);
+					}
+				}
+			}//END .credit-card-rate
+			
+		.credit-card-rate-label {
+			display:block;
+			font-size: rem(16);
+			font-family: $font-bold;
+			color:$burnt-orange;
+			margin-bottom:10px;
+
+			// Mobile
+			@include media($mobile) {
+				float:left;
+				font-size:rem(18);
+				color:$brown;
+				font-family: $font-book;
 			}
 		}
 
+		.credit-card-rate-number {
+			font-size:rem(30);
+
+			&:after,
+			&:before {
+				vertical-align: super;
+				font-size:rem(18);
+			}
+
+			// Mobile
+			@include media($mobile) {
+				float:right;
+				font-size:rem(18);
+
+				&:after,
+				&:before {
+					vertical-align: normal;
+					font-size:rem(10);
+				}
+			}
+		}
+		
+		// Credit Card Details
 		.credit-card-details {
-			margin-top:140px;
+			margin-top:170px;
 
 			font-size:rem(20);
 			font-family: $font-book;
-		}
+
+			opacity:0;
+			transform:translate3d(0,-20px,0);
+
+			transition:all .3s 0s ease-in-out;
+			
+			// Mobile
+			@include media($mobile) {
+				transform:translate3d(0,0,0);
+				margin-top:0px;
+				text-align: left;
+			}
+		}//END .credit-card-details
 
 	}// END li.credit-card
 }//END ul.credit-cards-list

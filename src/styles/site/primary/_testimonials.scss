@@ -8,15 +8,48 @@ ul.testimonials-list {
 	
 	@include listreset;
 	margin-top:60px;
+	
+	// Masonry Gutter
+	.gutter-sizer {
+		// Mobile
+		@include media($mobile) {
+			width: 0%;
+		}
+
+		// Tablet
+		@include media($tablet) {
+			width: 8%;
+		}
+
+		// Desktop
+		@include media($desktop) {
+			width: 8%;
+		}
+		
+	}
 
 	li.testimonial {
 
 		display:block;
 		margin-bottom:40px;
+		
+		// Mobile
+		@include media($mobile) {
+			//@include span-columns(1 of 1);
+			width:100%;
+		}
+
+		// Tablet 
+		@include media($tablet) {
+			//@include span-columns(1 of 2);
+			width:46%;
+		}
 
 		// Desktop
-		@include span-columns(1);
-		@include omega();		
+		//@include span-columns(1 of 3);
+		//@include omega;
+		//margin-right:0px;
+		width:28%;
 
 		// Testimonial with Image
 		&.image-testimonial {

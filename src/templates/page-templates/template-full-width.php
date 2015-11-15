@@ -12,16 +12,18 @@
 get_header(); ?>
 	<?php get_template_part( 'page-templates/partials/hero'); ?>
 	
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+	<div class="container">
+		<div id="primary" class="content-area">
+			<main id="main" class="site-main" role="main">
 
-			<?php while ( have_posts() ) : the_post(); ?>
+				<?php while ( have_posts() ) : the_post(); ?>
 
-				<?php get_template_part( 'page-templates/partials/content', 'page' ); ?>
+					<?php get_template_part( 'page-templates/partials/content', 'page' ); ?>
 
-			<?php endwhile; // End of the loop. ?>
+				<?php endwhile; // End of the loop. ?>
 
-		</main><!-- #main -->
-	</div><!-- #primary -->
+			</main><!-- #main -->
+		</div><!-- #primary -->
+	</div><!-- END.container -->
 
 <?php get_footer(); ?>

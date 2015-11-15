@@ -1,23 +1,31 @@
 .feature-box {
-	
+	color:white;
+	border-left:8px solid $burnt-orange;
+
 	position:relative;
+	margin-bottom:60px;
+	
+	//Mobile
+	@include media($mobile) {
+		@include span-columns(1 of 1);
+		margin-bottom:0px;
+		margin-top:0px;
+	}
+
 	@include span-columns(1.5);
 	height:435px;
-
-	margin-top:60px;
-	margin-bottom:60px;
-
-	color:white;
-	
-	border-left:8px solid $burnt-orange;
 	
 	&:hover {
 		.feature-box-image-container {
-			@include transition(.5s);
+			//@include transition(.5s);
+			transition:all .5s ease-in-out;
+			transform:translate3d(0,0,0);
 			opacity:.5;
+			
 			.feature-box-image {
-				@include transition(.5s);
-				transform:scale(1.1);
+				//@include transition(.5s);
+				transition:all .5s ease-in-out !important;
+				transform:scale(1.1) translate3d(0,0,0);
 			}
 			
 		}
@@ -40,6 +48,20 @@
 		background-color:$olive;
 	}
 
+	&.feature-untinted {
+		background-color:none;
+
+		.feature-box-image-container{
+			opacity:.8 !important;
+		}
+
+		&:hover {
+			.feature-box-image-container {
+				opacity:1 !important;
+			}
+		}
+	}//END feature-untinted 
+
 	h2 {
 		margin-top:20px;
 		font-size:rem(40);
@@ -57,12 +79,17 @@
 
 	.feature-box-image-container {
 		overflow:hidden;
-		@include transition(.5s);
+		//@include transition(.5s);
+		transition:all .5s ease-in-out;
+		transform:translate3d(0,0,0);
+
 		opacity:.2;
 		height:435px;
 
 		.feature-box-image {
-			@include transition(.5s .2s linear);
+			//@include transition(.5s .2s linear);
+			transition: all .5s .2s linear !important;
+			transform:translate3d(0,0,0);
 			height:435px;
 			background-size:cover;
 			background-position: center center;
@@ -70,6 +97,7 @@
 	}
 	
 	.feature-box-inner {
+		width:100%;
 		position:absolute;
 		top:0;
 		left:0;
@@ -79,6 +107,7 @@
 		.feature-box-content {
 			position:absolute;
 			bottom:100px;
+			padding-right:40px;
 		}
 
 		.feature-box-button {

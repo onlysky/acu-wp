@@ -6,92 +6,65 @@
 	display: block;
 	z-index: 99999;
 	position:absolute;
-	
-	
-	
+		
 	left:0;
 	right:0;
 	width: 100%;
-	padding:20px $content-padding-mobile 40px $content-padding-mobile;
+	padding:20px $content-padding 40px $content-padding;
 
 	color:white;
 	background-color:$brown;
 
 	overflow-y:auto;
 	
-	@include transition(opacity .3s, visibility 0s .3s);
+	//@include transition(opacity .3s, visibility 0s .3s);
+	transition:opacity .3s ease-in-out, visibility 0s .3s ease-in-out;
+	transform: translate3d(0,0,0);
 
 	//Hide Menu
 	opacity:0;
 	visibility: hidden;
 
 	// Mobile
-	top:$header-height-mobile;
-	bottom:0;
+	@include media($mobile) {
+		top:$header-height-mobile;
+		bottom:0;
+	}
+	
+
+	// When not mobile but viewport height isn't enough to see the full menu (menu height + header height)
+	@media (max-height:740px) {
+		top:$header-height-mobile;
+	}
 
 	// Desktop
-	z-index:1;
-	top:$header-height - 30px;
-	padding-top:60px;
-	overflow-y:hidden;
-	bottom:inherit;
-	height:60%;
-	box-shadow: 0px 20px 20px rgba(0,0,0, 0.3);
-	background-color:rgba(84, 48, 26, 0.9);
-	
-	// Top Fade
-	&:before {
-		z-index:9;
-		content:'';
-		position:fixed;
-		
-		left:0;
-		height:20px;
-		width:100%;
-
-		@include background-image(linear-gradient(to top, transparent, $brown));
-
-		// Mobile
-		top:$header-height-mobile;
-
-		// Desktop
-		top:$header-height;
-		display:none;
+	@include media($desktop) {
+		z-index:2;
+		top:$header-height - 30px;
+		padding-top:60px;
+		overflow-y:hidden;
+		bottom:inherit;
+		//height:60%;
+		height:650px;
+		box-shadow: 0px 20px 20px rgba(0,0,0, 0.3);
+		background-color:rgba(84, 48, 26, 0.9);
 	}
-	
+
+	// Menu height adjustment for small desktop... comes after desktop again
+	@media (max-height:740px) {
+		overflow-y:scroll !important;
+		bottom:0;
+		height:inherit;
+	}
+
 	.site-nav-inner {
 		opacity:0;
-		transform:translateY(-100%);
+		transform:translate3d(0,-50%,0);
+		height:100%;
 
-		@include transition(transform .5s, opacity .5s);
-	}
+		//@include transition(transform .5s ease-in-out, opacity .5s ease-in-out);
+		transition: transform .5s ease-in-out, opacity .5s ease-in-out;
 
-	.site-nav-primary-menu {
-		//column-count: 2;
-    	//column-gap: 20px;
-
-    	ul {
-			list-style: none;
-			margin-left: 0px;
-			padding-left: 0;
-
-			background-color:$brown;
-
-			// Desktop
-			background-color:transparent;
-
-			li {
-				font-size:rem(28);
-
-				a {
-					color:white;
-
-					&:hover {
-						color:$color-link-hover-dark;
-					}
-				}
-			}
-		}// END ul
 	}
 
 	.current_page_item > a,
@@ -99,19 +72,7 @@
 	.current_page_ancestor > a {
 	}
 	
-	/* Main Navigation Telephone */
-	.site-nav-tel {
-		span {
-			color:$tan;
-			font-size:rem(24);
-			display:block;
-		}
 
-		a {
-			color:$gold;
-			font-size:rem(40);
-		}
-	}
 }//END .main-navigation
 
 // Content Cover under menu
@@ -125,7 +86,9 @@
 	
 	background-color:transparent;
 
-	@include transition(background .3s ease-in-out);
+	//@include transition(background .3s ease-in-out);
+	transition: background .3s ease-in-out;
+	transform: translate3d(0,0,0);
 }
 
 //Main Navigation Menu Toggle
@@ -135,6 +98,11 @@ body.nav-menu-open {
 	.menu-cover {
 		bottom:0px;
 		background-color:rgba(0,0,0,0.8);
+		z-index: 1;
+
+		@include media($mobile) {
+			display:none;
+		}
 	}
 
 	//Nav Menu
@@ -143,12 +111,15 @@ body.nav-menu-open {
 		//Show the Main Navigation
 		opacity:1;
 		visibility:visible;
+		z-index:3;
 		
-		@include transition(opacity .3s, visibility 0s 0s);
+		//@include transition(opacity .3s ease-in-out, visibility 0s 0s ease-in-out);
+		transition: opacity .3s ease-in-out, visibility 0s 0s ease-in-out;
 
 		.site-nav-inner {
-			@include transition(transform .2s, opacity .2s);
-			transform:translateY(0%);
+			//@include transition(transform .2s ease-in-out, opacity .2s ease-in-out);
+			transition: transform .2s ease-in-out, opacity .2s ease-in-out;
+			transform: translate3d(0,0,0);
 			opacity:1;
 		}
 		
@@ -160,12 +131,19 @@ body.nav-menu-open {
 body.admin-bar {
 	.main-navigation {
 		// Mobile
-		top:$header-height-mobile + 46px;
-
-		&:before {
-			// Mobile
-			top:$header-height-mobile + 46px;
+		top:$header-height-mobile + 46px;	
+		
+		// Desktop
+		@include media($desktop) {
+			top:$header-height;
 		}
+	}
+
+	.menu-cover {
+		// Desktop
+		@include media($desktop) {
+			top:$header-height + 30px;
+		}	
 	}
 }
 
@@ -186,6 +164,83 @@ body.bugmebar {
 		top:$header-height + 40px;
 	}
 }
+
+
+/*========================================
+=            Menu Widget Area            =
+========================================*/
+#menu-sidebar {
+	
+	// Main Menu Page Menu
+	.main-menu-menu {
+		ul {
+			@include listreset
+
+			// Desktop
+			background-color:transparent;
+
+			li {
+				font-size:rem(28);
+
+				a {
+					color:white;
+
+					&:hover {
+						color:$color-link-hover-dark;
+					}
+				}
+			}
+		}// END ul
+	}//END .main-menu-menu
+	
+	// Main Menu Telephone
+	.main-menu-telephone {
+		text-align: center;
+		margin-bottom:40px;
+
+		@include media($mobile) {
+			margin-top:40px;
+		}
+		
+		h2.widget-title {
+			text-transform: none !important;
+			margin-bottom:10px;
+			color:$tan;
+			font-size:rem(24);
+		}
+
+		a {
+			color:$gold;
+			font-size:rem(40);
+
+
+			@include media($desktop) {
+				font-size:rem(50);
+			}
+		}
+	}
+
+	// Social Icons
+	.main-menu-social-icons {
+		text-align:center;
+		li {
+			@include media($mobile) {
+				@include span-columns(.8 of 4);	
+			}
+
+			a {
+				background-color:transparent !important;
+				border-color:transparent !important;
+				font-size:rem(30);
+			}
+		}
+	}//END .main-menu-social-icons
+
+
+}//END #menu-sidebar
+
+/*=====  End of Menu Widget Area  ======*/
+
 
 .comment-navigation,
 .posts-navigation,

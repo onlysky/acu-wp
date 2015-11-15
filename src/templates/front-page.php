@@ -15,36 +15,38 @@ get_header(); ?>
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 			
-			<div class="container">
-				
-				<!-- Homepage Content --> 
-				<?php while ( have_posts() ) : the_post(); ?>
-				
+			<!-- Homepage Content --> 
+			<?php while ( have_posts() ) : the_post(); ?>
+				<div class="container">
 					<section class="home-content section-sml">
 						<?php the_content(); ?>
 					</section>
+				</div><!-- END .container -->
+			<?php endwhile; // End of the loop. ?>
+
+			<!-- Homepage Feature -->
+			<?php if( have_rows('homepage_feature') ): ?>
+				<section class="home-features">
 					
-				<?php endwhile; // End of the loop. ?>
-
-				<!-- Homepage Feature -->
-				<?php if( have_rows('homepage_feature') ): ?>
-					<section class="home-features">
-						
-					    <?php while( have_rows('homepage_feature') ): the_row(); ?>
-					    	<?php get_template_part( 'page-templates/partials/feature-box'); ?>
-					    <?php endwhile; ?>
-						
-					</section>
-				<?php endif; ?>
-
+				    <?php while( have_rows('homepage_feature') ): the_row(); ?>
+				    	<?php get_template_part( 'page-templates/partials/feature-box'); ?>
+				    <?php endwhile; ?>
+					
+				</section>
+			<?php endif; ?>
+				
+			<div class="container">
+				
 				<!-- Homepage Latests News Posts -->
 				<section class="home-posts">
 					<?php 
 						$latest_news_args = array(
 							'post_type' => 'post',
 							'post_status' => 'publish',
-							'posts_per_page' => 2,
-							'category_name' => 'news'
+							//'posts_per_page' => 2,
+							'category_name' => 'news',
+							'meta_key'		=> 'post_homepage',
+							'meta_value'	=> true
 						);
 						$latest_news = new WP_Query($latest_news_args); 
 						while( $latest_news->have_posts() ) : $latest_news->the_post(); 
@@ -59,8 +61,8 @@ get_header(); ?>
 					<?php wp_nav_menu( array( 'theme_location' => 'home_quick_nav', 'menu_id' => 'home-quick-nav-menu' ) ); ?>
 				</nav>
 
-			</div><!-- END .container -->
-				
+			</div><!-- END.container -->
+			
 		</main><!-- #main -->
 	</div><!-- #primary -->
 

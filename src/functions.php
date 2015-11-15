@@ -46,7 +46,7 @@ if ( ! function_exists( 'onlysky_wp_framework_setup' ) ) :
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus(
 			array(
-			'primary' => esc_html__( 'Primary Menu', 'onlysky_wp_framework' ),
+			//'primary' => esc_html__( 'Primary Menu', 'onlysky_wp_framework' ),
 			'home_quick_nav' => esc_html__( 'Homepage Quick Navigation Menu', 'onlysky_wp_framework' )
 			)
 		);
@@ -69,6 +69,7 @@ if ( ! function_exists( 'onlysky_wp_framework_setup' ) ) :
         * Enable support for Post Formats.
         * See https://developer.wordpress.org/themes/functionality/post-formats/
         */
+		/*
 		add_theme_support(
 			'post-formats', array(
 			'aside',
@@ -78,8 +79,10 @@ if ( ! function_exists( 'onlysky_wp_framework_setup' ) ) :
 			'link',
 			)
 		);
+		*/
 
 		// Set up the WordPress core custom background feature.
+		/*
 		add_theme_support(
 			'custom-background', apply_filters(
 				'onlysky_wp_framework_custom_background_args', array(
@@ -88,6 +91,7 @@ if ( ! function_exists( 'onlysky_wp_framework_setup' ) ) :
 				)
 			)
 		);
+		*/
 	}
 endif; // onlysky_wp_framework_setup
 add_action( 'after_setup_theme', 'onlysky_wp_framework_setup' );
@@ -185,6 +189,23 @@ add_filter( 'category_rewrite_rules', 'onlysky_wp_framework_filter_category_rewr
 
 /**
  * 
+ * Pretty Search URL
+ *
+ * Source: http://wpengineer.com/2258/change-the-search-url-of-wordpress/
+ * 
+ */
+
+function onlysky_wp_framework_search_url_rewrite() {
+	if ( is_search() && ! empty( $_GET['s'] ) ) {
+		wp_redirect( home_url( "/search/" ) . urlencode( get_query_var( 's' ) ) );
+		exit();
+	}	
+}
+add_action( 'template_redirect', 'onlysky_wp_framework_search_url_rewrite' );
+
+
+/**
+ * 
  * Remove <p> tags from around category descriptions
  *
  * Usage: <?php echo category_description(); ?> in template
@@ -219,12 +240,25 @@ add_action( 'after_setup_theme', 'onlysky_wp_framework_content_width', 0 );
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
 function onlysky_wp_framework_widgets_init() {
+	// Main Menu Sidebar
+	register_sidebar(
+		array(
+		'name'          => esc_html__( 'Main Menu', 'onlysky_wp_framework' ),
+		'id'            => 'menu-sidebar',
+		'description'   => 'The widget area for the main menu',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+		)
+	);
+
 	// Page Sidebar
 	register_sidebar(
 		array(
 		'name'          => esc_html__( 'Page Sidebar', 'onlysky_wp_framework' ),
 		'id'            => 'page-sidebar',
-		'description'   => '',
+		'description'   => 'The sidebar for pages',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
 		'before_title'  => '<h2 class="widget-title">',
@@ -237,7 +271,7 @@ function onlysky_wp_framework_widgets_init() {
 		array(
 		'name'          => esc_html__( 'Posts Sidebar', 'onlysky_wp_framework' ),
 		'id'            => 'post-sidebar',
-		'description'   => '',
+		'description'   => 'The sidebar displayed for posts',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
 		'before_title'  => '<h2 class="widget-title">',
@@ -250,7 +284,7 @@ function onlysky_wp_framework_widgets_init() {
 		array(
 		'name'          => esc_html__( 'News Index Sidebar', 'onlysky_wp_framework' ),
 		'id'            => 'index-sidebar',
-		'description'   => '',
+		'description'   => 'Sidebar for News section and category index',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
 		'before_title'  => '<h2 class="widget-title">',
@@ -258,25 +292,12 @@ function onlysky_wp_framework_widgets_init() {
 		)
 	);
 
-	// Footer Top Sidebar
+	// Footer Sidebar
 	register_sidebar(
 		array(
-		'name'          => esc_html__( 'Footer Top', 'onlysky_wp_framework' ),
-		'id'            => 'footer-top-sidebar',
-		'description'   => '',
-		'before_widget' => '<aside id="%1$s" class="widget widget-footer %2$s">',
-		'after_widget'  => '</aside>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
-		)
-	);
-
-	// Footer Bottom Sidebar
-	register_sidebar(
-		array(
-		'name'          => esc_html__( 'Footer Bottom', 'onlysky_wp_framework' ),
-		'id'            => 'footer-bottom-sidebar',
-		'description'   => '',
+		'name'          => esc_html__( 'Footer', 'onlysky_wp_framework' ),
+		'id'            => 'footer-sidebar',
+		'description'   => 'Footer Widget Area',
 		'before_widget' => '<aside id="%1$s" class="widget widget-footer %2$s">',
 		'after_widget'  => '</aside>',
 		'before_title'  => '<h2 class="widget-title">',
@@ -364,10 +385,11 @@ function onlysky_wp_framework_scripts() {
 	//wp_enqueue_script( 'onlysky_wp_framework-locations', get_template_directory_uri() . '/js/jquery.responsiveiframe.js', array('jquery'), '1.1', true );
 	//wp_enqueue_script( 'onlysky_wp_framework-locations', '/wp-content/plugins/advanced-iframe/js/ai_external.js', array('jquery'), '1.1', true );
 
-	wp_enqueue_script( 'onlysky_wp_framework-iframeresizer', get_template_directory_uri() . '/js/iframeResizer.min.js', array('jquery'), '1.1', true );
-	wp_enqueue_script( 'onlysky_wp_framework-locations', get_template_directory_uri() . '/js/locations.js', array('jquery'), '1.1', true );
+	//wp_enqueue_script( 'onlysky_wp_framework-iframeresizer', get_template_directory_uri() . '/js/iframeResizer.min.js', array('jquery'), '1.1', true );
+	//wp_enqueue_script( 'onlysky_wp_framework-locations', get_template_directory_uri() . '/js/locations.js', array('jquery'), '1.1', true );
 
-
+	// Credit Cards Page
+	wp_enqueue_script( 'onlysky_wp_framework-credit-cards', get_template_directory_uri() . '/js/credit-cards.js', array('jquery'), '1.1', true );
 	
 	// Menu Navigation
 	wp_enqueue_script( 'onlysky_wp_framework-navigation', get_template_directory_uri() . '/js/navigation.js', array('jquery'), '1.1', true );

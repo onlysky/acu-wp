@@ -1,3 +1,4 @@
+
 <?php
 /**
  * The header for our theme.
@@ -43,54 +44,28 @@
 		</div><!-- .site-branding -->
 
 		<!-- Mobile Login -->
-		<a class="login-button" href="/login" title="Secure Login">Log In</a>
-		
+		<a class="login-button" href="https://mcw.youracu.org/cgi-bin/mcw000.cgi?MCWSTART" title="Secure Login">Log In</a>
 		<!-- Desktop Header Elements -->
 		<div class="header-desktop">
 
 			<!-- Desktop Login -->
 			<span class="header-login">
-				<input type="text" placeholder="Username"/>
-				<input type="password" placeholder="Password" />
+				<input class="input-username" type="text" placeholder="Username"/>
+				<input class="input-password" type="password" placeholder="Password" />
 				<input id="login-submit" type="submit" value="Log In" />
 			</span>
 			
 			<!-- Join Us Button -->
-			<a href="/join" class="header-join button button-gold">Join Us</a>
+			<a href="/join-us" class="header-join button button-gold">Join Us</a>
 			
 			<!-- Search Button -->
-			<a href="/search" class="header-search">Search</a>
+			<a href="/search" title="Search our website" class="header-search">Search</a>
 
 		</div>
 	
 	</header><!-- #masthead -->
-
+	
 	<!-- Main Navigation Menu -->
-	<nav id="site-navigation" class="main-navigation" role="navigation">
-		
-		<div class="site-nav-inner">
-
-			<!-- Primary Menu -->
-			<div class="site-nav-primary-menu">
-				<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
-			</div><!-- END.site-nav-primary-menu -->
-			
-			<!-- Social Icon Links -->
-			<div class="site-nav-social">
-				
-			</div><!-- END.site-nav-social -->
-			
-			<!-- Call Us Telephone -->
-			<?php if(get_theme_mod("telephone")) : ?>
-				<div class="site-nav-tel">
-					<span>Call Us</span>
-					<a class="site-tel" href="tel:+<?php echo str_replace('-','',get_theme_mod("telephone"));?>"><?php echo str_replace('-','.',get_theme_mod("telephone"));?></a>
-				</div><!-- END.site-nav-tel -->
-			<?php endif;?>
-
-		</div><!-- END.site-nav-inner -->
-	</nav><!-- #site-navigation -->
-
-	<div class="menu-cover"></div><!-- END.menu-cover -->
+	<?php get_template_part( 'page-templates/partials/main-menu'); ?>
 
 	<div id="content" class="site-content">

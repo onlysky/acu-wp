@@ -1,10 +1,15 @@
 // Hero Section
 section.page-hero {
 	width:100%;
-	//min-height: 800px;
+	min-height: 500px;
 
 	background-size:cover;
 	background-position:center top;
+
+	//Mobile
+	@include media($mobile) {
+		min-height: 300px;
+	}
 
 	// Background Image Positioning
 	&.hero-left {
@@ -39,25 +44,47 @@ section.page-hero {
 	// Hero Inner Section
 	.hero-inner {
 		text-align: center;
-		padding-top:240px;
+		padding-top:170px;
+
+		//Mobile
+		@include media($mobile) {
+			padding-top:60px;
+		}
 
 		.hero-headlines {
+
+			@include clearfix;
 			
 			h1.hero-headline {
 				color:white;
-				font-size:rem(120);
+				font-size:rem(70);
 				line-height: 1;
+				margin-bottom:20px;
+				
+				//Mobile
+				@include media($mobile) {
+					font-size:rem(28);
+				}
 			}
 
 			h2.hero-subhead {
 				line-height: 1;
 				text-transform: inherit;
+				font-size:rem(34);
+				color:$tan;
+				font-style: italic;
+				margin-bottom:0px;
+
+				//Mobile
+				@include media($mobile) {
+					font-size:rem(22);
+				}
 			}
 		}
 		
 		.hero-cta {
 			
-			padding:150px 0px;
+			padding:50px 0px;
 
 			ul {
 
@@ -82,6 +109,16 @@ section.page-hero {
 					text-align: center;
 					margin-top:17px;
 
+					//Mobile
+					@include media($mobile) {
+						font-size:rem(14);
+					}
+
+					//Tablet
+					@include media($tablet) {
+						font-size:rem(18);
+					}
+
 					a {
 
 						color:white;
@@ -93,6 +130,16 @@ section.page-hero {
 
 						background-color:rgba(84, 48, 26, 0.1);
 						@include transition(all .7s ease-in-out);
+
+						//Mobile
+						@include media($mobile) {
+							padding:12px 15px 10px 15px !important;
+						}
+
+						//Tablet
+						@include media($tablet) {
+							padding:16px 24px 12px 24px !important;
+						}
 
 						&:hover {
 							background-color:white;
@@ -113,6 +160,7 @@ section.page-hero {
 							border-bottom-left-radius: 6px;
 							border-left:2px solid white;
 						}
+
 					}
 					// Last Element
 					&:last-child {

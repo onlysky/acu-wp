@@ -11,73 +11,120 @@ header.site-header {
 
 	// Mobile
 	height: $header-height-mobile;
-
+		
 	// Desktop
-	height: $header-height;
-	box-shadow:none;
-	background-image:url(../img/header-gradient.png);
-	background-repeat: repeat-x;
-	background-position: bottom right;
-	@include transition(background .2s ease-in-out);
+	@include media($desktop) {
 
-	// Header Curve
-	&:after {
-		content:'';
-		position:absolute;
-		z-index:1;
-		bottom:-34px;
-		left:0;
-		height:65px;
-		width:690px;
+		height: $header-height;
+		box-shadow:none;
+		background-image:url(../img/header-gradient.png);
+		background-repeat: repeat-x;
+		background-position: bottom right;	
+		
+		// Header Curve
+		&:after {
+			content:'';
+			position:absolute;
+			z-index:2;
+			bottom:-34px;
+			left:0;
+			height:65px;
+			width:690px;
 
-		background-image:url(../img/header-curve.png);
-		background-position: left top;
-		background-repeat: no-repeat;
+			background-image:url(../img/header-curve.png);
+			background-position: left top;
+			background-repeat: no-repeat;
+		}
 	}
-}
+	// Top Fade for Main Nav
+	&:before {
+		opacity:0;
+		z-index:9;
+		content:'';
+		position:fixed;
+		
+		left:0;
+		height:20px;
+		width:100%;
+		
+		@include background-image(linear-gradient(to top, transparent, $brown));
+
+		transition:opacity 0s linear;
+
+		// Desktop
+		@include media($desktop) {
+			top:$header-height;
+			display:none;
+		}
+
+		// Mobile
+		top:$header-height-mobile;
+		display:block;
+	}//END &:before
+}//END header.site-header
 
 // Menu Open Site Header
 body.nav-menu-open {
 
 	.site-header {
+		
 		box-shadow: none;
-		//background-image:none;
 
-		&:after{
-			//opacity:0;
+		// Top Fade for Main Nav
+		&:before {
+			opacity:1;
+			transition:opacity .5s linear;
+			
+			// Mobile
+			top:$header-height-mobile;
+			display:block;
+
+			// Desktop 
+			@include media($desktop) {
+				top:$header-height - 20px;
+			}
 		}
 	}
-}
+}//END body.nav-menu-open
 
 // Site Branding
 .site-branding {
 	
 	// Mobile
-	text-align: center;
+	@include media($mobile) {
+		text-align: center;
+	}
 	
 	// Desktop 
-	text-align: left;
-
-
+	@include media($desktop) {
+		text-align: left;	
+	}
 
 	h1.site-title {
-
-		// Desktop
-		text-align: left;
-		float:left;
-
+		
 		margin-top:0px;
 		margin-bottom:0px;
+		
+		// Desktop
+		@include media($desktop) {
+			text-align: left;
+			float:left;	
+		}
 
 		img.site-logo {
 			// Mobile
 			width:100px;
 
 			// Desktop
-			width: 224px;
-			margin-left:40px;
-			z-index:2;
-			position:relative;
+			@include media($desktop) {
+				width: 224px;
+				padding-left:20px;
+				margin-left:20px;
+				z-index:4;
+				position:relative;	
+				background-color:$brown;
+			}
+			
 		}
 	}
 
@@ -112,13 +159,15 @@ body.nav-menu-open {
 	@include clearfix;
 
 	// Mobile
-	left:$content-padding-mobile;
+	left:$content-padding;
 	top:22px;
 
 	// Desktop
-	left:inherit;
-	right:40px;
-	top:45px;
+	@include media($desktop) {
+		left:inherit;
+		right:40px;
+		top:45px;
+	}
 
 	&:hover {
 		.nav-menu-text {
@@ -129,7 +178,11 @@ body.nav-menu-open {
 		.nav-menu-button-bars {
 			span {
 				
-				@include transition(transform .2s .0s, opacity .3s, background-color .1s .3s);				
+				//@include transition(transform .2s .0s, opacity .3s, background-color .1s .3s);		
+				
+				transition:transform .2s .0s, opacity .3s, background-color .1s .3s;
+				transform: translate3d(0,0,0);
+
 				background-color:$gold;
 				animation-name: nav-button-hover;
 				animation-direction: normal;
@@ -162,11 +215,15 @@ body.nav-menu-open {
 		@include transition;
 
 		// Mobile
-		display:none;
-
+		@include media($mobile) {
+			display:none;
+		}
+		
 		// Desktop
-		display: inline-block;
-		margin-top:2px;
+		@include media($desktop) {
+			display: inline-block;
+			margin-top:2px;
+		}
 
 	}
 
@@ -185,7 +242,8 @@ body.nav-menu-open {
 			height:3px;
 			background-color:$tan;
 	
-			@include transition(transform .2s 0s, opacity .3s, background-color .5s 0s);
+    		transition:transform .2s 0s, opacity .3s, background-color .5s 0s;
+
     		animation-duration: .4s;
 
     		&#bar-1 { 
@@ -219,44 +277,48 @@ body.nav-menu-open {
 					animation:none;
 				}
 			}
-		}
-	}
+		}//END &:hover
 
-	// Button bars transitions
-	.nav-menu-button-bars {
-		span {
-			background-color:white;
+		// Button bars transitions
+		.nav-menu-button-bars {
+			span {
+				background-color:white;
 
-			&#bar-1 { 
-    			top:0;
-    			opacity:0;
-    			transform:translateY(10px);
-    		}
-    		&#bar-2 { 
-    			top:8px;
-    			transform:rotate(45deg) translateY(6px);
-    			@include transition(transform .2s .2s, opacity .3s, background-color .5s 0s);
-    		}
-    		&#bar-3 { 
-    			top:16px;
-    			transform:rotate(-45deg) translateY(-6px);
-    			@include transition(transform .2s .2s, opacity .3s, background-color .5s 0s);
-    		}
-    		&#bar-4 { 
-    			top:24px;
-    			opacity:0;
-    			transform:translateY(-10px);
-    		}
-		}
-	}
-}
+				&#bar-1 { 
+	    			top:0;
+	    			opacity:0;
+	    			transform:translateY(10px);
+	    		}
+	    		&#bar-2 { 
+	    			top:8px;
+	    			transform:rotate(45deg) translateY(6px);
+	    			//@include transition(transform .2s .2s, opacity .3s, background-color .5s 0s);
+	    			transition: transform .2s .2s, opacity .3s, background-color .5s 0s;
+	    		}
+	    		&#bar-3 { 
+	    			top:16px;
+	    			transform:rotate(-45deg) translateY(-6px);
+	    			//@include transition(transform .2s .2s, opacity .3s, background-color .5s 0s);
+	    			transition: transform .2s .2s, opacity .3s, background-color .5s 0s;
+	    		}
+	    		&#bar-4 { 
+	    			top:24px;
+	    			opacity:0;
+	    			transform:translateY(-10px);
+	    		}
+			}
+		}//END .nav-menu-button-bars
+
+	}//END .nav-menu-button
+
+}//END body.nav-menu-open
 
 // Login Button
 a.login-button {
 	display:block;
 	position:absolute;
 	top:26px;
-	right:$content-padding-mobile;
+	right:$content-padding;
 	color:white;
 	text-transform: uppercase;
 	font-size:rem(16);
@@ -264,8 +326,10 @@ a.login-button {
 	font-weight: 300;
 
 	// Desktop
-	display:none;
-
+	@include media($desktop) {
+		display:none;
+	}
+	
 	&:hover {
 		color:$color-link-hover-dark;
 	}
@@ -273,9 +337,16 @@ a.login-button {
 
 // Desktop Header Elements Container
 .header-desktop {
-	margin-top:26px;
-	margin-right:230px;
-	float:right;
+
+	display:none;
+
+	@include media($desktop) {
+		margin-top:26px;
+		margin-right:250px;
+		float:right;
+		display:block;	
+	}
+	
 }
 
 
@@ -285,22 +356,17 @@ a.login-button {
 		font-size:rem(18);
 		color:$tan;
 		background-color:$gold-half;
-	}
 
-	::-webkit-input-placeholder {
-	   color:$tan;
-	}
+		transition:all .3s ease-in-out;
 
-	:-moz-placeholder { /* Firefox 18- */
-	   color:$tan;
-	}
+		@include placeholder {
+			color:$tan;
+		}
 
-	::-moz-placeholder {  /* Firefox 19+ */
-	   color:$tan;
-	}
-
-	:-ms-input-placeholder {  
-	   color:$tan; 
+		&:focus {
+			background-color:$brown-light;
+			color:black;
+		}
 	}
 
 	#login-submit {
@@ -333,6 +399,14 @@ a.login-button {
 	font-size:rem(18);
 	font-family: $font-bold;
 
+	&:before {
+		vertical-align: middle;
+		margin-right:10px;
+		font-family: "acu-wp-icons";
+		content: "\EA01";
+		font-size:rem(22);
+	}
+
 	&:hover {
 		color:white;
 	}
@@ -342,3 +416,63 @@ a.login-button {
 #wpadminbar {
 	position:fixed;
 }
+
+// WP Admin Bar adjustments
+body.admin-bar {
+	// Top Fade for Main Nav
+	header.site-header{
+		&:before {
+			top:$header-height-mobile + 46px;
+			
+			// Desktoo
+			@include media($desktop) {
+				top:$header-height + 30px;
+			}
+		}
+	}
+}
+
+
+/*================================================
+=            Desktop Size Adjustments            =
+================================================*/
+
+@media (max-width:1480px) {
+	.header-login input {	
+		&.input-username,
+		&.input-password {
+			width:120px;
+		}
+	}
+}
+
+@media (max-width:1230px) {
+	.header-desktop {
+		margin-right:180px;
+	}
+}
+
+@media (max-width:1100px) {
+	.header-search {
+		display:none;
+	}
+}
+
+@media (max-width:1000px) {
+	.header-join {
+		display:none;
+	}
+}
+
+@media (max-width:850px) {
+	.nav-menu-text {
+		display:none !important;
+	}
+
+	.header-desktop {
+		margin-right:100px;
+	}
+}
+
+
+/*=====  End of Desktop Size Adjustments  ======*/

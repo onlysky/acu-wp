@@ -27,6 +27,11 @@ h1 {
 	color:$burnt-orange;
 	line-height: 1;
 	margin:0px 0px 5px 0px;
+
+	//Mobile
+	@include media($mobile) {
+		font-size:rem(26);
+	}
 }
 
 //Page Titles
@@ -36,6 +41,11 @@ h1.page-title {
 	font-size:rem(30);
 	font-weight: normal;
 	color:$brown;
+
+	//Mobile
+	@include media($mobile) {
+		font-size:rem(26);
+	}
 }
 
 /* 
@@ -61,6 +71,11 @@ h2.page-subhead {
 	
 	color:$brown-light;
 	margin:0px 0px 26px 0px;
+
+	//Mobile
+	@include media($mobile) {
+		font-size:rem(16);
+	}
 }
 
 //Section Title
@@ -69,6 +84,11 @@ h2.section-title {
 	font-size:rem(24);
 	font-weight: normal;
 	color:$brown;
+
+	//Mobile
+	@include media($mobile) {
+		font-size:rem(16);
+	}
 }
 
 /*=====  End of Headings  ======*/

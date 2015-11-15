@@ -1,3 +1,7 @@
+// Widgets for website
+// Footer Widgets in _footer.scss
+// Menu Widgets in _menu.scss
+
 .widget {
 	//margin: 0 0 1.5em;
 
@@ -12,9 +16,9 @@
 	display: none;
 }
 
-
-
-/* Quick Navigation Menu */
+/*=============================================
+=            Quick Navigation Menu            =
+=============================================*/
 
 .quick-nav {
 	background-color:$blue-sky;
@@ -46,6 +50,7 @@
 	}
 }//END .quick-nav
 
+/*=====  End of Quick Navigation Menu  ======*/
 
 
 /*===========================================
@@ -95,3 +100,66 @@
 
 
 /*=====  End of Sidebar Menu Widget  ======*/
+
+
+/*============================================
+=            Related Posts Widget            =
+============================================*/
+
+.widget-related-post {
+
+	margin-top:40px;
+	border-top:1px solid $tan;
+	padding-top:20px;
+
+	h2.widget-title {
+		text-transform: none;
+		font-style: italic;
+		text-align: left;
+		margin-bottom:50px;
+		font-family: $font-book;
+	}
+
+	ul {
+		@include listreset;
+
+		li {
+			a.crp_title {
+				color:$brown;
+				font-family: $font-bold;
+				margin-bottom:20px;
+				display:block;
+				background-color:transparent;
+				border-left:none;
+			}
+			
+			// General a style, since image is not wrapped
+			a {
+				background-color:$brown;
+				display:block;
+				overflow:hidden;
+				border-left:10px solid $blue-sky;
+
+				// DESKTOP
+				max-height: 260px;
+			}
+
+			.crp_thumb {
+				
+				opacity:.7;
+				transition: all .5s .2s linear;
+				
+				// DESKTOP
+				height:260px;
+
+				&:hover {
+					opacity:1;
+					transform:scale(1.1) translate3d(0,0,0);
+					transition:all .5s ease-in-out !important;
+				}
+			}
+		}
+	}
+}
+
+/*=====  End of Related Posts Widget  ======*/

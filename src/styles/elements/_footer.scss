@@ -1,92 +1,215 @@
 // Footer
 .site-footer {
-
+	@include outer-container;
 	margin-top:50px;
+	
+	// Desktop
+	@include media($desktop) {
+		padding:0px $content-padding;
+	}
 
 	// Main Footer Setction
 	.footer-inner {
 
 		// Mobile
-		margin-bottom:50px;
 
 		// Desktop
-		margin-bottom:100px;
-
-		// Site Information
-		.site-info {
-
-			//padding:0px $content-padding-mobile $content-padding-mobile $content-padding-mobile;
-			//text-align: center;
-
-			.site-copyright, 
-			.site-address,
-			.site-telephone {
-				display:block;
-
-				//Desktop
-				display:inline-block;
-				font-size:rem(16);
-			}
-
-			.site-title,
-			.site-telephone {
-				a {
-					color:$brown;
-
-					&:hover {
-						color:$blue;
-					}
-				}
-				
-			}
-		}// END. site-info
-
-		// Footer Sidebar Widget Area
-		#footer-bottom-sidebar {			
-			.widget {
-				
-				//Desktop
-				@include span-columns (1 of 4);
-				@include omega(4);
-
-				// Footer Menus
-				ul.menu {
-					
-					@include listreset;
-
-					a {
-						color:$brown;
-						&:hover {
-							color:$blue;
-						}
-					}
-				}
-			}
-		}//END #footer-sidebar
+		@include media($desktop) {
+			@include span-columns(3 of 4);
+			@include shift(.5);
+		}
 
 	}//END .footer-inner
+
+}//END .site-footer
+
+
+/*==========================================
+=            Footer Widget Area            =
+==========================================*/
+.site-footer {
+
+	text-align: center;
+
+	// Social Icons
+	.footer-social-icons {
+		margin-top:100px;
+		margin-bottom:100px;
+
+		@include media($mobile) {
+			width:70%;
+			margin:50px auto;
+		}
+
+		h2.widget-title {
+			padding:0px $content-padding;
+			
+			// H2 Wings
+			&:before,
+			&:after {
+				display:none;
+			}
+			
+			// DESKTOP	
+			@include media($desktop) {
+
+				// H2 Wings
+				&:before,
+				&:after {
+				    content:"";
+				    vertical-align:top;
+				    display:inline-block;
+				    width:50%;
+				    height:.5em;
+				    border-bottom:2px solid $tan;
+				    margin:0 2% 0 -54%;
+				}
+				&:after{
+				    margin:0 -55% 0 4%;
+				}
+			}
+		}//END .widget-title
+
+		li a {
+			background-color:transparent !important;
+			color:$brown !important;
+
+			&:hover {
+				color:white !important;
+			}
+		}
+	}//END .footer-social-icons
+
+	// Site Info
+	.site-copyright,
+	.site-address,
+	.site-telephone {
+
+		font-size:rem(16);
+
+		// Mobile
+		display:block;
+		text-align: left;
+		padding:0px $content-padding;
+
+		// DESKTOP
+		@include media($desktop) {
+			display:inline-block;
+			margin-bottom: 40px; 
+			text-align: center;
+			padding:0px;
+		}
+
+
+		.textwidget {
+			display:inline-block;
+		}
+
+		a {
+			color:$brown;
+
+			&:hover {
+				color:$blue;
+			}
+		}
+
+		h2.widget-title {
+			display:none;
+		}
+	}
+	
+	// Separators
+	.site-copyright,
+	.site-address {
+		.textwidget {
+			
+			// Desktop separators
+			@include media($desktop) {
+				&:after {
+					display:inline-block;
+					content:'|';
+					padding-left:10px;
+					padding-right:10px;
+					color:$tan;
+					font-size:rem(24);
+					vertical-align:middle;				
+				}
+			}
+		}
+	}//END Separators
+
+
+	// Footer Menus
+	.footer-menu {
+		font-size:rem(16);
+		text-align: left;
+
+		//Mobile
+		padding:0px $content-padding;
+
+		//Desktop
+		@include media($desktop) {
+			@include span-columns (1 of 4);
+			margin-bottom:100px;
+		}
+
+		h2.widget-title {
+			display:none;
+		}
+
+		ul.menu {
+			
+			@include listreset;
+
+			a {
+				color:$brown;
+				&:hover {
+					color:$blue;
+				}
+			}
+		}
+	}// END .footer-menu
+
+	// Legal Icons
+	.footer-legal-icons {
+		h2.widget-title {
+			display:none;
+		}
+	}
+
 	// Footer Telephone (Mobile Only)
 	.footer-tel {
-
+		padding-top:20px;
+		padding-bottom:20px;
+		margin-top:20px;
 		background-color:$brown;
 		text-align: center;
-		padding:$content-padding-mobile;
-	
-		// Desktop
-		display:none;
+		//padding:$content-padding;
+		
+		@include row;
+		@include span-columns(1 of 1);
 
-		span {
+		// Desktop
+		@include media($desktop) {
+			display:none;
+		}
+		
+		h2.widget-title {
 			color:$tan;
 			font-size:rem(20);
 			display:block;
+			text-transform: none;
+			margin-bottom:15px;
 		}
 
 		a {
 
 			color:$gold;
-			font-size:rem(30);
+			font-size:rem(40);
 			line-height: 30px;
 		}
 	}//END .footer-tel
 
+
 }//END .site-footer
+/*=====  End of Footer Widget Area  ======*/

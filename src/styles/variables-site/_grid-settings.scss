@@ -13,5 +13,6 @@ $visual-grid-index: front;
 $visual-grid-opacity: 0.4;
 
 /* Breakpoints */
-$tablet: new-breakpoint(max-width 768px 6);
+$desktop: new-breakpoint(min-width 769px 3);
+$tablet: new-breakpoint(min-width 481px max-width 768px 3);
 $mobile: new-breakpoint(max-width 480px 2);

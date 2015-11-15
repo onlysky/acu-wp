@@ -17,7 +17,6 @@ get_header(); ?>
 			<h2 class="page-subhead"><?php echo category_description(); ?></h2><!-- END.page-subhead -->
 		<?php endif;?>
 		
-
 		<?php
 		//!TODO STICKY POSTS
 		/*
@@ -38,15 +37,21 @@ get_header(); ?>
 		?>
 
 		<?php if ( have_posts() ) : ?>
+			<div class="posts-list">
+				<?php /* Start the Loop */ ?>
+				<?php while ( have_posts() ) : the_post(); ?>
 
-			<?php /* Start the Loop */ ?>
-			<?php while ( have_posts() ) : the_post(); ?>
+					<?php get_template_part( 'page-templates/partials/content-post-teaser'); ?>
 
-				<?php get_template_part( 'page-templates/partials/content-post-teaser'); ?>
-
-			<?php endwhile; ?>
+				<?php endwhile; ?>
+			</div><!-- END.posts-list -->
 			
-			<?php the_posts_pagination(); ?> 
+			<?php the_posts_pagination( array(
+		        'prev_text'          => __( '&lsaquo; Previous Posts', 'cm' ),
+		        'next_text'          => __( 'Next Posts &rsaquo;', 'cm' ),
+		        'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'cm' ) . ' </span>',
+		    ) );
+		    ?>
 
 			
 		<?php else : ?>

@@ -19,13 +19,13 @@
 	</div><!-- END.feature-box-image-container -->
 	
 	<div class="feature-box-inner">
-		<h2><a href="<?php the_sub_field('button_link'); ?>" title="<?php the_sub_field('button_text'); ?>"><?php the_sub_field('feature_title'); ?></a></h2>
+		<h2><a href="<?php if (get_sub_field('feature_button_link_type') == 'wp-page' ){ the_sub_field('feature_button_link_page'); } else { the_sub_field('feature_button_link_url'); } ?>" title="<?php the_sub_field('feature_button_text'); ?>"><?php the_sub_field('feature_title'); ?></a></h2>
 
 		<div class="feature-box-content">
 			<?php the_sub_field('feature_content'); ?>
 		</div><!-- END.feature-box-content -->
 		
-		<a href="<?php the_sub_field('button_link'); ?>" title="<?php the_sub_field('button_text'); ?>" class="feature-box-button button button-gold"><?php the_sub_field('button_text'); ?></a>
-		
+		<a href="<?php if (get_sub_field('feature_button_link_type') == 'wp-page' ){ the_sub_field('feature_button_link_page'); } else { the_sub_field('feature_button_link_url'); } ?>" title="<?php the_sub_field('feature_button_text'); ?>" class="feature-box-button button button-gold"><?php the_sub_field('feature_button_text'); ?></a>
+
 	</div><!-- END.feature-box-inner -->
 </article><!-- END.feature-box -->

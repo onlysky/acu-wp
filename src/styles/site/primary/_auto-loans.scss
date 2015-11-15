@@ -7,8 +7,69 @@ section.auto-loans-boxes {
 // Inherit styles from .feature box in elements/_feature-box.scss
 
 .auto-loans-box {
+	
+	//Mobile
+	@include media($mobile) {
+		@include span-columns(1 of 1);
+		@include omega(1n);
+		margin-bottom:20px;
+	}
+	
+	//Desktop
 	@include span-columns(1 of 2);
 	@include omega(2n);
+		
+	h2 {
+		font-size:rem(30);
+		margin-top:15px;
+	}
 
+	//Rates
+
+	.auto-loan-box-rate-header {
+		color:$tan;
+		font-style: italic;
+		font-size: rem(20);
+	}
+
+	.auto-loan-box-rate {
+		@include clearfix;
+		
+		.auto-loan-box-rate-number {
+			font-size:rem(44);
+			float:left;
+			margin-right:10px;
+		}
+
+		.auto-loan-box-rate-type {
+			font-size:rem(20);
+			display:block;
+			line-height: 32px;
+		}
+		.auto-loan_box-rate-extra {
+			font-size:rem(18);
+			display:block;
+			line-height: 4px;
+			
+			//Mobile
+			@include media($mobile) {
+				margin-top:30px;
+			}
+		}
+	}//END .auto-loan-box-rate
+
+	.feature-box-button {
+		//Mobile
+		@include media($mobile) {
+			bottom:30px !important;
+		}
+	}
 	
 }//END .auto-loans-box
+
+// Auto Loans "Feature Box" Height Adjustment
+.auto-loans-box,
+.auto-loans-box .feature-box-image-container,
+.auto-loans-box .feature-box-inner  {
+	height:300px;
+}

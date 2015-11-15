@@ -17,7 +17,7 @@ function onlysky_wp_framework_customize_register( $wp_customize ) {
 	//$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
 
 	/*Custom Customizer Fields*/
-	
+/*	
 	// Contact Section
 	$wp_customize->add_section("contact", array(
 		"title" => __("Contact Info", "customizer_contact_sections"),
@@ -71,6 +71,7 @@ function onlysky_wp_framework_customize_register( $wp_customize ) {
 			"type" => "textarea",
 		)
 	));
+*/
 }
 add_action( 'customize_register', 'onlysky_wp_framework_customize_register' );
 

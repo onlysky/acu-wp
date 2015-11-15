@@ -19,14 +19,11 @@ get_header(); ?>
 						<?php get_template_part( 'page-templates/partials/content', 'page' ); ?>
 							
 					<?php endwhile; // End of the loop. ?>
-
-					<div class="container">
 						
 						<!-- Auto Loans Box -->
 						<?php if( have_rows('auto_loans_box') ): ?>
 							<section class="auto-loans-boxes">
 								<?php while( have_rows('auto_loans_box') ): the_row(); ?>
-
 									<!-- Auto Loans Box -->
 									<article class="feature-box auto-loans-box <?php the_sub_field('auto_loans_box_color'); ?>">
 										
@@ -35,7 +32,7 @@ get_header(); ?>
 										</div><!-- END.feature-box-image-container -->
 										
 										<div class="feature-box-inner">
-											<h2><a href="<?php the_sub_field('auto_loans_box_button_link'); ?>" title="<?php the_sub_field('auto_loans_box_button_text'); ?>"><?php the_sub_field('auto_loans_box_title'); ?></a></h2>
+											<h2><a href="<?php if (get_sub_field('auto_loans_box_button_link_type') == 'wp-page' ){ the_sub_field('auto_loans_box_button_link_page'); } else { the_sub_field('auto_loans_box_button_link'); } ?>" title="<?php the_sub_field('auto_loans_box_button_text'); ?>"><?php the_sub_field('auto_loans_box_title'); ?></a></h2>
 											
 											<?php if(get_sub_field('auto_loans_box_content_type') == 'paragraph'): ?>
 												<div class="feature-box-content">
@@ -49,31 +46,24 @@ get_header(); ?>
 													</span>
 
 													<div class="auto-loan-box-rate">
-														<?php the_sub_field('auto_loans_box_rate'); ?>
+														<span class="auto-loan-box-rate-number"><?php the_sub_field('auto_loans_box_rate'); ?></span>
 
-														<span class="auto-loan-box-rate-type">
-															<?php the_sub_field('auto_loans_box_rate_type'); ?>
-														</span>
+														<span class="auto-loan-box-rate-type"><?php the_sub_field('auto_loans_box_rate_type'); ?></span>
 
-														<span class="auto-loan_box-rate-extra">
-															<?php the_sub_field('auto_loans_box_rate_extra'); ?>
-														</span>
+														<span class="auto-loan_box-rate-extra"><?php the_sub_field('auto_loans_box_rate_extra'); ?></span>
 													</div><!-- END.auto-loan-box-rate -->
 
 												</div><!-- END.auto-loan-box-rate -->
 											<?php endif;?>
 											
-											<a href="<?php the_sub_field('auto_loans_box_button_link'); ?>" title="<?php the_sub_field('auto_loans_box_button_text'); ?>" class="feature-box-button button button-gold"><?php the_sub_field('auto_loans_box_button_text'); ?></a>
+											<a href="<?php if (get_sub_field('auto_loans_box_button_link_type') == 'wp-page' ){ the_sub_field('auto_loans_box_button_link_page'); } else { the_sub_field('auto_loans_box_button_link'); } ?>" title="<?php the_sub_field('auto_loans_box_button_text'); ?>" class="feature-box-button button button-gold"><?php the_sub_field('auto_loans_box_button_text'); ?></a>
 											
 										</div><!-- END.feature-box-inner -->
 									</article><!-- END.feature-box -->
 
 								<?php endwhile; ?>
 							</section>
-						<?php endif; ?>
-
-					</div><!-- END.container -->
-				
+						<?php endif; ?>				
 			</main><!-- #main -->
 		</div><!-- #primary -->
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Feature Box
+ * Loans Feature Box
  * 
  * The template for displaying feature box sections on pages and home page
  * Uses Advanced Custom Fields Plugin

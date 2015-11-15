@@ -1,41 +1,95 @@
 // Homepage Hero Modifications
 .home .page-hero {
-	h1.hero-headline {
-		text-transform: uppercase;
-		font-family: $font-bold;
-		font-size:rem(120);
-		letter-spacing: 15px;
-		
-		margin-bottom:0px;
+	
+	height:100%;
+	
+	.hero-inner {
+		.hero-headlines {
+			h1.hero-headline {
+				text-transform: uppercase;
+				font-family: $font-bold;
+				font-size:rem(120);
+				letter-spacing: 15px;
+				
+				margin-bottom:0px;
+				
+				//Mobile
+				@include media($mobile) {
+					font-size:rem(34);
+					letter-spacing: 5px;
+				}
+
+				//Tablet
+				@include media($tablet) {
+					font-size:rem(60);
+					letter-spacing: 10px;
+				}
+			}
+
+			h2.hero-subhead {
+				font-size:rem(90);
+				font-family: $font-book;
+				font-weight: normal;
+				font-style: italic;
+				margin-bottom:0px;
+				margin-top:0px;
+
+				color:white;
+
+				@include span-columns(2.65 of 4);
+				@include shift(.65);
+				overflow:hidden;
+
+				//Mobile
+				@include media($mobile) {
+					font-size:rem(22);
+				}
+
+				//Tablet
+				@include media($tablet) {
+					font-size:rem(45);
+				}
+
+				&:before,
+				&:after {
+				    content:"";
+				    vertical-align:top;
+				    display:inline-block;
+				    width:50%;
+				    height:.5em;
+				    border-bottom:5px solid $tan;
+				    margin:0 2% 0 -55%;
+
+				    //Mobile
+					@include media($mobile) {
+						border-bottom:2px solid $tan;
+					}
+				}
+				&:after{
+				    margin:0 -55% 0 4%;
+				}
+			}//END h2.hero-subhead
+
+		}//END .hero-headlines
+	}//END .hero-inner
+	
+
+	.hero-inner {
+		padding-top:240px;
+
+		//Mobile
+		@include media($mobile) {
+			padding-top:80px;
+		}
+
+		//Tablet
+		@include media($tablet) {
+			padding-top:150px;
+		}
 	}
 
-	h2.hero-subhead {
-		font-size:rem(90);
-		font-family: $font-book;
-		font-weight: normal;
-		font-style: italic;
-		margin-bottom:0px;
-		margin-top:0px;
-
-		color:white;
-
-		@include span-columns(2.65 of 4);
-		@include shift(.65);
-		overflow:hidden;
-
-		&:before,
-		&:after {
-		    content:"";
-		    vertical-align:top;
-		    display:inline-block;
-		    width:50%;
-		    height:.5em;
-		    border-bottom:5px solid $tan;
-		    margin:0 2% 0 -55%;
-		}
-		&:after{
-		    margin:0 -55% 0 4%;
-		}
+	.hero-cta {
+		padding:150px 0px;
 	}
 }//END .home .page-hero
 
@@ -49,31 +103,64 @@
 
 // Homepage Features
 .home-features {
+	
+	@include outer-container;
+	padding:100px $content-padding;
+	
 
-	// Desktop
-	@include span-columns (3 of 3);
+	// Mobile
+	@include media($mobile) {
+		padding:100px 0px;
+	}
 
 } // END .home-features
 
 // Homepage News Teasers
 .home-posts {
 
+	// Mobile 
+	@include media($mobile) {
+		@include span-columns(1 of 1);
+	}
+
 	// Desktop
 	@include span-columns(2 of 3);
 
+
 	article {
+		// Ellipses
+		h1 {
+			//Desktop
+			@include media($desktop) {
+				@include ellipses;
+			}
+
+			color:$brown;
+			font-size:rem(22);
+		}
+	
 		// Desktop
 		@include span-columns(1 of 2);
+		@include omega(2n);
 	}
 
 } // END .home-posts
 
 // Homepage Quick Navigation
 #home-quick-nav {
+
+	// Mobile 
+	@include media($mobile) {
+		@include span-columns(1 of 1);
+		margin-top:40px;
+		min-height:10px;
+	}
 	
 	// Desktop
-	min-height:490px;
 	@include span-columns(1 of 3);
+	min-height:490px;
+		
+	
 
 } //END .home-quick-nav
 

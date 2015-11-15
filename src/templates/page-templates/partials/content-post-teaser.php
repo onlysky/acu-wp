@@ -13,7 +13,6 @@
 		<?php the_title( sprintf( '<h1 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
 	</header><!-- .entry-header -->
 	
-	
 		<!-- Post Thumbnail -->
 		<div class="entry-thumbnail">
 			<a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>" style="background-image:url(<?php if ( has_post_thumbnail()) { echo wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); } else { echo (get_stylesheet_directory_uri() . '/img/acu-placeholder.jpg');} ?>);">

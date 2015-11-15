@@ -3,36 +3,45 @@
 	padding:0px $content-padding;
 }
 
-
 // Inner Sections
 .section-lg {
 	// Desktop
 	@include span-columns(3 of 3);
+	@include omega(1n);
 }
 
-
-.section-med {
-
-}
-
+//Small Section
 .section-sml {
 
 	// Desktop
-	@include span-columns(3 of 4);
-	@include shift(.5);
+	@include media($desktop) {
+		@include span-columns(3 of 4);
+		@include shift(.5);
+		@include omega(1n);
+	}
 }
 
 
 // Main Content Area
 #primary {
+	margin-top:40px;
 
-	margin-top:100px;
+	@include media($desktop) {
+		margin-top:100px;
+	}
+	
 
 }//END #primary
 
 // Content Area Container with sidebar
 .content-sidebar #primary {
-		
+	// Mobile
+	@include media($mobile) {
+		@include span-columns(1 of 1);
+		@include shift(0);
+		@include omega;
+	}
+
 	// Desktop
 	@include span-columns(2 of 3);
 	@include shift(1);

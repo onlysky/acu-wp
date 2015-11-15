@@ -1,3 +1,8 @@
+// Posts list container on category pages (news/ blog index)
+.posts-list {
+	@include clearfix;
+}
+
 
 /*----------  Post Article Teaser  ----------*/
 // Post Teaser 
@@ -6,20 +11,15 @@
 
 article.post,
 .index-item article {
-
-	//@include span-columns (1 of 1);
-		
+	
 	// Post Title
 	.entry-header {
 		h1 {
 			
-			//!TODO DESKTOP ONLY
-			//@include ellipses;
-			
 			margin:0px 0px 20px 0px;
 			line-height: 1;
 			text-align: left;
-
+			
 			a {
 			
 			color:$brown;
@@ -51,10 +51,14 @@ article.post,
 			background-position: center center;
 			opacity:.6;
 
+			transform:translate3d(0,0,0) ;
+
+			transition: all .5s .2s linear;
+
 			&:hover {
 				opacity:1;
-				transform:scale(1.1);
-
+				transform:scale(1.1) translate3d(0,0,0);
+				transition:all .5s ease-in-out;
 			}
 		}
 	}
@@ -66,23 +70,42 @@ article.post,
 
 }//END .article.post
 
-/*----------  END Article Teaser  ----------*/
 
+// Teaser sizing
 // Posts / Blog Index  
-// Being used for "News" section
-.posts-index,
+// Being used for "News" section, and homepage
 .category,
-.archive {
+.archive,
+.home-posts {
 	article.post {
 
 		margin-bottom:60px;
-
+		
+		// Mobile
+		@include media($mobile) {
+			@include span-columns(1 of 1);
+			@include omega(1n);
+		}
+		
 		// Desktop
-		@include span-columns(1 of 2);
-		@include omega(2n);
-	}
-}// END .posts-index
+		@include media($desktop) {
+			@include span-columns(1 of 2);
+			@include omega(2n);
+		}
+		// Ellipses
+		h1 {
+			//Desktop
+			@include media($desktop) {
+				@include ellipses;
+			}
 
+			color:$brown;
+			font-size:rem(22);
+		}
+	}
+}
+
+/*----------  END Article Teaser  ----------*/
 
 // Category Sticky Plugin
 .category-sticky {
@@ -92,7 +115,16 @@ article.post,
 /*===================================
 =            Single Post            =
 ===================================*/
+.single-post {
+	article.post { 
+		// Shim to push down share content icons from plugin
+		margin-bottom:60px;
+	}
+}
 
+		
+
+// Featured Image
 .entry-featured-image {
 	img {
 		width:100%;
@@ -102,3 +134,28 @@ article.post,
 	}
 	
 }//END .entry-featured-image
+
+// Entry Footer
+.entry-footer {
+
+}//END .entry-footer
+
+// Entry Meta
+.entry-meta {
+		
+	.posted-on {
+		font-style: italic;
+		color:$brown-light;
+		font-size:rem(20);
+		a {
+			color:$brown-light;
+
+			&:hover {
+				color:$blue;
+			}
+		}
+	}
+
+}//END .entry-meta
+
+/*----------  END Single Post  ----------*/

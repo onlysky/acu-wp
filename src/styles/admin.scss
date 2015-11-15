@@ -2,3 +2,11 @@
 #donation-message{
 	display:none !important;
 }
+
+
+// Remove ZigWidgetClasses credit
+.zigwidgetclass-control-wrap{
+	.credit {
+		display:none !important;
+	}
+}
