@@ -338,6 +338,44 @@ function onlysky_wp_framework_enqueue_login_style() {
 add_action( 'login_enqueue_scripts', 'onlysky_wp_framework_enqueue_login_style' );
 
 /**
+ * 
+ * Bourbon Neat Column Shortcode
+ *
+ * Source: https://gist.github.com/evantravers/5601961df325167b7ca5
+ */
+
+function onlysky_wp_framework_column_func( $atts, $content="" ) {
+	$divclass = "col";
+
+	if ($atts != "") {
+	  $divclass = "col-" . $atts['number'];
+	}
+	else {
+		$divclass = "col-default";
+	}
+
+	return "<div class='" . $divclass . "'>" . $content . "</div>";
+
+}
+add_shortcode( 'column', 'onlysky_wp_framework_column_func' );
+
+/**
+ * 
+ * Button Shortcode
+ *
+ * Source: http://www.wpexplorer.com/wordpress-button-shortcode/
+ */
+function onlysky_wp_framework_button($atts, $content = null) {
+	extract( shortcode_atts( array(
+	      'url' => '#',
+	      'type' => 'primary',
+	      'title' => ''
+	), $atts ) );
+	return '<a href="'.$url.'" title="'.$$title.'" class="button '.$type.'">' . do_shortcode($content) . '</a>';
+}
+add_shortcode('button', 'onlysky_wp_framework_button');
+
+/**
  * Remove Page Attributes & Hero Show for Homepage
  */
 function onlysky_wp_framework_remove_homepage_attribute_meta_box(){

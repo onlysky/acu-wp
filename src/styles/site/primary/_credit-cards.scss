@@ -1,38 +1,7 @@
 // Credit Cards Page
-
-// The content area is shifted over to look like a sidebar on mobile
-.credit-cards-content {
-
-	margin-top:100px;
-	
-	// Mobile
-	@include media($mobile) {
-		@include span-columns(1 of 1);
-		@include omega;
-	}
-
-	//DESKTOP
-	@include span-columns(1 of 3);
-}
-
-// Credit cards page main area
 .page-credit-cards {
-	
 	#primary {
-		@include shift(0);
-		@include omega;
 		margin-top:30px;
-		
-		// DESKTOP
-		@include media($desktop) {
-			// Shifts Primary to right to look like regular
-			float:right;
-			margin-top:70px;
-		}
-	}	
-
-	#secondary {
-		@include shift(0);
 	}
 }
 
@@ -160,9 +129,10 @@ ul.credit-cards-list {
 			
 			// Media
 			@include media($mobile) {
-				float:none;
+				position: relative;
+				float:left;
 				padding-left:0px;
-				padding-right:0px;
+				padding-right:30px;
 				margin-top:0px;
 				margin-right:0px;
 				margin-left:0px;
@@ -170,10 +140,14 @@ ul.credit-cards-list {
 				font-size: rem(22);
 				text-align:left;
 
+				@include ellipses;
+
 				&:after {
 					content:'+';
-					float:right;
-					font-size:rem(40);
+					position: absolute;
+					top:0;
+					right:0;
+					font-size:rem(35);
 					line-height: 18px;
 				}
 			}

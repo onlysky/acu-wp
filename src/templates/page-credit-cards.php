@@ -10,11 +10,11 @@
 get_header(); ?>
 
  	<?php get_template_part( 'page-templates/partials/hero'); ?>
-	<div class="container content-sidebar page-credit-cards">
+	<div class="container content-sidebar page-credit-cards page-content-in-sidebar">
 		
 		<?php while ( have_posts() ) : the_post(); ?>
 			<!-- Credit Card Page Content/Main Sidebar -->
-			<div class="credit-cards-content">
+			<div class="credit-cards-content page-content">
 				<?php get_template_part( 'page-templates/partials/content', 'page' ); ?>
 			</div><!-- END.credit-cards-content -->
 		<?php endwhile; // End of the loop. ?>

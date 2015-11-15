@@ -10,12 +10,12 @@
 	left:0;
 	right:0;
 	width: 100%;
-	padding:20px $content-padding 40px $content-padding;
+	padding:0px $content-padding 40px $content-padding;
 
 	color:white;
 	background-color:$brown;
 
-	overflow-y:auto;
+	overflow-y:hidden !important;
 	
 	//@include transition(opacity .3s, visibility 0s .3s);
 	transition:opacity .3s ease-in-out, visibility 0s .3s ease-in-out;
@@ -29,6 +29,7 @@
 	@include media($mobile) {
 		top:$header-height-mobile;
 		bottom:0;
+		padding:20px $content-padding 40px $content-padding;
 	}
 	
 
@@ -41,8 +42,6 @@
 	@include media($desktop) {
 		z-index:2;
 		top:$header-height - 30px;
-		padding-top:60px;
-		overflow-y:hidden;
 		bottom:inherit;
 		//height:60%;
 		height:650px;
@@ -52,7 +51,6 @@
 
 	// Menu height adjustment for small desktop... comes after desktop again
 	@media (max-height:740px) {
-		overflow-y:scroll !important;
 		bottom:0;
 		height:inherit;
 	}
@@ -61,6 +59,8 @@
 		opacity:0;
 		transform:translate3d(0,-50%,0);
 		height:100%;
+		padding-top:30px;
+		overflow-y:auto;
 
 		//@include transition(transform .5s ease-in-out, opacity .5s ease-in-out);
 		transition: transform .5s ease-in-out, opacity .5s ease-in-out;
@@ -71,6 +71,35 @@
 	.current-menu-item > a,
 	.current_page_ancestor > a {
 	}
+
+
+	// Top Fade for Main Nav
+	
+	&:before {
+		
+		opacity:0;
+		z-index:9;
+		content:'';
+		position:fixed;
+		display:block;
+		
+		left:0;
+		height:20px;
+		width:100%;
+		
+		@include background-image(linear-gradient(to top, transparent, $brown));
+
+		transition:opacity 0s linear;
+
+		// Desktop
+		@include media($desktop) {
+			top:0px;
+		}
+
+		// Mobile
+		top:20px;
+
+	}//END &:before
 	
 
 }//END .main-navigation
@@ -83,6 +112,8 @@
 	bottom:100%;
 	left:0px;
 	right:0px;
+
+	top:$header-height - 10px;
 	
 	background-color:transparent;
 
@@ -121,6 +152,12 @@ body.nav-menu-open {
 			transition: transform .2s ease-in-out, opacity .2s ease-in-out;
 			transform: translate3d(0,0,0);
 			opacity:1;
+		}
+
+		// Top Fade for Main Nav
+		&:before {
+			opacity:1;
+			transition:opacity .5s linear;
 		}
 		
 	}
@@ -173,14 +210,56 @@ body.bugmebar {
 	
 	// Main Menu Page Menu
 	.main-menu-menu {
+		
+		// Desktop
+		@include media($desktop) {
+
+			width:60%;
+			margin:0 auto 40px auto;
+			column-count: 2;
+    		column-gap: 100px;
+
+    		text-align: center;
+
+			
+			position: relative;
+    		padding-top:50px;
+    		padding-bottom:30px;
+    		margin-bottom:40px;
+			
+
+		 	@media (max-width:1200px) {
+		   		width:85%;
+				column-gap: 20px;
+		    }
+
+    		&:before {
+    			content:'';
+    			position: absolute;
+    			top:0;
+    			bottom:0;
+    			left:50%;
+    			width:1px;
+    			background-color:$tan;
+    		}
+		}
+		
+		
 		ul {
 			@include listreset
 
 			// Desktop
 			background-color:transparent;
-
+			
 			li {
 				font-size:rem(28);
+
+				// Desktop
+				@include media($desktop) {
+					font-size:rem(34);
+					margin-bottom:10px;
+				}
+				
 
 				a {
 					color:white;
@@ -196,7 +275,7 @@ body.bugmebar {
 	// Main Menu Telephone
 	.main-menu-telephone {
 		text-align: center;
-		margin-bottom:40px;
+		margin-bottom:20px;
 
 		@include media($mobile) {
 			margin-top:40px;

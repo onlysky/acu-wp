@@ -53,14 +53,48 @@
 /*=====  End of Quick Navigation Menu  ======*/
 
 
+
+/*===============================================
+=            General Sidebar Widgets            =
+===============================================*/
+#secondary .widget {
+	margin-top:40px;
+	border-top:1px solid $tan;
+	padding-top:20px;
+
+	h2.widget-title {
+		text-transform: none;
+		font-style: italic;
+		text-align: left;
+		margin-bottom:50px;
+		font-family: $font-book;
+	}
+
+	&:first-of-type {
+		
+		@include media($tablet) {
+			margin-top:100px;
+		} 
+
+		@include media($desktop) {
+			margin-top:100px;
+		} 
+
+	}
+}
+/*=====  End of General Sidebar Widgets  ======*/
+
+
 /*===========================================
 =            Sidebar Menu Widget            =
 ===========================================*/
 
 #secondary .widget_nav_menu {
-	
-	padding-top:100px;
-	padding-bottom:30px;
+
+	border-top:0px !important;
+	margin-top:0px !important;
+	padding-top:100px !important;
+	padding-bottom:30px !important;
 	background-color: $blue-sky;
 
 	h2 {
@@ -163,3 +197,53 @@
 }
 
 /*=====  End of Related Posts Widget  ======*/
+
+
+/*======================================
+=            Twitter Widget            =
+======================================*/
+.twitter-widget {
+	
+}
+
+.tp_recent_tweets {}
+
+/*=====  End of Twitter Widget  ======*/
+
+
+/*=======================================
+=            Facebook Widget            =
+=======================================*/
+.widget-facebook {
+	border-top:0px !important;
+
+	h2.widget-title {
+		display:none;
+		margin-bottom:0px;
+	}
+
+	a.facebook-link {
+
+		color:$blue;
+		text-transform: uppercase;
+		font-family: $font-bold;
+		font-size:rem(16);
+
+		&:hover {
+			color:$rose;
+		}
+
+		&:before {
+			font-size:rem(26);
+			vertical-align: middle;
+			content: "\EA02";
+			font-family: "acu-wp-icons";
+		}
+	}
+	
+}
+
+
+/*=====  End of Facebook Widget  ======*/
+
+

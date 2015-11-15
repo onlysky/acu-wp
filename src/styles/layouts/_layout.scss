@@ -47,3 +47,71 @@
 	@include shift(1);
 
 }//END .content-sidebar #primary
+
+// Credit cards page main area
+.page-content-in-sidebar {
+
+	// The content area is shifted over to look like a sidebar on mobile
+	.page-content {
+
+		margin-top:70px;
+		
+		// Mobile
+		@include span-columns(1 of 1);
+		@include omega;
+	
+
+		//DESKTOP
+		@include media($desktop) {
+			@include span-columns(1 of 3);
+		}
+	}
+	
+	#primary {
+		@include shift(0);
+		@include omega;
+
+		//Mobile
+		@include media($mobile) {
+			
+			@include span-columns(1 of 1);
+		}
+
+		//Tablet
+		@include media($tablet) {
+			@include span-columns(1 of 1);
+		}
+		
+		// DESKTOP
+		@include media($desktop) {
+			// Shifts Primary to right to look like regular
+			float:right;
+			margin-top:70px;
+		}
+	}	
+
+	#secondary {
+		@include shift(0);
+	}
+}
+
+
+// Columns for WP
+.col-default {
+	@include span-columns(1.5 of 3);
+	@include omega(3n);
+	
+	//Mobile
+	@include media($mobile) {
+		@include span-columns(1 of 1);
+		@include omega(1n);
+	}
+}
+
+// Column generator
+@for $num from 1 through 12 {
+  .col-#{$num} {
+    @include span-columns($num of 12);
+    @include omega(#{12/$num}n);
+  }
+}

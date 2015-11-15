@@ -10,16 +10,17 @@
 get_header(); ?>
 
  	<?php get_template_part( 'page-templates/partials/hero'); ?>
-	<div class="container content-sidebar">
-		<div id="primary" class="content-area">
-			<main id="main" class="site-main" role="main">
-				
-					<?php while ( have_posts() ) : the_post(); ?>
+	<div class="container content-sidebar page-auto-loans page-content-in-sidebar">
+		
+		<?php while ( have_posts() ) : the_post(); ?>
+			<!-- Credit Card Page Content/Main Sidebar -->
+			<div class="auto-loans-content page-content">
+				<?php get_template_part( 'page-templates/partials/content', 'page' ); ?>
+			</div><!-- END.credit-cards-content -->
+		<?php endwhile; // End of the loop. ?>
 
-						<?php get_template_part( 'page-templates/partials/content', 'page' ); ?>
-							
-					<?php endwhile; // End of the loop. ?>
-						
+		<div id="primary" class="content-area">
+			<main id="main" class="site-main" role="main">						
 						<!-- Auto Loans Box -->
 						<?php if( have_rows('auto_loans_box') ): ?>
 							<section class="auto-loans-boxes">

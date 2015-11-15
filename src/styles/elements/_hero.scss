@@ -142,8 +142,8 @@ section.page-hero {
 						}
 
 						&:hover {
-							background-color:white;
-							color:$blue;
+							background-color:$burnt-orange;
+							color:white;
 							@include transition(all .3s ease-in-out);
 						}
 					}
@@ -177,6 +177,10 @@ section.page-hero {
 						a {
 							border-radius: 6px;	
 							border:2px solid white;
+
+							&:hover {
+								border-color:$burnt-orange;
+							}
 						}
 					}
 

@@ -17,6 +17,8 @@ input[type="submit"] {
 	border-radius: $border-radius;
 	border:2px solid $rose;
 	outline:none;
+	font-family: $font-bold;
+	font-size:rem(18);
 
 	@include transition;
 
@@ -31,8 +33,9 @@ input[type="submit"] {
 }
 
 
-/* Reset Button Style */
-button.button-reset {
+// Reset Button Style
+button.button-reset,
+.button.button-reset {
 	padding:0px;
 	text-shadow:none;
 	box-shadow: none;
@@ -44,8 +47,34 @@ button.button-reset {
 }
 
 
+// Primary Button
+.button.primary {
+	background-color:$rose;
+	border-color:$rose;
+	color:white;
+
+	&:hover {
+		background-color:$dark-puce;
+		border-color:$dark-puce;
+		color:white;
+	}
+}
+
+// Secondary Button
+.button.secondary {
+	background-color:$blue;
+	border-color:$blue;
+	color:white;
+
+	&:hover {
+		background-color:$dark-puce;
+		border-color:$dark-puce;
+		color:white;
+	}
+}
+
+// Gold Button Style
 .button-gold {
-	font-family: $font-bold;
 	font-size:rem(18);
 	text-transform: uppercase;
 	color:$gold;
@@ -54,7 +83,8 @@ button.button-reset {
 	border-radius:$border-radius;
 		
 	&:hover {
-		background-color:$gold;
-		color:$brown;
+		border-color:$burnt-orange;
+		background-color:$burnt-orange;
+		color:white;
 	}
 }

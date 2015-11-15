@@ -36,54 +36,14 @@ header.site-header {
 			background-repeat: no-repeat;
 		}
 	}
-	// Top Fade for Main Nav
-	&:before {
-		opacity:0;
-		z-index:9;
-		content:'';
-		position:fixed;
-		
-		left:0;
-		height:20px;
-		width:100%;
-		
-		@include background-image(linear-gradient(to top, transparent, $brown));
 
-		transition:opacity 0s linear;
-
-		// Desktop
-		@include media($desktop) {
-			top:$header-height;
-			display:none;
-		}
-
-		// Mobile
-		top:$header-height-mobile;
-		display:block;
-	}//END &:before
 }//END header.site-header
 
 // Menu Open Site Header
 body.nav-menu-open {
 
 	.site-header {
-		
 		box-shadow: none;
-
-		// Top Fade for Main Nav
-		&:before {
-			opacity:1;
-			transition:opacity .5s linear;
-			
-			// Mobile
-			top:$header-height-mobile;
-			display:block;
-
-			// Desktop 
-			@include media($desktop) {
-				top:$header-height - 20px;
-			}
-		}
 	}
 }//END body.nav-menu-open
 
@@ -117,10 +77,11 @@ body.nav-menu-open {
 
 			// Desktop
 			@include media($desktop) {
-				width: 224px;
+				width: 230px;
+				margin-top:10px;
 				padding-left:20px;
 				margin-left:20px;
-				z-index:4;
+				z-index:10;
 				position:relative;	
 				background-color:$brown;
 			}
@@ -222,7 +183,7 @@ body.nav-menu-open {
 		// Desktop
 		@include media($desktop) {
 			display: inline-block;
-			margin-top:2px;
+			margin-top:4px;
 		}
 
 	}
@@ -379,8 +340,8 @@ a.login-button {
 		border:2px solid $green;
 
 		&:hover {
-			border-color:$rose;
-			background-color:$rose;
+			border-color:$burnt-orange;
+			background-color:$burnt-orange;
 		}
 	}
 }//END .header-login
@@ -400,7 +361,7 @@ a.login-button {
 	font-family: $font-bold;
 
 	&:before {
-		vertical-align: middle;
+		vertical-align: text-bottom;
 		margin-right:10px;
 		font-family: "acu-wp-icons";
 		content: "\EA01";
