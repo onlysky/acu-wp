@@ -32,6 +32,29 @@ Styleguide 1.4.1
 	color:$burnt-orange;
 }
 
+// Separator
+span.separator {
+	display:block;
+	width:100%;
+	border-bottom:1px solid $tan;
+	margin-top:10px;
+	color:transparent!important;
+
+	&.separator-small {
+		@include media($desktop) {
+			display:none;
+		}
+	}
+}
+
+// Preface (Contact Page)
+span.preface {
+	text-transform: uppercase;
+	color:$brown-light;
+	font-size:rem(18);
+	font-family: $font-medium;
+}
+
 
 
 dfn, cite, em, i {

@@ -44,3 +44,11 @@ a {
 		margin-left:5px;
 	}
 }
+
+// Inline Telephone
+.inline-tel {
+	color:$brown;
+	&:hover {
+		color:$blue;
+	}
+}

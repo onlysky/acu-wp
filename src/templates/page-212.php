@@ -64,7 +64,10 @@ get_header(); ?>
 
 								<?php endwhile; ?>
 							</section>
-						<?php endif; ?>				
+						<?php endif; ?>
+						
+						<!-- Auto Loans Calculator -->
+						<?php get_template_part( 'page-templates/partials/auto-loans-calculator'); ?>				
 			</main><!-- #main -->
 		</div><!-- #primary -->
 

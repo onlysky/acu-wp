@@ -1,7 +1,7 @@
 // Footer
 .site-footer {
 	@include outer-container;
-	margin-top:50px;
+	margin-top:0px;
 	
 	// Desktop
 	@include media($desktop) {
@@ -172,8 +172,21 @@
 
 	// Legal Icons
 	.footer-legal-icons {
+		
+		// Mobile
+		@include media($mobile) {
+			margin-top:20px;
+			padding:0px $content-padding;
+		}
+		
+
 		h2.widget-title {
 			display:none;
+		}
+
+		img {
+			margin-right:5px;
+			margin-bottom:10px;
 		}
 	}
 

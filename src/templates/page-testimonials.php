@@ -28,7 +28,14 @@ get_header(); ?>
 
 							        	<?php if ( get_sub_field('testimonial_image') ) : ?>
 							        		
-							        		<div class="testimonial-image-container">
+							        		<div class="testimonial-image-container <?php include_once ABSPATH . 'wp-admin/includes/plugin.php';if ( is_plugin_active( 'wp-video-lightbox/wp-video-lightbox.php' ) ) { if(get_sub_field('testimonial_video')){echo 'testimonial-image-with-video';}}?>">
+							        			<?php
+													if ( is_plugin_active( 'wp-video-lightbox/wp-video-lightbox.php' ) ) {
+													   if(get_sub_field('testimonial_video')){
+								        					echo do_shortcode('[video_lightbox_youtube video_id="'.get_sub_field('testimonial_video').'&rel=0" width="640" height="480" auto_thumb="1"] ');
+								        				}
+													}
+							        			?>
 							        			<img src="<?php the_sub_field('testimonial_image');?>" alt="<?php the_sub_field('testimonial_name');?> Image" class="testimonial-image" />
 							        		</div><!-- END.image-container -->
 
@@ -39,9 +46,6 @@ get_header(); ?>
 
 								        	<span class="testimonial-name"><?php the_sub_field('testimonial_name');?></span>
 								        	<span class="testimonial-location"><?php the_sub_field('testimonial_location');?></span>
-								        	
-								        	<br />
-									        video: <?php the_sub_field('testimonial_video');?>
 
 										</div><!-- END.testimonial-content -->
 							        </li>

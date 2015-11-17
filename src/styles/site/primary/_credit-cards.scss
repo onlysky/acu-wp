@@ -187,12 +187,16 @@ ul.credit-cards-list {
 				border-bottom:1px solid $tan;
 			}
 			
+			// Tablet
+			@include media($tablet) {
+				top:133px;
+			}
+			
 			.credit-card-apply {
 				text-transform: uppercase;
 				font-size:rem(18);
 				font-family: $font-bold;
-				color:white;
-				background-color:$rose;
+
 			}
 
 			.credit-card-details-link {

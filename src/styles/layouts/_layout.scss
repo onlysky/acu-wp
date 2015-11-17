@@ -98,14 +98,25 @@
 
 // Columns for WP
 .col-default {
-	@include span-columns(1.5 of 3);
-	@include omega(3n);
 	
-	//Mobile
-	@include media($mobile) {
+	// Mobile
+	@include media($mobile){
 		@include span-columns(1 of 1);
 		@include omega(1n);
 	}
+
+	// Tablet
+	@include media($tablet){
+		@include span-columns(1 of 1);
+		@include omega(1n);
+	}
+
+	//Desktop
+	@include media($desktop) {
+		@include span-columns(1.5 of 3);
+		@include omega(3n);
+	}
+	
 }
 
 // Column generator

@@ -7,7 +7,7 @@
  * @package onlysky_wp_framework
  */
 
-if ( ! is_active_sidebar( 'page-sidebar' ) ) {return;}
+//if ( ! is_active_sidebar( 'page-sidebar' ) ) {return;}
 ?>
 
 <div id="secondary" class="widget-area" role="complementary">

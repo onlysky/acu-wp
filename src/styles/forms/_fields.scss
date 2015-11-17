@@ -9,22 +9,44 @@ input[type="text"],
 input[type="email"],
 input[type="url"],
 input[type="password"],
-input[type="search"] {
-	padding:10px 20px 5px 20px;
-	line-height: 1;
-	border:0px;
+input[type="search"],
+input[type="tel"] {
+	padding:8px 20px 4px 20px;
+	line-height: 1.3;
+	//border:2px solid transparent;
+	border:1px solid $tan;
 	border-radius: $border-radius;
 	outline:none;
+
+	transition:all .3s ease-in-out;
 
 	&:focus {
 	}
 }
 
 textarea {
+	transition:all .3s ease-in-out;
 	padding-left: 3px;
 	width: 100%;
+	border-radius: $border-radius;
 }
 
+
+select {
+	padding:10px 10px 6px 10px;
+	border:1px solid $tan;
+	border-radius: $border-radius;
+	background-color:white;
+}
+
+
+input,
+select,
+textarea {
+	&:disabled {
+		background-color:lightgrey;
+	}
+}
 
 /* 
 Forms
@@ -42,3 +64,143 @@ label {
 	text-transform: uppercase;
 	color:$brown-light;
 }
+
+
+
+/*=====================================
+=            Gravity Forms            =
+=====================================*/
+.gform_wrapper {
+
+// General
+
+.gfield {
+	margin-bottom:30px !important;
+}
+
+
+.gf_page_steps {
+	margin-top:40px !important;
+	margin-bottom:40px !important;
+}
+.gf_step_label {
+	line-height: 30px;
+}
+
+.gf_right_half,
+.gf_left_half {
+	@include media($mobile) {
+		display:block !important;
+		margin-right:0px !important;
+		margin-left: 0px !important;
+		width:100% !important;
+	}
+}
+
+
+.gsection_title {
+	text-align: left;
+}
+
+.name_first,
+.name_last {
+	@include media($mobile) {
+		width:100% !important;
+	}
+}
+
+label {
+	font-family: $font-book;
+	color:$brown;
+	font-size:rem(12);
+	font-style: italic;
+}
+label.gfield_label {
+	font-family: $font-book;
+	color:$brown-light;
+	font-size:rem(18);
+	font-style: normal;
+}
+
+input[type="checkbox"] {
+	margin-top:0px !important;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"] {
+	border:1px solid $tan;
+		
+	@include media($mobile) {
+		width:100% !important;
+		
+		&.medium {
+			width:100% !important;
+		}
+	}
+
+	&:focus {
+		border-color:$brown-light;
+	}
+}
+
+textarea {
+	border:1px solid $tan;
+	&:focus {
+		border-color:$brown-light;
+	}
+}
+
+input[type="submit"] {
+	border:2px solid $green;
+	background-color:$green;
+	color:white;
+
+	&:hover {
+		border-color:$gold;
+		background-color:$gold;
+	}
+
+}
+
+.gform_next_button,
+.gform_previous_button {
+	background-color:$blue;
+	border-color:$blue;
+	color:white;
+
+	&:hover {
+		border-color:$dark-puce;
+		background-color:$dark-puce;
+	}
+}
+
+// Specific Fields
+
+
+/* Visa Transfer */
+
+#field_1_13,
+#field_1_25 {
+	border-bottom:none;
+	font-style: italic;
+}
+
+#field_1_24 {
+	border-bottom:none;
+}
+
+#label_1_26_1 {
+	font-size:rem(18);
+}
+
+}//END .gform_wrapper
+
+
+
+
+
+
+/*=====  End of Gravity Forms  ======*/

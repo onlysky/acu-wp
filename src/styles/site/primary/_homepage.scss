@@ -1,7 +1,24 @@
 // Homepage Hero Modifications
-.home .page-hero {
+.home section.page-hero {
 	
 	height:100%;
+	min-height: 700px;
+
+	// Hero fade in animation
+	@include keyframes(home-hero-fade) {
+	  0% {
+	    background-color:rgba(255,255,255,0.9);
+	  }
+	  100% {
+	  	background-color:rgba(255,255,255,0.0);
+	  }
+	}
+
+	// Hero Section wrapper
+	.hero-wrapper {
+		animation: home-hero-fade 1s ease-in-out;
+		background-color:rgba(84, 48, 26, 0.0);
+	}
 	
 	.hero-inner {
 		.hero-headlines {

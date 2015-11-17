@@ -69,16 +69,23 @@
 
 			<!-- Desktop Login -->
 			<span class="header-login">
-				<input class="input-username" type="text" placeholder="Username"/>
-				<input class="input-password" type="password" placeholder="Password" />
-				<input id="login-submit" type="submit" value="Log In" />
+				<form method="post" action="https://mcw.youracu.org/cgi-bin/mcw000.cgi" id="FORM1">						  	
+				     <INPUT TYPE="HIDDEN" NAME="MCWEXPIRATION" ID="MCWEXPIRATION" VALUE="34E636E7F8176260B92ECDFC7B8BDC5B39E3397291B0CC44">                  	
+				     <INPUT TYPE="HIDDEN" NAME="MCWASSIGNEDSLOT" ID="MCWASSIGNEDSLOT" VALUE="34E636E7F81762607AD50567B3F28C449B192636B1A7B5C4D30C7253AD621CC9">                 	
+				     <INPUT TYPE="HIDDEN" NAME="MCWSYMDIR" ID="MCWSYMDIR" VALUE="4E9EA0ADFCB6658E">              	
+				     <INPUT TYPE="HIDDEN" NAME="MCWTRANTYPE" ID="MCWTRANTYPE" VALUE="MCWLOGONFORM">
+					
+					<input type="text" class="input-username" placeholder="Username" id="login_username" name="HBUSERNAME" autocomplete="off">
+					<input type="password" class="input-password" placeholder="Password" id="login_password" name="PASSWORD" autocomplete="off">
+					<input type="submit" id="login-submit" value="Login" name="MCWSUBMIT">
+				</form>
 			</span>
 			
 			<!-- Join Us Button -->
-			<a href="/join-us" class="header-join button button-gold">Join Us</a>
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>join-us" class="header-join button button-gold">Join Us</a>
 			
 			<!-- Search Button -->
-			<a href="/search" title="Search our website" class="header-search">Search</a>
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>search" title="Search our website" class="header-search">Search</a>
 
 		</div>
 	

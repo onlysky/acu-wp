@@ -80,14 +80,17 @@
 		opacity:0;
 		z-index:9;
 		content:'';
-		position:fixed;
+		position:absolute;
 		display:block;
 		
 		left:0;
 		height:20px;
 		width:100%;
 		
-		@include background-image(linear-gradient(to top, transparent, $brown));
+		//@include background-image(linear-gradient(to top, transparent, $brown));
+		background-image:url(../img/header-fade.png);
+		background-repeat: repeat-x;
+		background-position: top left;
 
 		transition:opacity 0s linear;
 
@@ -113,7 +116,7 @@
 	left:0px;
 	right:0px;
 
-	top:$header-height - 10px;
+	top:$header-height;
 	
 	background-color:transparent;
 
@@ -216,8 +219,10 @@ body.bugmebar {
 
 			width:60%;
 			margin:0 auto 40px auto;
+			
 			column-count: 2;
     		column-gap: 100px;
+    		column-rule: 1px solid $tan;
 
     		text-align: center;
 
@@ -232,7 +237,8 @@ body.bugmebar {
 		   		width:85%;
 				column-gap: 20px;
 		    }
-
+			
+			/*
     		&:before {
     			content:'';
     			position: absolute;
@@ -242,6 +248,7 @@ body.bugmebar {
     			width:1px;
     			background-color:$tan;
     		}
+    		*/
 		}
 		
 		
@@ -266,6 +273,46 @@ body.bugmebar {
 
 					&:hover {
 						color:$color-link-hover-dark;
+					}
+				}
+				
+
+				// Search Link in menu
+				&:last-child {
+					display:none;
+					
+					//Mobile
+					@include media($mobile) {
+						display:block;
+					}
+
+					//Tablet
+					@include media($tablet) {
+						display:block;
+					}
+					
+					//  When search disappears from header
+					@media (max-width:1100px) {
+						display:block;
+					}
+
+
+
+					a {
+						&:before {
+							vertical-align: text-bottom;
+							margin-right:10px;
+							font-family: "acu-wp-icons";
+							content: "\EA01";
+							line-height: 38px;
+							font-size:rem(22);
+						}
+
+						&:hover {
+							&:before {
+								color:$gold;
+							}
+						}
 					}
 				}
 			}

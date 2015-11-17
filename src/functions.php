@@ -136,18 +136,42 @@ function create_404_page() {
 }
 add_action('after_setup_theme', 'create_404_page');
 
+
+/**
+ * 
+ * Widget title links
+ *
+ * Source: http://spicemailer.com/wordpress/how-to-link-widget-titles-in-wordpress-without-using-a-plugin/
+ *
+ * Usage:  [link href = http://google.com]My Widget Title[/link]
+ * 
+ */
+
+function onlysky_wp_framework_accept_html_widget_title( $mytitle ) { 
+  // The sequence of String Replacement is important!!
+  
+	$mytitle = str_replace( '[link', '<a', $mytitle );
+	$mytitle = str_replace( '[/link]', '</a>', $mytitle );
+    $mytitle = str_replace( ']', '>', $mytitle );
+	
+
+	return $mytitle;
+}
+
+add_filter( 'widget_title', 'onlysky_wp_framework_accept_html_widget_title' );
+
 /**
  * 
  * Adjusts Advanced Custom Fields edit page ordering
  * 
  */
 
-function prefix_reset_metabox_positions(){
+function onlysky_wp_framework_prefix_reset_metabox_positions(){
   delete_user_meta( wp_get_current_user()->ID, 'meta-box-order_post' );
   delete_user_meta( wp_get_current_user()->ID, 'meta-box-order_page' );
   delete_user_meta( wp_get_current_user()->ID, 'meta-box-order_custom_post_type' );
 }
-add_action( 'admin_init', 'prefix_reset_metabox_positions' );
+add_action( 'admin_init', 'onlysky_wp_framework_prefix_reset_metabox_positions' );
 
 /**
  * 
@@ -321,6 +345,9 @@ function onlysky_wp_framework_enqueue_style() {
 
 	// Load Stylesheet
 	wp_enqueue_style( 'styles', get_template_directory_uri() .  '/css/styles.css' );
+
+	// Jquery UI slider
+	wp_enqueue_style( 'jquery-ui-slider', get_template_directory_uri() .  '/js/vendor/jquery-ui-slider-only/jquery-ui.min.css' );
 }
 add_action( 'wp_enqueue_scripts', 'onlysky_wp_framework_enqueue_style' );
 
@@ -394,6 +421,44 @@ function onlysky_wp_framework_remove_homepage_attribute_meta_box(){
 add_action( 'edit_form_after_title', 'onlysky_wp_framework_remove_homepage_attribute_meta_box' );
 
 
+/*
+ * Custom Gravity Forms Password Field Validation
+ *
+ * source: http://wpthemetutorial.com/2012/01/12/advanced-password-checking-with-gravity-forms/
+ *
+ */
+/*
+function onlysky_wp_framework_password_length_and_characters( $validation_result ){
+ 
+  // checking now to make sure the passwords match the requirements
+  // for length and that we only have upper and lower case letters
+  // and numbers
+  if( !preg_match( "/^[a-zA-Z0-9]{4,16}$/", $_POST['input_7'] ) ){
+ 
+    // marking the whole thing as not valid
+    $validation_result['is_valid'] = false;
+ 
+      // looping through our fields and marking the failed ones
+      foreach( $validation_result['form']['fields'] as &$field ){
+ 
+      // if 17 or 16 mark as not valid
+      if( $field['id'] == '7' || $field['id'] == '8' ){
+ 
+          $field['failed_validation'] = true;
+          $field['validation_message'] = 'Your password needs to be between 4 and 16 characters and can only contain upper and lower case letters and numbers.';
+ 
+      }
+ 
+    }
+ 
+  }
+ 
+  return $validation_result;
+ 
+}
+add_filter( 'gform_validation_3', 'onlysky_wp_framework_password_length_and_characters' );
+*/
+
 /**
  *  Remove WP Page Widgets section from page templates with no sidebars, and some specific pages
  */
@@ -428,7 +493,13 @@ function onlysky_wp_framework_scripts() {
 
 	// Credit Cards Page
 	wp_enqueue_script( 'onlysky_wp_framework-credit-cards', get_template_directory_uri() . '/js/credit-cards.js', array('jquery'), '1.1', true );
-	
+
+	// Auto Loans Slider
+	wp_enqueue_script( 'onlysky_wp_framework-validate', get_template_directory_uri() . '/js/vendor/jquery-validate/jquery.validate.min.js', array('jquery'), '1.1', true );
+	//wp_enqueue_script( 'onlysky_wp_framework-validate-addon', get_template_directory_uri() . '/js/vendor/jquery-validate/additional-methods.min.js', array('jquery'), '1.1', true );
+	wp_enqueue_script( 'onlysky_wp_framework-jquery-ui-slider', get_template_directory_uri() . '/js/vendor/jquery-ui-slider-only/jquery-ui.min.js', array('jquery'), '1.1', true );
+	wp_enqueue_script( 'onlysky_wp_framework-auto-loans-calc', get_template_directory_uri() . '/js/auto-loans-calc.js', array('jquery'), '1.1', true );
+
 	// Menu Navigation
 	wp_enqueue_script( 'onlysky_wp_framework-navigation', get_template_directory_uri() . '/js/navigation.js', array('jquery'), '1.1', true );
 

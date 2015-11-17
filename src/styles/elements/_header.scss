@@ -170,7 +170,7 @@ body.nav-menu-open {
 		font-family: $font-book;
 		color:$tan;
 		font-size:rem(24);
-		margin-top:8px;
+		margin-top:0px;
 		margin-left:20px;
 
 		@include transition;
@@ -183,7 +183,6 @@ body.nav-menu-open {
 		// Desktop
 		@include media($desktop) {
 			display: inline-block;
-			margin-top:4px;
 		}
 
 	}
@@ -313,6 +312,9 @@ a.login-button {
 
 // Desktop Login
 .header-login {
+	form {
+		display:inline-block;
+	}
 	input {
 		font-size:rem(18);
 		color:$tan;
@@ -327,6 +329,11 @@ a.login-button {
 		&:focus {
 			background-color:$brown-light;
 			color:black;
+		}
+
+		&.input-username,
+		&.input-password {
+			border:2px solid transparent;
 		}
 	}
 
@@ -357,7 +364,7 @@ a.login-button {
 .header-search {
 	color:$gold;
 	text-transform: uppercase;
-	font-size:rem(18);
+	font-size:rem(19);
 	font-family: $font-bold;
 
 	&:before {

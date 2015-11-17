@@ -12,10 +12,12 @@ button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-	padding:10px 20px 5px 20px;
-	line-height: 1;
+	padding:8px 20px 4px 20px;
+	line-height: 1.3;
 	border-radius: $border-radius;
 	border:2px solid $rose;
+	background-color:$rose;
+	color:white;
 	outline:none;
 	font-family: $font-bold;
 	font-size:rem(18);
@@ -23,13 +25,45 @@ input[type="submit"] {
 	@include transition;
 
 	&:hover {
-		
+		background-color:$dark-puce;
+		border-color:$dark-puce;
+		color:white;
 	}
 
 	&:active,
 	&:focus {
 		
 	}
+	
+	// Primary Button
+	&.primary {
+		background-color:$rose;
+		border-color:$rose;
+		color:white;
+
+		&:hover {
+			background-color:$dark-puce;
+			border-color:$dark-puce;
+			color:white;
+		}
+	}
+
+	&.secondary {
+		background-color:$blue;
+		border-color:$blue;
+		color:white;
+
+		&:hover {
+			background-color:$dark-puce;
+			border-color:$dark-puce;
+			color:white;
+		}
+	}
+}
+
+a.button {
+	padding:10px 20px 7px 20px;
+	line-height: 1.3;
 }
 
 
@@ -46,33 +80,6 @@ button.button-reset,
 	outline:none;
 }
 
-
-// Primary Button
-.button.primary {
-	background-color:$rose;
-	border-color:$rose;
-	color:white;
-
-	&:hover {
-		background-color:$dark-puce;
-		border-color:$dark-puce;
-		color:white;
-	}
-}
-
-// Secondary Button
-.button.secondary {
-	background-color:$blue;
-	border-color:$blue;
-	color:white;
-
-	&:hover {
-		background-color:$dark-puce;
-		border-color:$dark-puce;
-		color:white;
-	}
-}
-
 // Gold Button Style
 .button-gold {
 	font-size:rem(18);
@@ -81,6 +88,7 @@ button.button-reset,
 
 	border:2px solid $gold;
 	border-radius:$border-radius;
+	background-color:transparent;
 		
 	&:hover {
 		border-color:$burnt-orange;

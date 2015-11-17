@@ -26,7 +26,7 @@ h1 {
 	font-weight: normal;
 	color:$burnt-orange;
 	line-height: 1;
-	margin:0px 0px 5px 0px;
+	margin:0px 0px 20px 0px;
 
 	//Mobile
 	@include media($mobile) {
@@ -89,6 +89,14 @@ h2.section-title {
 	@include media($mobile) {
 		font-size:rem(16);
 	}
+}
+
+// H4 (Contact Page)
+h4 {
+	font-family: $font-medium;
+	font-size:rem(22);
+	margin-bottom:30px;
+	margin-top:30px;
 }
 
 /*=====  End of Headings  ======*/

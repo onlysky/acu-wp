@@ -73,3 +73,310 @@ section.auto-loans-boxes {
 .auto-loans-box .feature-box-inner  {
 	height:300px;
 }
+
+
+/*=============================================
+=            Auto Loans Calculator            =
+=============================================*/
+
+.auto-loans-calc {
+	
+	@include clearfix;
+	@include span-columns(2 of 2);
+	margin-top:50px;
+	margin-bottom:50px;
+
+	background-color:$blue-sky;
+	
+	// Mobile
+	padding:$content-padding;
+	text-align:center;
+	
+	// Desktop
+	@include media($desktop) {
+		padding:40px;
+		text-align: left;
+	}
+
+	h2 {
+		color:$brown;
+		text-transform: none;
+		font-size:rem(30);
+		font-family: $font-book;
+		margin-bottom:40px;
+	}
+	
+
+	.auto-loans-calc-section {
+
+		//Desktop
+		@include media($desktop) {
+			@include span-columns(1 of 2);
+			@include omega(1);
+		}
+
+		@include media($tablet) {
+			@include span-columns(1 of 1);
+			@include omega(1);
+		}
+
+		@include media($mobile) {
+			margin-bottom:50px;
+		}
+	}
+
+
+	// Fields
+	.calc-field-container {
+		margin-bottom:20px;
+		padding-bottom:20px;
+		border-bottom:1px solid $blue-light;
+
+		input,
+		select {
+			border-radius: $border-radius;
+			border:1px solid $blue-light;
+		}
+
+		&.vehicle {
+			input {
+				margin-left:5px;
+				margin-right:5px;
+				width:200px;
+				padding:5px 5px 0px 5px;
+
+				@include media($mobile) {
+					margin-bottom:10px;
+				}
+			}
+		}
+
+		&.term {
+			select {
+				margin-left:5px;
+				margin-right:5px;
+				font-size:rem(24);
+				padding:5px 5px 0px 5px;
+
+				@include media($mobile) {
+					margin-bottom:10px;
+				}
+			}
+		}
+
+		&.interest {
+			//Desktop
+			@include media($desktop) {
+				border-bottom:none;
+				margin-bottom:0px;
+			}
+
+			input {
+				width:80px;
+				margin-left:5px;
+				margin-right:5px;
+				padding:5px;
+				padding:5px 5px 0px 5px;
+
+
+			}
+		}
+
+
+	}
+
+	.calc-button-container {
+		text-align: center;
+		position: absolute;
+		
+		left:50%;
+		margin-left:-100px;
+
+		@include media($desktop) {
+			top:90px;
+		}
+
+		#calc-button {
+			margin-top:30px;
+			font-size:rem(24);
+
+			transition:opacity .3s ease-in-out;
+
+			background-color:$blue;
+			border-color: $blue;
+
+			&:hover {
+				background-color:$green;
+				border-color: $green;
+			}
+		}
+	}
+
+	// Downpayment
+	.downpayment {
+		padding-top:70px;
+		padding-bottom:10px;
+		padding-left:50px;
+		padding-right:50px;
+
+		.downpayment-error {
+			margin-top:20px;
+		}
+
+		#downpayment-slider {
+
+			background-color:$blue-light;
+			border:none;
+			height:10px;
+
+			.ui-slider-handle {
+				border-radius:15px;
+				height:30px;
+				width:30px;
+				top:-.4em;
+				background-color:$blue;
+				background-image:none;
+				border:0px;
+				
+				transition:background .3s ease-in-out;
+
+				&:hover {
+					cursor:pointer;
+					background-color:$rose;
+				}
+			}
+
+			&.ui-slider-disabled {
+
+			}
+
+			.tooltip {
+				position: absolute;
+			    top: -55px;		    
+			    left: -68px;
+			    width:170px;
+				background-color:white;
+				padding:5px;
+				border:1px solid $blue-light;
+				text-align: center;
+				font-size: rem(22);
+				color:$brown;
+
+				&:after,
+				&:before {
+					content:'';
+					position: absolute;
+					bottom:-14px;
+					left:50%;
+					margin-left:-10px;
+				}
+
+				&:before {
+					@include triangle(17px 12px, $blue-light, down);
+				}
+
+				&:after {
+					bottom:-12px;
+					@include triangle(17px 12px, white, down);
+				}
+			}
+		}
+	}//END .downpayment
+	
+	#auto-loans-calc-results {
+		text-align: center;
+		position: relative;
+
+		.results-container {
+
+			padding:20px;
+			border-radius: 10px;
+			position: relative;
+			transition:all .5s ease-in-out;
+			background-color: rgba(218, 240, 240, 0.8);
+
+			opacity:0;
+			visibility:hidden;
+			
+			h3 {
+				font-size:rem(20);
+				font-family: $font-book;
+				font-style: italic;
+				font-weight: normal;
+			}
+
+			#monthly-payment {
+
+				font-size:rem(70);
+				display:block;
+				text-align: center;
+				margin-bottom:20px;
+
+				&:before {
+					display:inline-block;
+					content:"$";
+					vertical-align: super;
+					font-size:rem(30);
+				}
+			}
+
+			#auto-loans-calc-apply-button {
+				font-size:rem(24);
+			}
+		}//END .results-container
+	}//END #auto-loans-calc-results
+
+
+	// Results showing
+	&.results {
+
+		#calc-button {
+			opacity:0;
+		}
+
+		#auto-loans-calc-results .results-container {
+			opacity:1;
+			visibility: visible;
+		}
+		
+	}
+
+	.calc-error {
+		visibility:hidden;
+		opacity:0;
+		color:$rose;
+		margin-top:5px;
+		font-size:rem(18);
+		font-style: italic;
+
+		transition:all .3s ease-in-out;
+	
+		&.error {
+			visibility:visible;
+			opacity:1;
+		}
+	}
+
+	.general-errors {
+		margin-top:40px;
+		padding:5px;
+		border-radius: $border-radius;
+	}
+
+	#auto-loans-reset {
+		display:block;
+		margin-top:20px;
+		color:$blue;
+		font-size:rem(16);
+		text-align: center;
+
+		&:hover {
+			cursor:pointer;
+		}
+	}
+
+}//END .auto-loans-calc
+
+
+
+/*=====  End of Auto Loans Calculator  ======*/

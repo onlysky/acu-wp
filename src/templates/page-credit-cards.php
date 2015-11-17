@@ -54,8 +54,6 @@ get_header(); ?>
 								
 								<div class="credit-card-details">
 									<?php the_sub_field('credit_card_details');?>
-
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam cum nam velit expedita assumenda voluptas numquam veniam ut, magnam officia praesentium. Suscipit, dolorum. Porro dolores aspernatur, voluptatum laborum ut sapiente.
 								</div><!-- END.credit-card-details -->
 
 								<div class="credit-card-info">
