@@ -21,7 +21,6 @@
 	}
 }
 
-
 // Main Content Area
 #primary {
 	margin-top:40px;
@@ -37,6 +36,13 @@
 .content-sidebar #primary {
 	// Mobile
 	@include media($mobile) {
+		@include span-columns(1 of 1);
+		@include shift(0);
+		@include omega;
+	}
+
+	// Mobile
+	@include media($tablet) {
 		@include span-columns(1 of 1);
 		@include shift(0);
 		@include omega;

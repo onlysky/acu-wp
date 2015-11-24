@@ -1,9 +1,18 @@
 /*!TODO! - Todo List:
 ------------------------------------------------------------------------
 
++ Use theme options for various things.
+	- createa default options file that gets copied into options.json on npm install, and don't track options.json since it contains sensitive info.
+
+
+
 + Add Twig Support
 
++ gulp-newer (https://www.npmjs.com/package/gulp-newer) vs gulp-changed?
+
 + READ THIS: 
+	- command line args and prompts - http://fettblog.eu/gulp-recipes-part-2/
+	+ http://loige.co/gulp-and-ftp-update-a-website-on-the-fly/
 	- http://stefanimhoff.de/2014/gulp-tutorial-1-intro-setup/
 	- http://blog.rangle.io/angular-gulp-bestpractices/
 	- https://github.com/vigetlabs/gulp-starter/tree/master/gulpfile.js/tasks
@@ -136,6 +145,7 @@ DONE + fine tune which files browsersync is watching
 
 	+ Make Linting output optional
 		- Gulpif and yargs?
+		- https://github.com/bguiz/task-yargs
 
 + Test icon fonts
 	- https://github.com/johanbrook/gulp-fontcustom
@@ -173,7 +183,7 @@ DONE + add icons to gulp notifications
 	- https://github.com/mikaelbr/gulp-notify/blob/master/examples/gulpfile.js#L64-L74
 
 
-+ Deploy as a yeoman generator
++ Deploy theme as a yeoman generator
 ------------------------------------------------------------------------
 	- Through this app? https://github.com/yeoman/yeoman-app (http://electron.atom.io/)
 + WordPress bundle (theme + plugins + uploads)
@@ -199,6 +209,7 @@ WP STUFF:
 //https://github.com/hughsk/gulp-duration
 https://www.npmjs.com/package/gulp-flatten
 https://www.npmjs.com/package/gulp-gitignore
+https://www.npmjs.com/package/load-gulp-tasks
 
 //https://github.com/austinpray/asset-builder
 //https://github.com/taptapship/wiredep
@@ -241,6 +252,7 @@ var project     = 'acu-wp',							// Project Name
     lang        = 'languages/';						// Language Files
 
 var package		= require('./package.json'),		// Get details from package.json
+	options		= require('./options.json'),		// Get development options from options.json
     theme		= require('./src/theme.json'),		// Get theme details from theme.json
 
     /* Base Paths */
@@ -305,6 +317,7 @@ var package		= require('./package.json'),		// Get details from package.json
 /*-----------  Gulp Settings & Plugins  -----------*/
 var gulp        = require('gulp'),								// Initialize Gulp
 	path 		= require("path"),								// Node Path module - https://github.com/jinder/path
+	argv 		= require('yargs').argv;						// Arguments for gulp tasks - https://github.com/bcoe/yargs
 
     /* Gulp plugins */
 	plugins 	= require('gulp-load-plugins')({				// Automatically load all Gulp plugins - https://github.com/jackfranklin/gulp-load-plugins
@@ -321,6 +334,7 @@ var gulp        = require('gulp'),								// Initialize Gulp
 			'vinyl-source-stream'		: 'vinylSource',				// Use text streams at start of gulp pipelines - https://github.com/hughsk/vinyl-source-stream
 			'browserify'				: 'browserify',					// Run modules in browser with dependency bundling - https://github.com/substack/node-browserify#usage
 			'watchify'					: 'watchify',					// Watch mode for browserify builds - https://github.com/substack/watchify
+			'vinyl-ftp'					: 'ftp',						// FTP files to a server - https://github.com/morris/vinyl-ftp
 
 			'pretty-error'				: 'prettyError',				// Display "pretty errors" for node.js errors - https://github.com/AriaMinaei/pretty-error
 			'jshint-stylish'			: 'jsHintStyl',					// Javascript Linter stylish reporting - https://github.com/sindresorhus/jshint-stylish
@@ -570,10 +584,12 @@ gulp.task('scripts', function (){
 	return gulp.src([																		// Select all JS source files
 		assets.scripts.src + '**/*.js'
 	])
+	.pipe(plugins.changed(assets.scripts.src))									// Use only changed files
 	.pipe(plugins.debug({title: 'JS files processed:'}))
 	.pipe(plugins.plumber({errorHandler: onError}))
 	.pipe(plugins.plumber.stop())
 	.pipe(gulp.dest(build + 'js'))
+	.pipe(reload({stream:true}))
 	.pipe(plugins.notify({ 																	// Notify that task has completed
 			title: 'Gulp JS Task',
 			icon:  path.join(__dirname, lib + "icons/flat/js.png"),
@@ -607,7 +623,7 @@ gulp.task('sass', function (){
 		.pipe(plugins.sourcemaps.init({loadMaps: true}))		
 		.pipe(plugins.autoprefixer('last 2 version'))											// Autoprefix CSS with vendor prefixes
 		.pipe(plugins.sourcemaps.write('.'))
-		.pipe(plugins.gulpif(theme.options.linting.sassLinting, 								// If SASS/SCSS linting enabled in theme options
+		.pipe(plugins.gulpif(options.linting.sassLinting, 								// If SASS/SCSS linting enabled in development options
 			plugins.scssLint({ 																			// Lint SASS/SCSS
 				//config: './lib/custom-linters/scss-lint.yml', 										// Enable custom linter in "lib/custom-linters" directory
 				customReport: plugins.scssLintStylish 
@@ -658,6 +674,7 @@ gulp.task('fonts', function (){
 		.pipe(plugins.debug({title: 'Font files processed:'}))
 		.pipe(plugins.plumber.stop())
 		.pipe(gulp.dest(assets.styles.build + 'fonts'))											// Output fonts to build directory														// Inject Styles when style file is created
+		.pipe(reload({stream:true}))
 		.pipe(plugins.notify({ 																	// Notify that task has completed
 			title: 'Gulp SASS Task',
 			icon:  path.join(__dirname, lib + "icons/flat/sass.png"),
@@ -693,6 +710,7 @@ gulp.task('icons', function (){
 		    })
 	    .pipe(plugins.plumber.stop())
 	    .pipe(gulp.dest(build + 'fonts/' + project +'-icon-font'))							// Output the icon font files
+	    .pipe(reload({stream:true}))
 		.pipe(plugins.notify({																// Notify that task has completed
 			title: 'Gulp Icons Task',
 			message: 'Icon font creation complete', onLast: true 
@@ -762,6 +780,7 @@ gulp.task('images', function (){
 		}))
 		.pipe(plugins.plumber.stop())
 		.pipe(gulp.dest(build + 'img'))														// Output optimized images
+		.pipe(reload({stream:true}))
 		.pipe(plugins.notify({																// Notify that task has completed
 			title: 'Gulp Images Task',
 			message: 'Image optimization complete', onLast: true 
@@ -784,7 +803,8 @@ gulp.task('templates', function (){															// Move changed templates to b
         .pipe(plugins.changed(paths.build))													// Work with changed files only
         .pipe(plugins.debug({title: 'PHP file processed:'}))
         .pipe(plugins.replace('onlysky_wp_framework', theme.name))							// Change theme framework function names to use theme name
-        .pipe(gulp.dest(paths.build))		
+        .pipe(gulp.dest(paths.build))
+        .pipe(reload({stream:true}))		
     	.pipe(plugins.notify({ 
 			message: 'Gulp Templates Task Complete',
 			icon:  path.join(__dirname, lib + "icons/flat/php.png"),
@@ -802,6 +822,7 @@ gulp.task('includes', function (){															// Move changed includes to bui
          .pipe(plugins.replace('onlysky_wp_framework', theme.name))							// Change theme framework function names to use theme name
          //.pipe(plugins.debug({title: 'PHP file processed:'}))
          .pipe(gulp.dest(paths.build))
+         .pipe(reload({stream:true}))
          .pipe(plugins.notify({ 
 			message: 'Gulp Includes Task Complete',
 			icon:  path.join(__dirname, lib + "icons/flat/php.png"),
@@ -884,11 +905,44 @@ gulp.task('first-run', function (){
 	return plugins.runSequence('theme-info','license','includes','templates');
 });
 
+
+/* FTP Sync to Remote */
+gulp.task( 'ftpSync', function () {
+
+    if (argv.sync) {
+    	console.log("Syncing to remote FTP.");
+
+	    var ftpSync = plugins.ftp.create( {
+		    host:     options.staging.host,
+		    user:     options.staging.user,
+		    password: options.staging.password,
+		    parallel: 10,
+		    log:      plugins.gutil.log
+		} );
+
+	    console.log("FTP Sync Destination Host: " + options.staging.host);
+	    console.log("FTP Sync Destination Path: " + options.staging.path);
+
+	    // using base = '.' will transfer everything to /public_html correctly
+	    // turn off buffering in gulp.src for best performance
+	    return gulp.src( paths.build + '**/*.*', { /*base: '.',*/ buffer: false } )
+	        .pipe( ftpSync.newer( options.staging.path ) ) 										// only upload newer files
+	        .pipe( ftpSync.dest( options.staging.path ) )
+	        .pipe(plugins.notify({ 
+				message: 'Gulp FTP Sync Task Complete',
+				onLast: true
+			}));
+    }
+    else {
+    	console.log("FTP Syncing Disabled. Enable FTP Syncing with '--sync' flag. ");
+    }
+} );
+
 /*----------  User Tasks  ----------*/
 
 /* Watch Files for Changes */
 gulp.task('watch', ['browser-sync'], function() {											// Watch Files Task
-  
+	
   	// Watch Config Files
 	gulp.watch('./package.json', ['config-sync', 'theme-info']);									// Watch framework config file (package.json): sync, create theme info file on change
 	gulp.watch(paths.source +'theme.json', ['theme-info', 'license'/*, 'built-php-name-references'*/]);	// Watch theme config file (theme.json): create theme info file on change
@@ -905,8 +959,9 @@ gulp.task('watch', ['browser-sync'], function() {											// Watch Files Task
   	gulp.watch([assets.scripts.src +'**/*.js'], ['scripts']);										// Watch Scripts files
   //gulp.watch(source+'**/*.php', ['php']);
   //gulp.watch([build + '**/*', dist + '**/*'], reload);
+  
+  	gulp.watch(paths.build + '**/*.*', ['ftpSync']);
 });
-
 
 /* Startup Task */
 gulp.task('startup', function (callback){
@@ -918,11 +973,13 @@ gulp.task('startup', function (callback){
 //gulp.task('default', ['startup']);
 
 gulp.task('default', function (callback){
-	plugins.runSequence('startup', 'watch', callback);
+	plugins.runSequence('startup', 'watch', callback);	
 });
+
 
 /* Test Task */
 gulp.task('test', function(){
+
 	//console.log(JSON.stringify(plugins));
 	//console.log(Object.keys(plugins));
 	//console.log(plugins);

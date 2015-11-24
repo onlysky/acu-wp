@@ -100,8 +100,10 @@
     "pretty-error": "^1.2.0",
     "run-sequence": "^1.1.4",
     "sc5-styleguide": "^0.3.36",
+    "vinyl-ftp": "^0.4.5",
     "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.4.0"
+    "watchify": "^3.4.0",
+    "yargs": "^3.30.0"
   },
   "dependencies": {
     "node-neat": "^1.7.2"

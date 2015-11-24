@@ -24,5 +24,3 @@
 
 	</div><!-- END.site-nav-inner -->
 </nav><!-- #site-navigation -->
-
-<div class="menu-cover"></div><!-- END.menu-cover -->

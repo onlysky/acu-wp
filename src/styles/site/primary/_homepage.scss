@@ -3,6 +3,11 @@
 	
 	height:100%;
 	min-height: 700px;
+	
+	// Mobile
+	@include media($mobile) {
+		min-height: 300px;
+	}
 
 	// Hero fade in animation
 	@include keyframes(home-hero-fade) {
@@ -107,6 +112,11 @@
 
 	.hero-cta {
 		padding:150px 0px;
+		
+		// Mobile
+		@include media($mobile) {
+			padding:50px 0px;
+		}
 	}
 }//END .home .page-hero
 

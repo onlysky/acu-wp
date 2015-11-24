@@ -22,7 +22,8 @@ dist
 styleguide
 temp
 
-
+# ignore dev options file for remote server security
+options.json
 
 # ignore these files
 ~*

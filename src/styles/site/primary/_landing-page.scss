@@ -1,0 +1,99 @@
+// Landing Page Template
+
+.page-template-template-landing {
+	
+	// Landing Page CTA
+	.landing-page-cta {
+		background-color:$blue-sky;
+		padding:50px;
+
+		h2 {
+			color:$brown;
+			text-transform: none;
+			font-size:rem(36);
+			font-family: $font-book;
+			margin-bottom:40px;
+		}
+		
+		.button {
+			font-size:rem(30);
+
+			&.secondary {
+				background-color:transparent;
+				border-color:$brown;
+				color:$brown;
+				margin-left:10px;
+
+				&:hover {
+					color:$blue;
+					border-color:$blue;
+					background-color:transparent;
+				}
+			}
+		}
+
+	}//END .landing-page-cta
+
+	// Landing Page Form
+	.landing-page-form-container {
+		background-color:$brown;
+		margin-top:50px;
+		padding-top:50px;
+		padding-bottom:50px;
+
+		h2 {
+			color:$gold;
+			text-transform: none;
+			font-size: rem(30);
+		}
+		
+		// Submit Button
+		input[type="submit"] {
+			background-color:$gold;
+			border-color:$gold;
+			color:$brown;
+			width:inherit !important;
+
+			&:hover {
+				background-color:$green;
+				border-color:$green;
+				color:white;
+			}
+		}
+
+		.gform_footer {
+			text-align: center;
+		}
+
+		label {
+			color:white;
+
+			.gfield_required {
+				color:white;
+			}
+		}
+
+		input,
+		textarea {
+			width:100% !important;
+
+			background-color:#AD926C;
+			border-color:transparent;
+
+			&:focus {
+				background-color:white;
+			}
+		}
+		
+		// Desktop Sizing
+		.gform_wrapper {
+			
+			@include media($desktop) {
+				width:50%;
+				margin:0 auto;
+			}
+			
+		}
+	}//END .landing-page-form-container
+
+}//END .page-template-template-landing

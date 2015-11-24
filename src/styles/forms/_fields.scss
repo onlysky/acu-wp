@@ -87,6 +87,12 @@ label {
 	line-height: 30px;
 }
 
+.gfield_radio li label,
+.gfield_checkbox  li label{
+	line-height: 1 !important;
+	font-size:rem(18);
+}
+
 .gf_right_half,
 .gf_left_half {
 	@include media($mobile) {
@@ -97,6 +103,9 @@ label {
 	}
 }
 
+.hidden-field {
+	display:none !important;
+}
 
 .gsection_title {
 	text-align: left;
@@ -112,13 +121,13 @@ label {
 label {
 	font-family: $font-book;
 	color:$brown;
-	font-size:rem(12);
+	//font-size:rem(12);
 	font-style: italic;
 }
 label.gfield_label {
 	font-family: $font-book;
 	color:$brown-light;
-	font-size:rem(18);
+	//font-size:rem(18);
 	font-style: normal;
 }
 
@@ -182,6 +191,18 @@ input[type="submit"] {
 
 /* Visa Transfer */
 
+// Creditor repeater
+.creditor-label {
+	border-bottom:none !important;
+	h2.gsection_title {
+		margin-top:60px !important;
+		font-weight: normal !important;
+		text-transform: none !important;
+		color:$brown !important;
+	}
+	
+}
+
 #field_1_13,
 #field_1_25 {
 	border-bottom:none;
@@ -195,6 +216,25 @@ input[type="submit"] {
 #label_1_26_1 {
 	font-size:rem(18);
 }
+
+// View all results styles
+.entry-view-field-name,
+.entry-view-section-break {
+	font-weight: bold;
+}
+
+.entry-view-section-break {
+	text-decoration: underline;
+	padding-bottom:10px !important;
+	padding-top:10px !important;
+}
+
+.entry-view-field-value {
+	padding-bottom:10px !important;
+}
+
+
+
 
 }//END .gform_wrapper
 

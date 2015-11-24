@@ -28,18 +28,5 @@
 	],
 
 	"private": true,
-	"license": "GPL3",
-
-	"options" : {
-		"devURL" : "acu.dev",						
-		"linting" : {								
-			"cssLinting" : true,						
-			"sassLinting" : false,						
-			"phpLinting" : true,						
-			"jsLinting" : true,							
-			"jsStyleLinting" : true 					
-		},
-		"revAssets" : false 						
-	}
-
+	"license": "GPL3"
 }

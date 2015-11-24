@@ -33,17 +33,19 @@ function calcReset(){
 
 	$("#field_interest").val("");
 	$("#field_vehicle").val("");
-	$("#field_term").val(24);
-	$("#downpayment-slider").slider('value', 0);
+	$("#field_term").val(36);
+	//$("#downpayment-slider").slider('value', 0);
+	slider.noUiSlider.set(0);
 
 
 	$('.calc-error').removeClass('error');
 	$(".auto-loans-calc").removeClass('results');
 
 	$(".calc-field").prop( "disabled", false );
-	$("#downpayment-slider").slider("enable");
+	//$("#downpayment-slider").slider("enable");
+	slider.removeAttribute('disabled');
 
-	tooltip.text('$0 Down');
+	//tooltip.text('$0 Down');
 
 	vehicle = null;
 	downpayment = 0;
@@ -89,7 +91,8 @@ function calculatePayment(){
 
 	// Disable fields
 	$(".calc-field").prop( "disabled", true );
-	$("#downpayment-slider").slider("disable");
+	//$("#downpayment-slider").slider("disable");
+	slider.setAttribute('disabled', true);
 
 	// Set interest to decimal
 	interestDec = interest / 100;
@@ -127,7 +130,9 @@ $(document).ready(function () {
 	tooltip = $('<div class="tooltip">$0 Down</div>');
 
 	// Slider for Downpayments
-	$("#downpayment-slider").slider({
+	/*
+	
+	 $("#downpayment-slider").slider({
         value: 0,
         min: 0,
         max: 30000,
@@ -144,8 +149,35 @@ $(document).ready(function () {
 
 	}).find(".ui-slider-handle").append(tooltip);
 
+	*/
+
+	slider = document.getElementById('downpayment-slider');
+
+	noUiSlider.create(slider, {
+		start: [0],
+		connect: 'lower',
+		step:100,
+		tooltips: true,
+		range: {
+			'min': 0,
+			'max': 30000,
+
+		},
+		format: wNumb({
+			decimals: 0,
+			thousand: ',',
+			prefix: '$',
+			postfix: ' Down'
+		})
+	});
+
+	slider.noUiSlider.on('update', function() {
+		downpayment =  parseInt(slider.noUiSlider.get().replace(",", "").replace("$", ""));
+		//console.log(downpayment);
+	});
+
 	// Init the slider at 0
-	$("#downpayment-slider").slider('value', 0);
+	//$("#downpayment-slider").slider('value', 0);
 
 
 	$("#field_vehicle").bind("keyup change", function() {

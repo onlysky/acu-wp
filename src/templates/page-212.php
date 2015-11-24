@@ -74,4 +74,9 @@ get_header(); ?>
 		<?php get_sidebar(); ?>
 		
 	</div><!-- END.container content-sidebar -->
+	<?php 
+		wp_enqueue_script( 'onlysky_wp_framework-wnumb', get_template_directory_uri() . '/js/vendor/wNumb.js', array('jquery'), '1.1', true );
+		wp_enqueue_script( 'onlysky_wp_framework-nouislider', get_template_directory_uri() . '/js/vendor/noui-slider/nouislider.min.js', array('jquery'), '1.1', true );
+		wp_enqueue_script( 'onlysky_wp_framework-auto-loans-calc', get_template_directory_uri() . '/js/auto-loans-calc.js', array('jquery'), '1.1', true );
+	?>
 <?php get_footer(); ?>

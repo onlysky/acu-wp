@@ -1,5 +1,9 @@
 // Contact Page
 
-.contact-page-content {
-	
+.page-id-267 {
+	#primary {
+		@include media($desktop) {
+			margin-top:40px;
+		}
+	}
 }

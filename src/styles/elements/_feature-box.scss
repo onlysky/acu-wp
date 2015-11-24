@@ -1,9 +1,16 @@
 .feature-box {
+	
+
 	color:white;
 	border-left:8px solid $burnt-orange;
 
 	position:relative;
 	margin-bottom:60px;
+	
+	//Entire box contents are a link
+	a {
+		color:white;
+	}
 	
 	//Mobile
 	@include media($mobile) {
@@ -68,12 +75,11 @@
 		color:white;
 		text-align: left;
 		text-transform: inherit;
-
-		a {
-			color:white;
-			&:hover {
-				color:$gold;
-			}
+		
+		transition:all .3s ease-in-out;
+		color:white;
+		&:hover {
+			color:$gold;
 		}
 	}
 

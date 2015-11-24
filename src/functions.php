@@ -347,7 +347,8 @@ function onlysky_wp_framework_enqueue_style() {
 	wp_enqueue_style( 'styles', get_template_directory_uri() .  '/css/styles.css' );
 
 	// Jquery UI slider
-	wp_enqueue_style( 'jquery-ui-slider', get_template_directory_uri() .  '/js/vendor/jquery-ui-slider-only/jquery-ui.min.css' );
+	//wp_enqueue_style( 'jquery-ui-slider', get_template_directory_uri() .  '/js/vendor/jquery-ui-slider-only/jquery-ui.min.css' );
+	wp_enqueue_style( 'jquery-noui-slider', get_template_directory_uri() .  '/js/vendor/noui-slider/nouislider.min.css' );
 }
 add_action( 'wp_enqueue_scripts', 'onlysky_wp_framework_enqueue_style' );
 
@@ -401,6 +402,20 @@ function onlysky_wp_framework_button($atts, $content = null) {
 	return '<a href="'.$url.'" title="'.$$title.'" class="button '.$type.'">' . do_shortcode($content) . '</a>';
 }
 add_shortcode('button', 'onlysky_wp_framework_button');
+
+/**
+ * 
+ * Content Box Shortcode
+ *
+ * Source: http://www.wpexplorer.com/wordpress-button-shortcode/
+ */
+function onlysky_wp_framework_content_box($atts, $content = null) {
+	extract( shortcode_atts( array(
+	      'color' => 'blue',
+	), $atts ) );
+	return '<div class="content-box content-box-'.$color.'">' . do_shortcode($content) . '</div>';
+}
+add_shortcode('content_box', 'onlysky_wp_framework_content_box');
 
 /**
  * Remove Page Attributes & Hero Show for Homepage
@@ -460,6 +475,360 @@ add_filter( 'gform_validation_3', 'onlysky_wp_framework_password_length_and_char
 */
 
 /**
+ *  Add Password Fields to Gravity Forms
+ */
+add_filter( 'gform_enable_password_field', '__return_true' );
+
+
+/**
+ *  Add CC Fields to Gravity Forms
+ */
+add_filter( 'gform_enable_credit_card_field', 'enable_creditcard', 11 );
+function enable_creditcard( $is_enabled ) {
+    return true;
+}
+
+/**
+ *  Gravity Forms Validation Helpers
+ */
+
+/**
+* Gravity Wiz // Require Minimum Character Limit for Gravity Forms
+* 
+* Adds support for requiring a minimum number of characters for text-based Gravity Form fields.
+* 
+* @version	 1.0
+* @author    David Smith <david@gravitywiz.com>
+* @license   GPL-2.0+
+* @link      http://gravitywiz.com/...
+* @copyright 2013 Gravity Wiz
+*/
+class GW_Minimum_Characters {
+    
+    public function __construct( $args = array() ) {
+        
+        // make sure we're running the required minimum version of Gravity Forms
+        if( ! property_exists( 'GFCommon', 'version' ) || ! version_compare( GFCommon::$version, '1.7', '>=' ) )
+            return;
+    	
+    	// set our default arguments, parse against the provided arguments, and store for use throughout the class
+    	$this->_args = wp_parse_args( $args, array( 
+    		'form_id' => false,
+    		'field_id' => false,
+    		'min_chars' => 0,
+            'max_chars' => false,
+            'validation_message' => false,
+            'min_validation_message' => __( 'Please enter at least %s characters.' ),
+            'max_validation_message' => __( 'You may only enter %s characters.' )
+    	) );
+    	
+        extract( $this->_args );
+        
+        if( ! $form_id || ! $field_id || ! $min_chars )
+            return;
+        
+    	// time for hooks
+    	add_filter( "gform_field_validation_{$form_id}_{$field_id}", array( $this, 'validate_character_count' ), 10, 4 );
+        
+    }
+    
+    public function validate_character_count( $result, $value, $form, $field ) {
+        $char_count = strlen( $value );
+        $is_min_reached = $this->_args['min_chars'] !== false && $char_count >= $this->_args['min_chars'];
+        $is_max_exceeded = $this->_args['max_chars'] !== false && $char_count > $this->_args['max_chars'];
+        if( ! $is_min_reached ) {
+            $message = $this->_args['validation_message'];
+            if( ! $message )
+                $message = $this->_args['min_validation_message'];
+            $result['is_valid'] = false;
+            $result['message'] = sprintf( $message, $this->_args['min_chars'] );
+        } else if( $is_max_exceeded ) {
+            $message = $this->_args['max_validation_message'];
+            if( ! $message )
+                $message = $this->_args['validation_message'];
+            $result['is_valid'] = false;
+            $result['message'] = sprintf( $message, $this->_args['max_chars'] );
+        }
+        
+        return $result;
+    }
+    
+}
+
+// eServices Form Username
+new GW_Minimum_Characters( array( 
+    'form_id' => 3,
+    'field_id' => 8,
+    'min_chars' => 8,
+    'max_chars' => 15,
+    'min_validation_message' => __( 'Please enter at least %s characters.' ),
+    'max_validation_message' => __( 'Please enter only up to %s characters.' )
+) );
+
+// eServices Form Password
+new GW_Minimum_Characters( array( 
+    'form_id' => 3,
+    'field_id' => 25,
+    'min_chars' => 6,
+    'min_validation_message' => __( 'Please enter at least %s characters.' )
+) );
+
+// eServices Form Pin
+add_filter( 'gform_field_validation_3_26', 'gravity_eservices_pin', 10, 4 );
+function gravity_eservices_pin( $result, $value, $form, $field ) {
+
+    
+    if(!preg_match('~^\d+$~', $value)){
+        $result["is_valid"] = false;
+        $result["message"] = "Only numbers are allowed. Please enter a 4 digit number.";
+    }
+    /*
+    if ( $result['is_valid'] && intval( $value ) > 4 ) {
+        $result['is_valid'] = false;
+        $result['message'] = 'Please enter a 4 digit number';
+    }
+    elseif( $result['is_valid'] && intval( $value ) < 4 ) {
+        $result['is_valid'] = false;
+        $result['message'] = 'Please enter a 4 digit number';
+    }
+    */
+    return $result;
+}
+
+new GW_Minimum_Characters( array( 
+    'form_id' => 3,
+    'field_id' => 26,
+    'min_chars' => 4,
+    'max_chars' => 4,
+    'min_validation_message' => __( 'Please enter a 4 digit number.' ),
+    'max_validation_message' => __( 'Please enter a 4 digit number.' )
+) );
+
+
+/**
+* Merge Tags as Dynamic Population Parameters
+* http://gravitywiz.com/dynamic-products-via-post-meta/
+*/
+add_filter('gform_pre_render', 'gw_prepopluate_merge_tags');
+function gw_prepopluate_merge_tags($form) {
+    
+    $filter_names = array();
+    
+    foreach($form['fields'] as &$field) {
+        
+        if(!rgar($field, 'allowsPrepopulate'))
+            continue;
+        
+        // complex fields store inputName in the "name" property of the inputs array
+        if(is_array(rgar($field, 'inputs')) && $field['type'] != 'checkbox') {
+            foreach($field['inputs'] as $input) {
+                if(rgar($input, 'name'))
+                    $filter_names[] = array('type' => $field['type'], 'name' => rgar($input, 'name'));
+            }
+        } else {
+            $filter_names[] = array('type' => $field['type'], 'name' => rgar($field, 'inputName'));
+        }
+        
+    }
+    
+    foreach($filter_names as $filter_name) {
+        
+        $filtered_name = GFCommon::replace_variables_prepopulate($filter_name['name']);
+        
+        if($filter_name['name'] == $filtered_name)
+            continue;
+        
+        add_filter("gform_field_value_{$filter_name['name']}", create_function("", "return '$filtered_name';"));
+    }
+    
+    return $form;
+}
+
+
+/**
+* Better Pre-submission Confirmation
+* http://gravitywiz.com/2012/08/04/better-pre-submission-confirmation/
+*/
+class GWPreviewConfirmation {
+
+    private static $lead;
+
+    public static function init() {
+        add_filter( 'gform_pre_render', array( __class__, 'replace_merge_tags' ) );
+    }
+
+    public static function replace_merge_tags( $form ) {
+
+        $current_page = isset(GFFormDisplay::$submission[$form['id']]) ? GFFormDisplay::$submission[$form['id']]['page_number'] : 1;
+        $fields = array();
+
+        // get all HTML fields on the current page
+        foreach($form['fields'] as &$field) {
+
+            // skip all fields on the first page
+            if(rgar($field, 'pageNumber') <= 1)
+                continue;
+
+            $default_value = rgar($field, 'defaultValue');
+            preg_match_all('/{.+}/', $default_value, $matches, PREG_SET_ORDER);
+            if(!empty($matches)) {
+                // if default value needs to be replaced but is not on current page, wait until on the current page to replace it
+                if(rgar($field, 'pageNumber') != $current_page) {
+                    $field['defaultValue'] = '';
+                } else {
+                    $field['defaultValue'] = self::preview_replace_variables($default_value, $form);
+                }
+            }
+
+            // only run 'content' filter for fields on the current page
+            if(rgar($field, 'pageNumber') != $current_page)
+                continue;
+
+            $html_content = rgar($field, 'content');
+            preg_match_all('/{.+}/', $html_content, $matches, PREG_SET_ORDER);
+            if(!empty($matches)) {
+                $field['content'] = self::preview_replace_variables($html_content, $form);
+            }
+
+        }
+
+        return $form;
+    }
+
+    /**
+    * Adds special support for file upload, post image and multi input merge tags.
+    */
+    public static function preview_special_merge_tags($value, $input_id, $merge_tag, $field) {
+        
+        // added to prevent overriding :noadmin filter (and other filters that remove fields)
+        if( ! $value )
+            return $value;
+        
+        $input_type = RGFormsModel::get_input_type($field);
+        
+        $is_upload_field = in_array( $input_type, array('post_image', 'fileupload') );
+        $is_multi_input = is_array( rgar($field, 'inputs') );
+        $is_input = intval( $input_id ) != $input_id;
+        
+        if( !$is_upload_field && !$is_multi_input )
+            return $value;
+
+        // if is individual input of multi-input field, return just that input value
+        if( $is_input )
+            return $value;
+            
+        $form = RGFormsModel::get_form_meta($field['formId']);
+        $lead = self::create_lead($form);
+        $currency = GFCommon::get_currency();
+
+        if(is_array(rgar($field, 'inputs'))) {
+            $value = RGFormsModel::get_lead_field_value($lead, $field);
+            return GFCommon::get_lead_field_display($field, $value, $currency);
+        }
+
+        switch($input_type) {
+        case 'fileupload':
+            $value = self::preview_image_value("input_{$field['id']}", $field, $form, $lead);
+            $value = self::preview_image_display($field, $form, $value);
+            break;
+        default:
+            $value = self::preview_image_value("input_{$field['id']}", $field, $form, $lead);
+            $value = GFCommon::get_lead_field_display($field, $value, $currency);
+            break;
+        }
+
+        return $value;
+    }
+
+    public static function preview_image_value($input_name, $field, $form, $lead) {
+
+        $field_id = $field['id'];
+        $file_info = RGFormsModel::get_temp_filename($form['id'], $input_name);
+        $source = RGFormsModel::get_upload_url($form['id']) . "/tmp/" . $file_info["temp_filename"];
+
+        if(!$file_info)
+            return '';
+
+        switch(RGFormsModel::get_input_type($field)){
+
+            case "post_image":
+                list(,$image_title, $image_caption, $image_description) = explode("|:|", $lead[$field['id']]);
+                $value = !empty($source) ? $source . "|:|" . $image_title . "|:|" . $image_caption . "|:|" . $image_description : "";
+                break;
+
+            case "fileupload" :
+                $value = $source;
+                break;
+
+        }
+
+        return $value;
+    }
+
+    public static function preview_image_display($field, $form, $value) {
+
+        // need to get the tmp $file_info to retrieve real uploaded filename, otherwise will display ugly tmp name
+        $input_name = "input_" . str_replace('.', '_', $field['id']);
+        $file_info = RGFormsModel::get_temp_filename($form['id'], $input_name);
+
+        $file_path = $value;
+        if(!empty($file_path)){
+            $file_path = esc_attr(str_replace(" ", "%20", $file_path));
+            $value = "<a href='$file_path' target='_blank' title='" . __("Click to view", "gravityforms") . "'>" . $file_info['uploaded_filename'] . "</a>";
+        }
+        return $value;
+
+    }
+
+    /**
+    * Retrieves $lead object from class if it has already been created; otherwise creates a new $lead object.
+    */
+    public static function create_lead( $form ) {
+        
+        if( empty( self::$lead ) ) {
+            self::$lead = GFFormsModel::create_lead( $form );
+            self::clear_field_value_cache( $form );
+        }
+        
+        return self::$lead;
+    }
+
+    public static function preview_replace_variables( $content, $form ) {
+
+        $lead = self::create_lead($form);
+
+        // add filter that will handle getting temporary URLs for file uploads and post image fields (removed below)
+        // beware, the RGFormsModel::create_lead() function also triggers the gform_merge_tag_filter at some point and will
+        // result in an infinite loop if not called first above
+        add_filter('gform_merge_tag_filter', array('GWPreviewConfirmation', 'preview_special_merge_tags'), 10, 4);
+
+        $content = GFCommon::replace_variables($content, $form, $lead, false, false, false);
+
+        // remove filter so this function is not applied after preview functionality is complete
+        remove_filter('gform_merge_tag_filter', array('GWPreviewConfirmation', 'preview_special_merge_tags'));
+
+        return $content;
+    }
+    
+    public static function clear_field_value_cache( $form ) {
+        
+        if( ! class_exists( 'GFCache' ) )
+            return;
+            
+        foreach( $form['fields'] as &$field ) {
+            if( GFFormsModel::get_input_type( $field ) == 'total' )
+                GFCache::delete( 'GFFormsModel::get_lead_field_value__' . $field['id'] );
+        }
+        
+    }
+
+}
+
+GWPreviewConfirmation::init();
+
+/* END OF Gravity Forms Mods */
+
+/**
  *  Remove WP Page Widgets section from page templates with no sidebars, and some specific pages
  */
 /*
@@ -481,13 +850,12 @@ add_action( 'admin_init' , 'onlysky_wp_framework_remove_page_widget_box');
  * Enqueue scripts
  */
 function onlysky_wp_framework_scripts() {
-	
+
 	//!TODO - Move this over to concated scripts and vendor scripts that come from bower
 
 	// Locations Page
 	//wp_enqueue_script( 'onlysky_wp_framework-locations', get_template_directory_uri() . '/js/jquery.responsiveiframe.js', array('jquery'), '1.1', true );
 	//wp_enqueue_script( 'onlysky_wp_framework-locations', '/wp-content/plugins/advanced-iframe/js/ai_external.js', array('jquery'), '1.1', true );
-
 	//wp_enqueue_script( 'onlysky_wp_framework-iframeresizer', get_template_directory_uri() . '/js/iframeResizer.min.js', array('jquery'), '1.1', true );
 	//wp_enqueue_script( 'onlysky_wp_framework-locations', get_template_directory_uri() . '/js/locations.js', array('jquery'), '1.1', true );
 
@@ -495,10 +863,14 @@ function onlysky_wp_framework_scripts() {
 	wp_enqueue_script( 'onlysky_wp_framework-credit-cards', get_template_directory_uri() . '/js/credit-cards.js', array('jquery'), '1.1', true );
 
 	// Auto Loans Slider
-	wp_enqueue_script( 'onlysky_wp_framework-validate', get_template_directory_uri() . '/js/vendor/jquery-validate/jquery.validate.min.js', array('jquery'), '1.1', true );
-	//wp_enqueue_script( 'onlysky_wp_framework-validate-addon', get_template_directory_uri() . '/js/vendor/jquery-validate/additional-methods.min.js', array('jquery'), '1.1', true );
-	wp_enqueue_script( 'onlysky_wp_framework-jquery-ui-slider', get_template_directory_uri() . '/js/vendor/jquery-ui-slider-only/jquery-ui.min.js', array('jquery'), '1.1', true );
-	wp_enqueue_script( 'onlysky_wp_framework-auto-loans-calc', get_template_directory_uri() . '/js/auto-loans-calc.js', array('jquery'), '1.1', true );
+	// moved to template
+	//wp_enqueue_script( 'onlysky_wp_framework-jquery-ui-slider', get_template_directory_uri() . '/js/vendor/jquery-ui-slider-only/jquery-ui.min.js', array('jquery'), '1.1', true );
+	//wp_enqueue_script( 'onlysky_wp_framework-jquery-ui-touoch', get_template_directory_uri() . '/js/vendor/jquery.ui.touch-punch.min.js', array('jquery'), '1.1', true );
+	/*if (is_page(212)){
+		wp_enqueue_script( 'onlysky_wp_framework-wnumb', get_template_directory_uri() . '/js/vendor/wNumb.js', array('jquery'), '1.1', true );
+		wp_enqueue_scripts( 'onlysky_wp_framework-no-ui-slider', get_template_directory_uri() . '/js/vendor/noui-slider/nouislider.min.js', array('jquery'), '1.1', true );
+		wp_enqueue_script( 'onlysky_wp_framework-auto-loans-calc', get_template_directory_uri() . '/js/auto-loans-calc.js', array('jquery'), '1.1', true );
+	}*/
 
 	// Menu Navigation
 	wp_enqueue_script( 'onlysky_wp_framework-navigation', get_template_directory_uri() . '/js/navigation.js', array('jquery'), '1.1', true );
@@ -512,6 +884,34 @@ function onlysky_wp_framework_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'onlysky_wp_framework_scripts' );
+
+/**
+ * Don't disable search engine on staging
+ */
+
+function wp_local_toolbox_enable_search() {
+
+	if (defined('WPLT_SERVER') && WPLT_SERVER) {
+
+		if (strtoupper(WPLT_SERVER) == 'LOCAL' && strtoupper(WPLT_SERVER) == 'local'  && strtoupper(WPLT_SERVER) == 'DEV') {
+			/**
+			 * LOCAL/DEV Environment Everything except PRODUCTION/LIVE/STAGING Environment
+			 */
+			
+			// Hide from robots
+			add_filter('pre_option_blog_public', '__return_zero');
+
+		} else {
+			/**
+			 * PRODUCTION/LIVE/STAGING Environment
+			 */
+			
+			// Don't hide from robots
+			add_filter('pre_option_blog_public', '__return_true');
+		}
+	}
+}
+add_action( 'wp_loaded', 'wp_local_toolbox_enable_search' );
 
 /**
  * Implement the Custom Header feature.

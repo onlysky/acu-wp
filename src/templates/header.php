@@ -43,7 +43,7 @@
 <body <?php body_class(); ?>>
 <div id="page" class="hfeed site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'onlysky_wp_framework' ); ?></a>
-	
+	<div class="menu-cover"></div><!-- END.menu-cover -->
 	<header id="masthead" class="site-header" role="banner">
 
 		<!-- Nav Button -->
@@ -88,10 +88,10 @@
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>search" title="Search our website" class="header-search">Search</a>
 
 		</div>
+
+		<!-- Main Navigation Menu -->
+		<?php get_template_part( 'page-templates/partials/main-menu'); ?>
 	
 	</header><!-- #masthead -->
-	
-	<!-- Main Navigation Menu -->
-	<?php get_template_part( 'page-templates/partials/main-menu'); ?>
 
 	<div id="content" class="site-content">

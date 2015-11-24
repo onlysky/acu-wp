@@ -108,7 +108,7 @@
 	h2.widget-title {
 		text-align: left;
 		padding-left:$content-padding;
-		margin-bottom:60px;
+		margin-bottom:30px;
 		color:$brown;
 		font-size:rem(30);
 		text-transform: none;
@@ -150,7 +150,7 @@
 			a {
 				color:$blue;
 				&:hover {
-					color:$gold;
+					color:$dark-puce;
 				}
 			}
 		}//END li
@@ -201,7 +201,7 @@
 	}
 
 	.gfield {
-		margin-bottom:20px;
+		margin-bottom:10px !important;
 	}
 
 	input[type="text"],
@@ -291,19 +291,19 @@
 				background-color:$brown;
 				display:block;
 				overflow:hidden;
-				border-left:10px solid $blue-sky;
+				border-left:10px solid $blue-light;
 
 				// DESKTOP
 				max-height: 260px;
 			}
 
 			.crp_thumb {
-				
+				width:100%;
 				opacity:.7;
 				transition: all .5s .2s linear;
 				
 				// DESKTOP
-				height:260px;
+				min-height:260px;
 
 				&:hover {
 					opacity:1;
@@ -408,5 +408,45 @@
 
 
 /*=====  End of Facebook Widget  ======*/
+
+/*================================================
+=            Calendar Widget / Plugin            =
+================================================*/
+// Calendar List View
+.simcal-events-list-container {
+
+	ul.simcal-events {
+		@include listreset;
+
+		li.simcal-event {
+			border-bottom:1px solid $tan !important;
+			margin-bottom:60px !important;
+		}
+	}
+	
+	.simcal-event-details {
+		font-size:rem(20) !important;
+		margin-bottom:20px;		
+
+		h2,
+		.simcal-event-title {
+			font-family: $font-medium;
+			font-size:rem(22);
+			font-weight: normal;
+			line-height: 1;
+			text-transform: none;
+			text-align: left;
+			
+			margin:0px 0px 26px 0px;
+		}
+
+		.simcal-event-address {
+			color:$brown-light;
+			font-style: italic;
+		}
+	}
+}
+/*=====  End of Calendar Widget / Plugin  ======*/
+
 
 

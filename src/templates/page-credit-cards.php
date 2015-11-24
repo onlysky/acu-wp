@@ -57,7 +57,7 @@ get_header(); ?>
 								</div><!-- END.credit-card-details -->
 
 								<div class="credit-card-info">
-									<a href="<?php if (get_sub_field('credit_card_link_type') == 'wp-page' ){ the_sub_field('credit_card_link_page'); } else { the_sub_field('credit_card_link_url'); } ?>" title="Apply Now" class="credit-card-apply button">Apply Now</a>
+									<a href="<?php if (get_sub_field('credit_card_link_type') == 'wp-page' ){ the_sub_field('credit_card_link_page'); } else { the_sub_field('credit_card_link_url'); } ?>" title="<?php the_sub_field(credit_card_button_text)?>" class="credit-card-apply button"><?php the_sub_field(credit_card_button_text)?></a>
 
 									<span class="credit-card-toggle credit-card-details-link">Details</span>
 								</div><!-- END.credit-card-info -->

@@ -55,6 +55,39 @@ span.preface {
 	font-family: $font-medium;
 }
 
+// Content Box
+.content-box {
+	padding:40px;
+	border:4px solid $blue-sky;
+
+	&.content-box-blue {
+		border-color:$blue-sky;
+	}
+
+	&.content-box-orange {
+		border-color:$burnt-orange;
+	}
+
+	&.content-box-rose {
+		border-color:$rose;
+	}
+
+	&.content-box-green {
+		border-color:$green;
+	}
+
+	&.content-box-brown {
+		border-color:$brown;
+	}
+
+	&.content-box-gold {
+		border-color:$gold;
+	}
+
+	&.content-box-tan {
+		border-color:$tan;
+	}
+}
 
 
 dfn, cite, em, i {

@@ -190,7 +190,7 @@ section.auto-loans-boxes {
 		position: absolute;
 		
 		left:50%;
-		margin-left:-100px;
+		margin-left:-115px;
 
 		@include media($desktop) {
 			top:90px;
@@ -216,8 +216,15 @@ section.auto-loans-boxes {
 	.downpayment {
 		padding-top:70px;
 		padding-bottom:10px;
+
 		padding-left:50px;
 		padding-right:50px;
+			
+		//DESKTOP
+		@include media($desktop) {
+			padding-left:0px;
+			padding-right:0px;
+		}
 
 		.downpayment-error {
 			margin-top:20px;
@@ -225,32 +232,82 @@ section.auto-loans-boxes {
 
 		#downpayment-slider {
 
-			background-color:$blue-light;
-			border:none;
+			
+			border:none !important;
 			height:10px;
+			box-shadow: none;
 
-			.ui-slider-handle {
+			&:focus {
+				border:none !important;
+			}
+		
+
+			.noUi-background {
+				background-color:$blue-light;
+				border:none;
+				border-radius:15px;
+				box-shadow: none;
+			}
+
+
+			.noUi-base {
+				background-color:$green;
+				border:none;
+				border-radius:15px;
+			}
+
+			.ui-slider-handle,
+			.noUi-handle {
+				box-shadow: none;
 				border-radius:15px;
 				height:30px;
 				width:30px;
-				top:-.4em;
+				top:-.5em;
 				background-color:$blue;
 				background-image:none;
 				border:0px;
 				
 				transition:background .3s ease-in-out;
 
+				&:focus {
+					border:none !important;
+				}
+
 				&:hover {
 					cursor:pointer;
 					background-color:$rose;
 				}
+
+				&:before,
+				&:after {
+					display:none;
+				}
 			}
 
-			&.ui-slider-disabled {
-
+			/* Disabled state; */
+			&[disabled] .noUi-base,
+			&[disabled] .noUi-background,
+			&[disabled] .noUi-tooltip, {
+				background: lightgrey !important;
+			}
+			&[disabled] .noUi-tooltip:after {
+				@include triangle(17px 12px, lightgrey, down);
+			}
+			&[disabled] .noUi-tooltip:before {
+				@include triangle(17px 12px, lightgrey, down);
 			}
 
-			.tooltip {
+			&[disabled] .noUi-handle {
+				background-color:#888888;
+			}
+
+			&[disabled] .noUi-origin,
+			&[disabled] .noUi-handle {
+				cursor: not-allowed;
+			}
+
+			.tooltip,
+			.noUi-tooltip {
 				position: absolute;
 			    top: -55px;		    
 			    left: -68px;
@@ -276,7 +333,7 @@ section.auto-loans-boxes {
 				}
 
 				&:after {
-					bottom:-12px;
+					bottom:-11px;
 					@include triangle(17px 12px, white, down);
 				}
 			}
