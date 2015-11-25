@@ -1,3 +1,85 @@
+//  Admin Notice Box
+.admin-notice {
+	padding:20px;
+	margin:20px;
+	background-color:white;
+
+	.warning-box {
+		padding:10px;
+		margin-top:10px;
+		margin-bottom:10px;
+		border:2px solid red;
+		display:block;
+	}
+
+	.warning {
+		color:red;
+	}
+}
+
+
+// Slate admin theme tweaks
+.slate-admin-theme {
+	#footer-left {
+		display:none;
+	}
+	#wp-admin-bar-environment-notice {
+		padding-top:15px;
+	}
+}
+
+
+// Hide Customize Menu Items
+.hide-if-no-customize {
+	display:none !important;
+}
+
+/*=================================
+=            ACU Admin            =
+=================================*/
+
+/*
+#adminmenuback {
+	background-color:#351e10 !important;
+}
+
+.separator {
+	outline-color:#54301a;
+	color:#54301a;
+	background-color:#54301a;
+}
+
+.wp-has-submenu {}
+
+#adminmenu li.wp-has-current-submenu a.wp-has-current-submenu, 
+#adminmenu .current div.wp-menu-image:before, 
+#adminmenu .wp-has-current-submenu div.wp-menu-image:before, 
+#adminmenu a.current:hover div.wp-menu-image:before, 
+#adminmenu a.wp-has-current-submenu:hover div.wp-menu-image:before, 
+#adminmenu li.wp-has-current-submenu:hover div.wp-menu-image:before {
+	color:#d06f1a !important;
+}
+
+#adminmenu a, 
+#adminmenu div.wp-menu-image:before, 
+#collapse-menu, 
+#collapse-menu #collapse-button div:after {
+	color:#B5B4B4 !important;
+}
+
+#adminmenu li.menu-top:hover, 
+#adminmenu li.opensub>a.menu-top, 
+#adminmenu li>a.menu-top:focus {
+	color:#005984 !important;
+}
+*/
+/*=====  End of ACU Admin  ======*/
+
+
+/*===========================================
+=            Plugins admin pages            =
+===========================================*/
+
 // Remove Donation Message from WP Page Widgets Plugin
 #donation-message{
 	display:none !important;
@@ -9,3 +91,6 @@
 		display:none !important;
 	}
 }
+
+/*=====  End of Plugins admin pages  ======*/
+

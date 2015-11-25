@@ -397,9 +397,11 @@ function onlysky_wp_framework_button($atts, $content = null) {
 	extract( shortcode_atts( array(
 	      'url' => '#',
 	      'type' => 'primary',
-	      'title' => ''
+	      'title' => '',
+	      'id' => '',
+	      'class' => ''
 	), $atts ) );
-	return '<a href="'.$url.'" title="'.$$title.'" class="button '.$type.'">' . do_shortcode($content) . '</a>';
+	return '<a href="'.$url.'" id="'.$id.'" title="'.$title.'" class="button '.$type.' '.$class.'">' . do_shortcode($content) . '</a>';
 }
 add_shortcode('button', 'onlysky_wp_framework_button');
 
@@ -830,7 +832,17 @@ GWPreviewConfirmation::init();
 
 /**
  *  Remove WP Page Widgets section from page templates with no sidebars, and some specific pages
- */
+ **/
+function onlysky_wp_framework_add_favicon() {
+  	$favicon_url = get_stylesheet_directory_uri() . '/img/favicon/admin-favicon.ico';
+	echo '<link rel="shortcut icon" href="' . $favicon_url . '" />';
+}
+add_action('login_head', 'onlysky_wp_framework_add_favicon');
+add_action('admin_head', 'onlysky_wp_framework_add_favicon');
+
+/**
+ *  Remove WP Page Widgets section from page templates with no sidebars, and some specific pages
+ **/
 /*
 function onlysky_wp_framework_remove_page_widget_box()
 {
@@ -845,6 +857,48 @@ function onlysky_wp_framework_remove_page_widget_box()
 }
 add_action( 'admin_init' , 'onlysky_wp_framework_remove_page_widget_box');
 */
+
+
+/**
+ * 
+ * Display Notice on themes page
+ *
+ */
+global $pagenow;
+if ( $pagenow == 'themes.php' ) :
+
+    function onlysky_wp_framework_remove_them_editor_notice() {
+        echo '<div class="admin-notice"><h2>You are currently using the ACU WordPress theme.</h2> <p>This theme is developed using the <strong>Only Sky WP Framework</strong>. The Only Sky WP Framework leverages a <em>build system</em> to process and create theme files from <em>source code</em>.</p><p><span class="warning-box"><strong class="warning">WARNING: </strong><strong>You should never modify any of the theme code directly</strong>, including all php, javascript, css, or html files. Changes should <em>always</em> be made exculsively to the <strong>source code</strong> instead.</p><p>Contact <a href="mailto:dev@onlysky.com">dev@onlysky.com</a> with any questions.</p></div>';
+    }
+    add_action( 'admin_notices', 'onlysky_wp_framework_remove_them_editor_notice' );
+endif;
+
+/**
+ * 
+ * Hide theme links in admin menu for non Only Sky users
+ *
+ */
+function onlysky_wp_framework_remove_admin_theme_link() {
+
+	$current_user = wp_get_current_user();
+
+	// If is Only Sky User (user 2)
+	if ( $current_user->user_login  == "onlysky" ) {
+		// Don't do anything
+	} else {
+
+		//Remove the theme editor submenu item
+		remove_submenu_page( 'themes.php', 'theme-editor.php' );
+
+		//Remove the customizer submenu item
+		remove_submenu_page( 'themes.php', 'customize.php' );
+		
+		/* Disable File Editing (Theme and Plugins) */
+		//define('DISALLOW_FILE_EDIT', true);
+	}
+}
+add_action( 'admin_menu', 'onlysky_wp_framework_remove_admin_theme_link', 999 );
+
 
 /**
  * Enqueue scripts

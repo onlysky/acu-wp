@@ -82,7 +82,7 @@
 			</span>
 			
 			<!-- Join Us Button -->
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>join-us" class="header-join button button-gold">Join Us</a>
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>join-us" id="header-join" class="button button-gold">Join Us</a>
 			
 			<!-- Search Button -->
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>search" title="Search our website" class="header-search">Search</a>

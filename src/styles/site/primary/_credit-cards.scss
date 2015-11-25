@@ -65,6 +65,10 @@ ul.credit-cards-list {
 
 			.credit-card-image {
 				opacity:1;
+
+				&:hover {
+					opacity:1;
+				}
 			}
 
 			.credit-card-details-link {

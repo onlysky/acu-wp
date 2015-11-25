@@ -359,7 +359,7 @@ a.login-button {
 
 
 // Join Us
-.header-join {
+#header-join {
 	margin-left:20px;
 	margin-right:20px;
 }
@@ -431,7 +431,7 @@ body.admin-bar {
 }
 
 @media (max-width:1000px) {
-	.header-join {
+	#header-join {
 		display:none;
 	}
 }

@@ -29,7 +29,7 @@
 						<div class="hero-cta section-sml">
 					    <ul>
 						    <?php while( have_rows('hero_cta') ): the_row(); ?>
-						        <li><a href="<?php if (get_sub_field('hero_cta_button_type') == 'wp-page' ){ the_sub_field('hero_cta_button_link'); } else { the_sub_field('hero_cta_button_link_url'); } ?>"><?php the_sub_field('hero_cta_button_text'); ?></a></li>
+						        <li><a id="<?php the_sub_field('hero_cta_button_id'); ?>" href="<?php if (get_sub_field('hero_cta_button_type') == 'wp-page' ){ the_sub_field('hero_cta_button_link'); } else { the_sub_field('hero_cta_button_link_url'); } ?>"><?php the_sub_field('hero_cta_button_text'); ?></a></li>
 						    <?php endwhile; ?>
 					    </ul>
 				    </div>
