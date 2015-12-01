@@ -953,7 +953,7 @@ function wp_local_toolbox_enable_search() {
 			 */
 			
 			// Hide from robots
-			add_filter('pre_option_blog_public', '__return_zero');
+			//add_filter('pre_option_blog_public', '__return_zero');
 
 		} else {
 			/**
@@ -961,7 +961,7 @@ function wp_local_toolbox_enable_search() {
 			 */
 			
 			// Don't hide from robots
-			add_filter('pre_option_blog_public', '__return_true');
+			//add_filter('pre_option_blog_public', '__return_true');
 		}
 	}
 }

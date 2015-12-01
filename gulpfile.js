@@ -2,9 +2,7 @@
 ------------------------------------------------------------------------
 
 + Use theme options for various things.
-	- createa default options file that gets copied into options.json on npm install, and don't track options.json since it contains sensitive info.
-
-
+	- create default options file that gets copied into options.json on npm install, and don't track options.json since it contains sensitive info.
 
 + Add Twig Support
 
@@ -275,7 +273,8 @@ var package		= require('./package.json'),		// Get details from package.json
 			dist 	 : 	paths.dist + 'css/',
 			
 			fonts 	 :  paths.source + 'styles/typography/fonts/theme-fonts/',
-			stylesrc :  [										// SCSS Source Files Only (Minus Fonts & Styleguide Edits)
+			// SCSS Source Files Only (Minus Fonts & Styleguide Edits)
+			stylesrc :  [							
 								  paths.source + 'styles/' +'**/*.scss', 
 							'!' + paths.source + 'styles/typography/fonts/icon-font/template/**/*.*',
 							'!' + paths.source + 'styles/styleguide/**/*.*'
@@ -525,7 +524,7 @@ var banner = {
 /* Browser Sync */
 gulp.task('browser-sync', function() {									// BrowserSync Task - http://www.browsersync.io/docs/options
 	plugins.browserSync.init({
-		proxy: url,															// Proxy to use
+		proxy: options.devURL,															// Proxy to use
 		browser: 'chromium-browser',										// Open website in Chromium Browser (Change to whatever browser you use: ['google chrome', firefox'])
 		reloadOnRestart: true
 	});
@@ -599,17 +598,11 @@ gulp.task('scripts', function (){
 });
 
 
-
-
-
-/* Compile SASS */
+/* 
+* Compile SASS
+*/
 gulp.task('sass', function (){
-	return gulp.src([																		// Select all SASS source files, excluding icon fonts folder
-			source + 'styles/**/*.scss', 
-			'!' + source + 'styles/typography/fonts/icon-font/**/*.*',
-			'!' + source + 'styles/styleguide/**/*.*'
-			//'!' + source + 'styles/typography/fonts/icon-font/*.*'
-		])
+	return gulp.src(assets.styles.stylesrc)													// Select all SASS source files, excluding icon fonts folder
 		//.pipe(plugins.debug({title: 'SCSS files processed:'}))
 		.pipe(plugins.plumber({errorHandler: onError}))
 		.pipe(plugins.sourcemaps.init())														// Initialize source maps
@@ -623,9 +616,9 @@ gulp.task('sass', function (){
 		.pipe(plugins.sourcemaps.init({loadMaps: true}))		
 		.pipe(plugins.autoprefixer('last 2 version'))											// Autoprefix CSS with vendor prefixes
 		.pipe(plugins.sourcemaps.write('.'))
-		.pipe(plugins.gulpif(options.linting.sassLinting, 								// If SASS/SCSS linting enabled in development options
-			plugins.scssLint({ 																			// Lint SASS/SCSS
-				//config: './lib/custom-linters/scss-lint.yml', 										// Enable custom linter in "lib/custom-linters" directory
+		.pipe(plugins.gulpif(options.linting.sassLinting, 									// If SASS/SCSS linting enabled in development options
+			plugins.scssLint({ 																	// Lint SASS/SCSS
+				//config: './lib/custom-linters/scss-lint.yml', 								// Enable custom linter in "lib/custom-linters" directory
 				customReport: plugins.scssLintStylish 
 			})
 		))
@@ -641,7 +634,9 @@ gulp.task('sass', function (){
 		}));
 });
 
-/* Minify and Optimize CSS Only*/
+/* 
+* Minify and Optimize CSS Only
+*/
 gulp.task('css', function (){
 	return gulp.src([build + 'css/**/*.css'])												// Select all CSS files in build directory
 		.pipe(plugins.cached('css',{optimizeMemory:true}))									// Only select files which have changed
@@ -691,7 +686,7 @@ gulp.task('icons', function (){
 		//.pipe(plugins.cached('icons'))
 		//.pipe(plugins.debug({title: 'Icon file processed:'}))
 		.pipe(plugins.iconfont({															// Create the icon font
-	      fontName: project + '-icons', 													// Set the icon font name
+	      fontName: theme.name + '-icons', 													// Set the icon font name
 	      appendUnicode: true,
 	      formats: ['ttf', 'eot', 'woff', 'svg'],											// Icon font formats
 	      timestamp: timeStamp,
@@ -702,14 +697,14 @@ gulp.task('icons', function (){
 		      	])	
 		        .pipe(plugins.consolidate('lodash', {
 		          glyphs: glyphs,
-		          fontName: project + '-icons',													// Icon font name
-		          fontPath: '../fonts/'+ project + '-icon-font/',								// Icon font path in styles	(should be relative to styles.css in build folder)
-		          className: project + '-icon'													// Icon font class name
+		          fontName: theme.name + '-icons',													// Icon font name
+		          fontPath: '../fonts/'+ theme.name + '-icon-font/',								// Icon font path in styles	(should be relative to styles.css in build folder)
+		          className: theme.name + '-icon'													// Icon font class name
 		        }))
 		        .pipe(gulp.dest(source + 'styles/typography/fonts/icon-font'));					// Output the icon font styles file
 		    })
 	    .pipe(plugins.plumber.stop())
-	    .pipe(gulp.dest(build + 'fonts/' + project +'-icon-font'))							// Output the icon font files
+	    .pipe(gulp.dest(build + 'fonts/' + theme.name +'-icon-font'))							// Output the icon font files
 	    .pipe(reload({stream:true}))
 		.pipe(plugins.notify({																// Notify that task has completed
 			title: 'Gulp Icons Task',
