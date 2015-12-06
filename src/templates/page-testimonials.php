@@ -59,5 +59,8 @@ get_header(); ?>
 			</main><!-- #main -->
 		</div><!-- #primary -->
 	</div><!-- END.container -->
+	<?php 
+		wp_enqueue_script( 'masonry', get_template_directory_uri() . '/js/vendor/masonry.min.js', array('jquery'), '1.1', true );
+	?>
 
 <?php get_footer(); ?>

@@ -13,7 +13,6 @@ function toggleNavigation(){
 	$('body').toggleClass('nav-menu-open');
 }
 
-
 /* Document Ready */
 $(document).ready(function () {
 	

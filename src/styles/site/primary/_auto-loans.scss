@@ -78,7 +78,12 @@ section.auto-loans-boxes {
 /*=============================================
 =            Auto Loans Calculator            =
 =============================================*/
+// Defaults
+.auto-loans-calc-defaults {
+	//display:none;
+}
 
+// Calculator
 .auto-loans-calc {
 	
 	@include clearfix;
@@ -105,6 +110,9 @@ section.auto-loans-boxes {
 		font-family: $font-book;
 		margin-bottom:40px;
 	}
+
+
+
 	
 
 	.auto-loans-calc-section {

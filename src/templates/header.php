@@ -41,6 +41,7 @@
 </head>
 
 <body <?php body_class(); ?>>
+
 <div id="page" class="hfeed site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'onlysky_wp_framework' ); ?></a>
 	<div class="menu-cover"></div><!-- END.menu-cover -->
@@ -69,12 +70,11 @@
 
 			<!-- Desktop Login -->
 			<span class="header-login">
+				<?php get_template_part('includes/acu/mcw.php'); ?>
 				<form method="post" action="https://mcw.youracu.org/cgi-bin/mcw000.cgi" id="FORM1">						  	
-				     <INPUT TYPE="HIDDEN" NAME="MCWEXPIRATION" ID="MCWEXPIRATION" VALUE="34E636E7F8176260B92ECDFC7B8BDC5B39E3397291B0CC44">                  	
-				     <INPUT TYPE="HIDDEN" NAME="MCWASSIGNEDSLOT" ID="MCWASSIGNEDSLOT" VALUE="34E636E7F81762607AD50567B3F28C449B192636B1A7B5C4D30C7253AD621CC9">                 	
-				     <INPUT TYPE="HIDDEN" NAME="MCWSYMDIR" ID="MCWSYMDIR" VALUE="4E9EA0ADFCB6658E">              	
-				     <INPUT TYPE="HIDDEN" NAME="MCWTRANTYPE" ID="MCWTRANTYPE" VALUE="MCWLOGONFORM">
-					
+				    <?php if(function_exists('mcwLoginInfo')): ?>
+				  		<?php mcwLoginInfo(); ?>
+					<?php endif; ?>
 					<input type="text" class="input-username" placeholder="Username" id="login_username" name="HBUSERNAME" autocomplete="off">
 					<input type="password" class="input-password" placeholder="Password" id="login_password" name="PASSWORD" autocomplete="off">
 					<input type="submit" id="login-submit" value="Login" name="MCWSUBMIT">

@@ -72,5 +72,8 @@ get_header(); ?>
 		<?php get_sidebar(); ?>
 		
 	</div><!-- END.container content-sidebar -->
+	<?php 
+		wp_enqueue_script( 'onlysky_wp_framework-credit-cards', get_template_directory_uri() . '/js/credit-cards.js', array('jquery'), '1.1', true );
+	?>
 
 <?php get_footer(); ?>

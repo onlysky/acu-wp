@@ -14,7 +14,7 @@
 <?php if( get_field('hero_show') ):?>
 		
 	<!-- Hero Section -->
-	<section class="page-hero <?php if(get_field('hero_image')):?> <?php the_field('hero_image_align');?> image-hero <?php endif;?>" style="<?php if(get_field('hero_image')):?> background-image:url( <?php the_field('hero_image');?> ); <?php endif;?>">
+	<section class="page-hero <?php if(get_field('hero_image')):?><?php the_field('hero_image_align');?> image-hero<?php endif;?>" style="<?php if(get_field('hero_image')):?> background-image:url( <?php the_field('hero_image');?> ); <?php endif;?>">
 		<div class="hero-wrapper">
 			<div class="hero-inner container">
 				

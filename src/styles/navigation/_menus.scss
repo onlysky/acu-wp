@@ -42,9 +42,12 @@
 	}
 
 	// Menu height adjustment for small desktop... comes after desktop again
-	@media (max-height:740px) {
+	@media (max-height:768px) {
+		top:$header-height - 32px;
 		bottom:0;
-		height:inherit;
+		height:calc(100vh  - #{$header-height} );
+		//height:700px;
+		//height:inherit;
 	}
 
 	// Mobile
@@ -54,6 +57,10 @@
 		bottom:0 !important;
 		height:calc(100vh  - #{$header-height-mobile}) !important;
 		padding:20px $content-padding 10px $content-padding;
+	}
+
+	@include media($tablet) {
+		top:$header-height-mobile !important;
 	}
 
 	.site-nav-inner {
@@ -85,8 +92,10 @@
 		display:block;
 		
 		left:0;
+		right:40px;
 		height:20px;
-		width:100%;
+		
+		//width:100%;
 		
 		//@include background-image(linear-gradient(to top, transparent, $brown));
 		background-image:url(../img/header-fade.png);
@@ -100,10 +109,40 @@
 			top:0px;
 		}
 
+		// Tablet
+		@include media($tablet) {
+			top:-1px;
+		}
+
+
+
 		// Mobile
 		top:19px;
 
 	}//END &:before
+
+	/* 	
+	&:after {
+		content:'';
+		position:absolute;
+		display:block;
+		
+		left:0;
+		right:40px;
+		height:20px;
+		//width:100%;
+
+		background-image:url(../img/header-fade.png);
+		background-repeat: repeat-x;
+		background-position: top left;
+		transform:rotate(180deg);
+		opacity:.5;
+
+		transition:opacity 0s linear;
+
+		bottom:40px;
+	} 
+	*/
 	
 
 }//END .main-navigation
@@ -179,7 +218,7 @@ body.admin-bar {
 		
 		// Desktop
 		@include media($desktop) {
-			top:$header-height;
+			top:$header-height - 32px;
 		}
 	}
 

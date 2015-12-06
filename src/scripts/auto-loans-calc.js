@@ -7,7 +7,32 @@
 /*jQuery Wrapper*/
 (function ($) {
 
+// Load defaults
+function loadDefaults() {
+	// Set defaults in values
+	vehicle = $("#auto-loans-calc-def-vehicle").val();
+	//downpayment = $("#auto-loans-calc-def-down").val();
+	downpayment = 10000;
+	term = $("#auto-loans-calc-def-term").val();
+	interest = $("#auto-loans-calc-def-interest").val();
+	monthlyPayment = null;
 
+	// Tool Tip for slider
+	tooltip = $('<div class="tooltip">$' + downpayment + ' Down</div>');
+
+	// Set defaults in inputs
+	$("#field_vehicle").val(vehicle);
+	$("#field_term").val(term);
+	$("#field_interest").val(interest);
+
+	/*
+	console.log("_____defaults____");
+	console.log("vehicle: " + vehicle );
+	console.log("downpayment: " + downpayment );
+	console.log("term: " + term );
+	console.log("interest: " + interest );
+	*/
+}
 
 // Validate Interest
 function validateInterest(){
@@ -29,35 +54,21 @@ function validateVehicle(){
 
 //Reset the form
 function calcReset(){
-	console.log("reset");
+	//console.log("reset");
 
-	$("#field_interest").val("");
-	$("#field_vehicle").val("");
-	$("#field_term").val(36);
-	//$("#downpayment-slider").slider('value', 0);
-	slider.noUiSlider.set(0);
-
+	loadDefaults();
+	slider.noUiSlider.set(downpayment);
 
 	$('.calc-error').removeClass('error');
 	$(".auto-loans-calc").removeClass('results');
-
 	$(".calc-field").prop( "disabled", false );
-	//$("#downpayment-slider").slider("enable");
 	slider.removeAttribute('disabled');
-
-	//tooltip.text('$0 Down');
-
-	vehicle = null;
-	downpayment = 0;
-	term = 36;
-	interest = null;
-	monthlyPayment = null;
-
+	
 }
 
 // Calculate the payment
 function calculatePayment(){
-	console.log("payment calculated");
+	//console.log("payment calculated");
 
 	validateInterest();
   	validateVehicle();
@@ -70,8 +81,8 @@ function calculatePayment(){
   	}
 
 
-  	console.log(parseInt($("#field_vehicle").val()));
-  	console.log(downpayment);
+  	//console.log(parseInt($("#field_vehicle").val()));
+  	//console.log(downpayment);
 
   	// Break if either of above are empty
     if ( ($("#field_vehicle").val() === "") || 
@@ -82,7 +93,7 @@ function calculatePayment(){
     	$('.general-errors').addClass('error');   
         return false;
     } else {
-    	console.log("validation success");
+    	//console.log("validation success");
     	$('.calc-error').removeClass('error');
     }
 
@@ -120,41 +131,14 @@ function calculatePayment(){
 $(document).ready(function () {
 	//console.log("autoloans ran");
 		
-	vehicle = null;
-	downpayment = 0;
-	term = 36;
-	interest = null;
-	monthlyPayment = null;
-
-	// Tool Tip for slider
-	tooltip = $('<div class="tooltip">$0 Down</div>');
+	loadDefaults();
 
 	// Slider for Downpayments
-	/*
-	
-	 $("#downpayment-slider").slider({
-        value: 0,
-        min: 0,
-        max: 30000,
-        step: 100,
-        slide: function(event, ui) {
-       		tooltip.text('$' + ui.value + ' Down');
-       		downpayment = (ui.value);
-            //console.log("downpayment: " + downpayment); 
-    	},
-    	change: function(event, ui) {},
-    	create: function( event, ui ) {
-    		 //console.log("downpayment: " + downpayment); 
-    	}
-
-	}).find(".ui-slider-handle").append(tooltip);
-
-	*/
-
 	slider = document.getElementById('downpayment-slider');
+	//console.log(downpayment);
 
 	noUiSlider.create(slider, {
-		start: [0],
+		start: downpayment,
 		connect: 'lower',
 		step:100,
 		tooltips: true,

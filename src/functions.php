@@ -1,11 +1,10 @@
 <?php
 /**
- * Only Sky WP functions and definitions.
- *
- * @link https://developer.wordpress.org/themes/basics/theme-functions/
- *
- * @package onlysky_wp_framework
- */
+* Only Sky WP functions and definitions.
+*
+* @link https://developer.wordpress.org/themes/basics/theme-functions/
+*
+**/
 
 if ( ! function_exists( 'onlysky_wp_framework_setup' ) ) :
 	/**
@@ -905,33 +904,29 @@ add_action( 'admin_menu', 'onlysky_wp_framework_remove_admin_theme_link', 999 );
  */
 function onlysky_wp_framework_scripts() {
 
-	//!TODO - Move this over to concated scripts and vendor scripts that come from bower
+	//!TODO 
+	// + Move scripts over to concated scripts 
+	// + Move vendor scripts to bower source
 
-	// Locations Page
-	//wp_enqueue_script( 'onlysky_wp_framework-locations', get_template_directory_uri() . '/js/jquery.responsiveiframe.js', array('jquery'), '1.1', true );
-	//wp_enqueue_script( 'onlysky_wp_framework-locations', '/wp-content/plugins/advanced-iframe/js/ai_external.js', array('jquery'), '1.1', true );
-	//wp_enqueue_script( 'onlysky_wp_framework-iframeresizer', get_template_directory_uri() . '/js/iframeResizer.min.js', array('jquery'), '1.1', true );
-	//wp_enqueue_script( 'onlysky_wp_framework-locations', get_template_directory_uri() . '/js/locations.js', array('jquery'), '1.1', true );
+	// Menu Navigation
+	wp_enqueue_script( 'onlysky_wp_framework-navigation', get_template_directory_uri() . '/js/navigation.js', array('jquery'), '1.1', true );
+	wp_enqueue_script( 'onlysky_wp_framework-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array('jquery'), '1.1', true );
 
 	// Credit Cards Page
-	wp_enqueue_script( 'onlysky_wp_framework-credit-cards', get_template_directory_uri() . '/js/credit-cards.js', array('jquery'), '1.1', true );
+	// moved to template
+	//wp_enqueue_script( 'onlysky_wp_framework-credit-cards', get_template_directory_uri() . '/js/credit-cards.js', array('jquery'), '1.1', true );
 
 	// Auto Loans Slider
 	// moved to template
-	//wp_enqueue_script( 'onlysky_wp_framework-jquery-ui-slider', get_template_directory_uri() . '/js/vendor/jquery-ui-slider-only/jquery-ui.min.js', array('jquery'), '1.1', true );
-	//wp_enqueue_script( 'onlysky_wp_framework-jquery-ui-touoch', get_template_directory_uri() . '/js/vendor/jquery.ui.touch-punch.min.js', array('jquery'), '1.1', true );
 	/*if (is_page(212)){
 		wp_enqueue_script( 'onlysky_wp_framework-wnumb', get_template_directory_uri() . '/js/vendor/wNumb.js', array('jquery'), '1.1', true );
 		wp_enqueue_scripts( 'onlysky_wp_framework-no-ui-slider', get_template_directory_uri() . '/js/vendor/noui-slider/nouislider.min.js', array('jquery'), '1.1', true );
 		wp_enqueue_script( 'onlysky_wp_framework-auto-loans-calc', get_template_directory_uri() . '/js/auto-loans-calc.js', array('jquery'), '1.1', true );
 	}*/
 
-	// Menu Navigation
-	wp_enqueue_script( 'onlysky_wp_framework-navigation', get_template_directory_uri() . '/js/navigation.js', array('jquery'), '1.1', true );
-
-	wp_enqueue_script( 'onlysky_wp_framework-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array('jquery'), '1.1', true );
-
-	wp_enqueue_script( 'masonry', get_template_directory_uri() . '/js/masonry.min.js', array('jquery'), '1.1', true );
+	// Testimonials Masonry
+	// moved to template
+	//wp_enqueue_script( 'masonry', get_template_directory_uri() . '/js/vendor/masonry.min.js', array('jquery'), '1.1', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );

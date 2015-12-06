@@ -10,7 +10,7 @@ section.page-hero {
 	@include media($mobile) {
 		min-height: 300px;
 	}
-
+	
 	// Background Image Positioning
 	&.hero-left {
 		background-position:left center;
@@ -21,6 +21,7 @@ section.page-hero {
 	&.hero-right {
 		background-position:right center;
 	}
+
 
 	// Hero fade in animation
 	@include keyframes(hero-fade) {
